@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweet Donut - 온라인 주문</title>
+    <title>Sweet Donut - Premium Donuts</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* 기본 스타일 */
         * {
@@ -15,144 +15,383 @@
         }
 
         body {
-            font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-            background-image: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #fff;
+            color: #1d1d1f;
+            line-height: 1.5;
         }
 
-        /* 헤더 스타일 개선 - Jainery 스타일 */
+        /* 네비게이션 바 */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: #1d1d1f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #0071e3;
+        }
+
+        .nav-account {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .login-btn {
+            background: none;
+            border: none;
+            color: #1d1d1f;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 0.5rem 0;
+        }
+
+        .login-btn:hover {
+            color: #0071e3;
+        }
+
+        /* 헤더 스타일 - Apple 스타일 */
         .header {
-            background: #fff;
-            padding: 4rem 0 3rem;
+            background: #fbfbfd;
+            padding: 8rem 0 4rem;
             text-align: center;
             position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -15%;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(45deg, rgba(255, 71, 87, 0.08), rgba(255, 71, 87, 0.15));
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -15%;
-            width: 400px;
-            height: 400px; 
-            background: linear-gradient(45deg, rgba(255, 71, 87, 0.08), rgba(255, 71, 87, 0.15));
-            border-radius: 50%;
-            z-index: 0;
         }
 
         .header-content {
-            position: relative;
-            z-index: 1;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: #ff4757;
+            font-size: 3.5rem;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            margin-bottom: 0.5rem;
+            color: #1d1d1f;
             position: relative;
             display: inline-block;
         }
 
         .header p {
-            font-size: 1.2rem;
-            color: #666;
+            font-size: 1.5rem;
+            color: #86868b;
+            font-weight: 400;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .header-cta {
+            display: inline-block;
+            background: #0071e3;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .header-cta:hover {
+            background: #0077ED;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .header-divider {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, #ff4757, #ff6b6b);
-            margin: 1rem auto 1.5rem;
-            border-radius: 3px;
+            display: none;
         }
 
-        /* 메인 컨테이너 스타일 - Jainery 스타일 */
-        .container {
-            max-width: 1200px;
+        /* 슬라이더 배너 */
+        .slider-container {
+            position: relative;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            overflow: hidden;
+            max-width: 1200px;
+            margin-bottom: 3rem;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
             position: relative;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 15%;
-            right: 5%;
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(45deg, rgba(255, 71, 87, 0.03), rgba(255, 71, 87, 0.08));
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            z-index: -1;
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
         }
 
-        .container::after {
-            content: '';
+        .slide-content {
             position: absolute;
-            bottom: 10%;
-            left: 5%;
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(45deg, rgba(255, 71, 87, 0.03), rgba(255, 71, 87, 0.08));
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            z-index: -1;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            border-radius: 0 0 12px 12px;
         }
 
-        /* 카테고리 탭 스타일 - Jainery 스타일 */
+        .slide-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .slide-btn {
+            background: white;
+            color: #1d1d1f;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slide-btn:hover {
+            background: #f5f5f7;
+            transform: translateY(-2px);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .slider-arrow:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-prev {
+            left: 20px;
+        }
+
+        .slider-next {
+            right: 20px;
+        }
+
+        /* 회사 소개 섹션 */
+        .about-section {
+            background-color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .about-content h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1d1d1f;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #86868b;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .about-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            flex-basis: calc(33.333% - 2rem);
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #0071e3;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #1d1d1f;
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            color: #86868b;
+            line-height: 1.6;
+        }
+
+        /* 메인 컨테이너 스타일 - Apple 스타일 */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+            position: relative;
+        }
+
+        /* 카테고리 탭 스타일 - Apple 스타일 */
         .category-tabs {
             display: flex;
             justify-content: center;
             margin: 3rem auto 2.5rem;
             max-width: 800px;
-            padding: 0.5rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            position: sticky;
+            top: 70px; /* 네비게이션 바 아래에 위치 */
+            z-index: 10;
+            backdrop-filter: saturate(180%) blur(20px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #f2f2f2;
+            padding: 1rem 0;
         }
 
         .category-tab {
             background: none;
             border: none;
-            padding: 1rem 1.8rem;
-            margin: 0 0.3rem;
-            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #555;
+            color: #1d1d1f;
             position: relative;
             font-weight: 500;
-            border-radius: 8px;
+            border-radius: 18px;
+            letter-spacing: -0.01em;
         }
 
         .category-tab.active {
             color: #fff;
-            background: #ff4757;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.25);
+            background: #1d1d1f;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
         }
 
         .category-tab:not(.active):hover {
-            background-color: #f5f5f5;
-            color: #ff4757;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+
+        /* 섹션 타이틀 스타일 - Apple 스타일 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 1rem;
+            letter-spacing: -0.015em;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto;
+            letter-spacing: -0.01em;
         }
 
         /* 카테고리 콘텐츠 스타일 */
@@ -164,84 +403,50 @@
             display: grid !important;
         }
 
-        /* 메뉴 그리드 - Jainery 스타일 */
+        /* 메뉴 그리드 - Apple 스타일 */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 3rem;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        /* 섹션 타이틀 스타일 */
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .section-title p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* 메뉴 아이템 카드 디자인 - Jainery 스타일 */
+        /* 메뉴 아이템 카드 디자인 - Apple 스타일 */
         .menu-item {
             display: block;
-            background: white;
-            border-radius: 12px;
+            background: #fff;
+            border: none;
+            border-radius: 18px;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             padding: 2rem;
             position: relative;
-            border: none;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
         .menu-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: linear-gradient(to bottom, #ff4757, #ff6b6b);
-            transition: height 0.5s ease;
-            border-radius: 0 0 4px 0;
+            display: none;
         }
 
         .menu-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.09);
-        }
-
-        .menu-item:hover::before {
-            height: 50%;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
         }
 
         .menu-item img {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
             border-radius: 12px;
             margin-right: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
             transition: all 0.4s ease;
         }
 
         .menu-item:hover img {
-            transform: scale(1.05);
-            box-shadow: 0 12px 25px rgba(255, 71, 87, 0.15);
+            transform: scale(1.04);
         }
 
         .menu-item-header {
@@ -255,86 +460,212 @@
         }
 
         .menu-item h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: #333;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: #1d1d1f;
             transition: all 0.3s ease;
-            position: relative;
-            display: inline-block;
-        }
-
-        .menu-item:hover h3 {
-            color: #ff4757;
+            letter-spacing: -0.01em;
         }
 
         .menu-item p {
-            color: #666;
+            color: #86868b;
             font-size: 0.95rem;
             margin-bottom: 1rem;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .menu-item .price-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             position: relative;
+            padding-top: 1rem;
+            border-top: 1px solid #f2f2f2;
         }
 
         .menu-item .price-container::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, rgba(0,0,0,0.05), rgba(0,0,0,0.1), rgba(0,0,0,0.05));
+            display: none;
         }
 
         .menu-item .price {
             font-size: 1.4rem;
-            font-weight: 700;
-            color: #ff4757;
-            padding: 0.5rem 1rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            padding: 0;
             position: relative;
+        }
+
+        .details-btn {
+            color: #0071e3;
+            background: none;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0;
+            margin-top: 0.7rem;
+            text-decoration: underline;
+        }
+
+        /* 메뉴 상세 모달 */
+        .menu-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .menu-detail-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .menu-detail-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            animation: slideUp 0.4s ease;
+        }
+
+        .menu-detail-header {
+            display: flex;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .menu-detail-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .menu-detail-info {
+            flex: 1;
+        }
+
+        .menu-detail-info h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #1d1d1f;
+        }
+
+        .menu-detail-info p {
+            color: #86868b;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .menu-detail-price {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-detail-body {
+            padding: 0 2rem 2rem;
+        }
+
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .nutrition-table th {
+            text-align: left;
+            padding: 0.8rem 1rem;
+            background-color: #f5f5f7;
+            font-weight: 500;
+            color: #1d1d1f;
+            font-size: 0.9rem;
+        }
+
+        .nutrition-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f5f5f7;
+            color: #86868b;
+            font-size: 0.9rem;
+        }
+
+        .ingredients-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1d1d1f;
+        }
+
+        .ingredients-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .ingredient-item {
+            background-color: #f5f5f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #86868b;
+        }
+
+        .menu-detail-footer {
+            padding: 1.5rem 2rem;
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-detail-total {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1d1d1f;
         }
 
         .add-to-cart {
-            background: #ff4757;
+            background: #0071e3;
             color: white;
             border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
+            padding: 0.7rem 1.6rem;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.25);
-            position: relative;
-            overflow: hidden;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            box-shadow: none;
         }
 
         .add-to-cart::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0));
-            transition: all 0.4s ease;
+            display: none;
         }
 
         .add-to-cart:hover {
-            background: #ff2d41;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
-        }
-
-        .add-to-cart:hover::before {
-            left: 100%;
+            background: #0077ED;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .veg-indicator {
@@ -344,7 +675,7 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            border: 1px solid red;
+            border: 1px solid #4CAF50;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -354,55 +685,50 @@
             content: '';
             width: 12px;
             height: 12px;
-            background-color: red;
+            background-color: #4CAF50;
             border-radius: 50%;
         }
 
-        /* 장바구니 아이콘 - Jainery 스타일 */
+        /* 장바구니 아이콘 - Apple 스타일 */
         .cart-icon {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: #fff;
-            color: #ff4757;
+            background: #1d1d1f;
+            color: #fff;
             border: none;
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            position: relative;
+            transition: all 0.2s ease;
+            margin-left: 10px;
         }
 
         .cart-icon:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            color: #ff2d41;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         .cart-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ff4757;
+            top: -5px;
+            right: -5px;
+            background: #0071e3;
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
-            border: 2px solid white;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1.5px solid #fff;
         }
 
-        /* 장바구니 모달 */
+        /* 장바구니 모달 - Apple 스타일 */
         .cart-modal {
             display: none;
             position: fixed;
@@ -410,8 +736,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
             z-index: 1000;
         }
 
@@ -423,16 +749,16 @@
         }
 
         .cart-content {
-            background: white;
+            background: #fff;
             padding: 0;
-            border-radius: 16px;
+            border-radius: 20px;
             width: 90%;
             max-width: 480px;
             max-height: 80vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
             animation: slideUp 0.4s ease;
         }
 
@@ -446,21 +772,22 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            border-bottom: 1px solid #f1f1f1;
+            border-bottom: 1px solid #f2f2f2;
         }
 
         .cart-header h2 {
-            color: #333;
+            color: #1d1d1f;
             font-size: 1.3rem;
-            font-weight: 700;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.8rem;
             margin: 0;
+            letter-spacing: -0.01em;
         }
 
         .cart-header h2 i {
-            color: #ff4757;
+            color: #0071e3;
         }
 
         .close-cart {
@@ -468,19 +795,19 @@
             border: none;
             font-size: 1.2rem;
             cursor: pointer;
-            color: #666;
+            color: #86868b;
             transition: color 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 32px;
             height: 32px;
-            border-radius: 8px;
+            border-radius: 50%;
         }
 
         .close-cart:hover {
-            color: #ff4757;
-            background-color: #f5f5f5;
+            color: #1d1d1f;
+            background-color: #f5f5f7;
         }
 
         .cart-items {
@@ -494,15 +821,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            margin-bottom: 0.8rem;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1rem;
             transition: all 0.3s ease;
-            border-radius: 10px;
-            background-color: #f9f9f9;
+            border-radius: 14px;
+            background-color: #f5f5f7;
         }
 
         .cart-item:hover {
-            background-color: #f2f2f2;
+            background-color: #f0f0f2;
             transform: translateX(5px);
         }
 
@@ -511,13 +838,13 @@
         }
 
         .cart-item-name {
-            font-weight: 600;
+            font-weight: 500;
             margin-bottom: 0.3rem;
-            color: #333;
+            color: #1d1d1f;
         }
 
         .cart-item-price {
-            color: #666;
+            color: #86868b;
             font-size: 0.9rem;
         }
 
@@ -529,28 +856,28 @@
 
         .quantity-btn {
             background: white;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            width: 30px;
-            height: 30px;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: #555;
+            color: #1d1d1f;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .quantity-btn:hover {
-            background: #ff4757;
+            background: #0071e3;
             color: white;
-            border-color: #ff4757;
         }
 
         .cart-footer {
             padding: 1.5rem 2rem;
-            background-color: #f9f9f9;
-            border-top: 1px solid #f1f1f1;
+            background-color: #fbfbfd;
+            border-top: 1px solid #f2f2f2;
         }
 
         .cart-total {
@@ -562,43 +889,44 @@
         }
 
         .cart-total-label {
-            font-weight: 600;
-            color: #333;
+            font-weight: 500;
+            color: #1d1d1f;
         }
 
         .cart-total-amount {
-            font-weight: 700;
-            color: #ff4757;
+            font-weight: 600;
+            color: #1d1d1f;
         }
 
         .checkout-btn {
-            background: #ff4757;
+            background: #0071e3;
             color: white;
             border: none;
             padding: 1rem 0;
-            border-radius: 10px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             width: 100%;
             transition: all 0.3s ease;
-            font-weight: 600;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);
+            box-shadow: none;
+            letter-spacing: -0.01em;
         }
 
         .checkout-btn:hover {
-            background: #ff2d41;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+            background: #0077ED;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .empty-cart-message {
             text-align: center;
             padding: 3rem 2rem;
-            color: #888;
+            color: #86868b;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -615,7 +943,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* 주문 모달 - Jainery 스타일 */
+        /* 주문 모달 - Apple 스타일 */
         .order-modal {
             display: none;
             position: fixed;
@@ -623,8 +951,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
             z-index: 1000;
         }
 
@@ -638,14 +966,14 @@
         .order-content {
             background: white;
             padding: 0;
-            border-radius: 16px;
+            border-radius: 20px;
             width: 90%;
             max-width: 500px;
             max-height: 85vh;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-y: auto; /* hidden에서 auto로 변경 */
             animation: slideUp 0.4s ease;
         }
 
@@ -654,8 +982,8 @@
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
-            overflow-y: auto;
-            max-height: 60vh;
+            /* overflow-y: auto; 제거 */
+            /* max-height: 60vh; 제거 */
         }
 
         .form-group {
@@ -665,22 +993,23 @@
         }
 
         .form-group label {
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.95rem;
-            color: #555;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             padding: 0.9rem 1rem;
-            border: 1px solid #eee;
-            border-radius: 10px;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
             font-size: 1rem;
-            background-color: #f9f9f9;
+            background-color: #fff;
             transition: all 0.3s ease;
             width: 100%;
-            font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .form-group textarea {
@@ -692,45 +1021,46 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #ff4757;
+            border-color: #0071e3;
             background-color: white;
-            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
         }
 
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: #aaa;
+            color: #86868b;
         }
 
         .submit-order {
-            background: #ff4757;
+            background: #0071e3;
             color: white;
             border: none;
             padding: 1rem 0;
-            border-radius: 10px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-top: 1rem;
             transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);
+            font-weight: 500;
+            box-shadow: none;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            letter-spacing: -0.01em;
         }
 
         .submit-order:hover {
-            background: #ff2d41;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+            background: #0077ED;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .submit-order .material-icons {
             font-size: 1.3rem;
         }
 
-        /* 로딩 오버레이 */
+        /* 로딩 오버레이 - Apple 스타일 */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -738,24 +1068,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.85);
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(10px);
         }
 
         .loading-content {
             background: white;
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: 20px;
             text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
 
         .loading-spinner {
             width: 40px;
             height: 40px;
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff6b6b;
+            border-top: 4px solid #0071e3;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 1rem;
@@ -776,48 +1108,32 @@
             animation: addToCartSuccess 0.5s ease;
         }
 
-        /* 카드 디자인 추가 개선 */
-        .menu-item {
-            display: block;
-            background: white;
-            border: 1px dashed #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
         /* 메뉴 아이템이 없을 때 스타일 */
         .no-items-message {
             text-align: center;
             padding: 3rem;
-            color: #888;
+            color: #86868b;
             font-size: 1rem;
-            background: white;
-            border-radius: 8px;
-            border: 1px dashed #ddd;
+            background: #fbfbfd;
+            border-radius: 18px;
+            border: none;
             margin: 2rem auto;
             max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* 모바일 반응형 디자인 - Jainery 스타일 */
+        /* 모바일 반응형 디자인 - Apple 스타일 */
         @media (max-width: 768px) {
             .header {
-                padding: 3rem 0 2rem;
+                padding: 4rem 0 3rem;
             }
             
             .header h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .header p {
-                font-size: 1rem;
+                font-size: 1.2rem;
                 padding: 0 1rem;
             }
             
@@ -826,7 +1142,7 @@
             }
             
             .section-title h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .section-title p {
@@ -838,15 +1154,16 @@
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 justify-content: flex-start;
-                padding: 0.5rem;
+                padding: 0.8rem 1rem;
                 margin: 2rem 0;
             }
             
             .category-tab {
                 white-space: nowrap;
                 flex-shrink: 0;
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+                margin: 0 0.4rem;
             }
             
             .menu-grid {
@@ -889,24 +1206,234 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 주문 모달 & 로그인 모달 공통 스타일 */
+        .order-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* 소셜 로그인 버튼 스타일 */
+        .social-login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center; /* 가운데 정렬 */
+            width: 100%; /* 부모 요소 너비에 맞춤 */
+            max-width: 280px; /* 최대 너비 설정 */
+            height: 44px; /* 높이 조절 */
+            border-radius: 8px; /* 둥근 모서리 */
+            border: 1px solid #dadce0; /* 테두리 */
+            background-color: white; /* 기본 배경 흰색 */
+            color: #3c4043; /* 기본 글자색 */
+            text-decoration: none;
+            font-size: 0.9rem; /* 글자 크기 조절 */
+            font-weight: 500;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            padding: 0 15px; /* 내부 여백 */
+        }
+
+        .social-login-btn:hover {
+            background-color: #f8f9fa; /* 호버 시 배경색 */
+            border-color: #c6cacc;
+            opacity: 1; /* 호버 시 투명도 제거 */
+        }
+
+        .social-login-btn svg {
+            /* SVG 아이콘 스타일 (필요시 추가) */
+        }
+
+        /* 각 소셜 버튼별 특화 스타일 */
+        .social-login-btn.apple-btn {
+            background-color: #000;
+            color: white;
+            border-color: #000;
+        }
+        .social-login-btn.apple-btn:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        .social-login-btn.facebook-btn {
+            background-color: #1877f2; /* Facebook 파란색 */
+            color: white;
+            border-color: #1877f2;
+        }
+        .social-login-btn.facebook-btn:hover {
+            background-color: #166fe5;
+            border-color: #166fe5;
+        }
+
+        /* 로그인 모달 크기 조정 */
+        #loginModal .order-form {
+            padding: 1rem 1.5rem 1.5rem; /* 패딩 축소 */
+            gap: 0.8rem; /* 요소 간 간격 축소 */
+        }
+
+        #loginModal .form-group {
+            gap: 0.3rem; /* 레이블과 인풋 간격 축소 */
+        }
+
+        #loginModal .form-group label {
+            font-size: 0.85rem; /* 레이블 폰트 크기 축소 */
+        }
+
+        #loginModal .form-group input {
+            padding: 0.7rem 0.8rem; /* 인풋 패딩 축소 */
+            font-size: 0.9rem; /* 인풋 폰트 크기 축소 */
+        }
+
+        #loginModal .submit-order {
+            padding: 0.7rem 0; /* 버튼 패딩 축소 */
+            font-size: 0.9rem; /* 버튼 폰트 크기 축소 */
+            margin-top: 0.8rem; /* 버튼 상단 마진 축소 */
+        }
+        #loginModal .submit-order .material-icons {
+            font-size: 1.1rem; /* 버튼 아이콘 크기 축소 */
+        }
+
+        #loginModal .social-login-btn {
+            height: 38px; /* 소셜 버튼 높이 축소 */
+            font-size: 0.85rem; /* 소셜 버튼 폰트 크기 축소 */
+            max-width: 250px; /* 소셜 버튼 최대 너비 축소 */
+        }
+         #loginModal .social-login-btn svg {
+            width: 16px; /* 소셜 버튼 아이콘 크기 축소 */
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        #loginModal div[style*="text-align: center"] {
+            margin-top: 1rem; /* "Or log in with:" 위 마진 축소 */
+            padding-top: 0.8rem; /* 구분선 위 패딩 축소 */
+        }
+        #loginModal div[style*="text-align: center"] p {
+            font-size: 0.8rem; /* "Or...", "Don't have..." 폰트 크기 축소 */
+            margin-bottom: 0.8rem; /* "Or log in with:" 아래 마진 축소 */
+        }
+        #loginModal div[style*="text-align: center"] > div {
+             gap: 0.6rem; /* 소셜 버튼 간격 축소 */
+        }
+        #loginModal form > p[style*="text-align: center"] {
+             margin-top: 1rem; /* "Don't have account?" 위 마진 축소 */
+        }
     </style>
 </head>
 <body>
+    <!-- 네비게이션 바 -->
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo">Sweet Donut</a>
+        <div class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#menu" class="nav-link">Menu</a>
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-account">
+            <button class="login-btn">Log In</button>
+            <button class="cart-icon" onclick="toggleCart()">
+                <span class="material-icons" style="font-size: 1.2rem;">shopping_cart</span>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
     <!-- 헤더 -->
     <header class="header">
         <div class="header-content">
-            <h1>Delicious Menus</h1>
-            <div class="header-divider"></div>
-            <p>Discover our handcrafted selection of premium dishes made with the finest ingredients</p>
+            <h1>Sweet Donut</h1>
+            <p>Handcrafted with thoughtful design. Crafted with care.</p>
+            <a href="#menu" class="header-cta">Explore Our Menu</a>
         </div>
     </header>
 
+    <!-- 슬라이더 배너 -->
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1556913396-7a3c459ef219" alt="Special Promotion">
+                <div class="slide-content">
+                    <h3>Summer Special Collection</h3>
+                    <p>Enjoy our limited edition fruit-topped donuts perfect for summer!</p>
+                    <button class="slide-btn" onclick="scrollToMenu()">Order Now</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1527515673510-8e0af7649b6f" alt="New Flavors">
+                <div class="slide-content">
+                    <h3>New Flavors Added</h3>
+                    <p>Try our exciting new chocolate hazelnut and caramel sea salt flavors!</p>
+                    <button class="slide-btn" onclick="scrollToMenu()">See Menu</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94" alt="Breakfast Bundle">
+                <div class="slide-content">
+                    <h3>Breakfast Bundle</h3>
+                    <p>Get 6 donuts + 2 coffees for just $12.99 every morning from 7-10am!</p>
+                    <button class="slide-btn" onclick="scrollToMenu()">Learn More</button>
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-dot active" onclick="goToSlide(0)"></div>
+            <div class="slider-dot" onclick="goToSlide(1)"></div>
+            <div class="slider-dot" onclick="goToSlide(2)"></div>
+        </div>
+        <div class="slider-arrow slider-prev" onclick="prevSlide()">
+            <span class="material-icons">chevron_left</span>
+        </div>
+        <div class="slider-arrow slider-next" onclick="nextSlide()">
+            <span class="material-icons">chevron_right</span>
+        </div>
+    </div>
+
+    <!-- 회사 소개 섹션 -->
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2>Our Story</h2>
+            <p>Sweet Donut began with a simple mission: to create the perfect donut that balances exceptional taste, quality ingredients, and beautiful design. Founded in 2018, we've been delighting customers with our handcrafted creations made fresh daily.</p>
+            <div class="about-features">
+                <div class="feature">
+                    <span class="material-icons feature-icon">eco</span>
+                    <h3>Premium Ingredients</h3>
+                    <p>We source only the finest ingredients to ensure each bite delivers exceptional quality and taste.</p>
+                </div>
+                <div class="feature">
+                    <span class="material-icons feature-icon">restaurant</span>
+                    <h3>Crafted Daily</h3>
+                    <p>Every donut is made fresh each morning in our kitchen using traditional methods.</p>
+                </div>
+                <div class="feature">
+                    <span class="material-icons feature-icon">palette</span>
+                    <h3>Artistic Designs</h3>
+                    <p>Our donuts aren't just delicious—they're beautiful works of edible art designed to delight.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 메인 컨텐츠 -->
-    <main class="container">
+    <main class="container" id="menu">
         <!-- 섹션 타이틀 -->
         <div class="section-title">
-            <h2>Our Menu</h2>
-            <p>Browse our selection of delicious dishes prepared with fresh ingredients</p>
+            <h2>Our Collection</h2>
+            <p>Explore our signature donuts made with premium ingredients</p>
         </div>
         
         <!-- 카테고리 탭 -->
@@ -916,12 +1443,6 @@
 
         <!-- 카테고리 콘텐츠도 동적으로 생성됩니다 -->
     </main>
-
-    <!-- 장바구니 아이콘 -->
-    <button class="cart-icon" onclick="toggleCart()">
-        <span class="material-icons">shopping_cart</span>
-        <span class="cart-badge" id="cartCount">0</span>
-    </button>
 
     <!-- 장바구니 모달 -->
     <div class="cart-modal" id="cartModal">
@@ -987,6 +1508,263 @@
         </div>
     </div>
 
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="order-modal">
+        <div class="order-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">login</i> Log In</h2>
+                <button class="close-cart" onclick="toggleLoginModal()"><i class="material-icons">close</i></button>
+            </div>
+            <form class="order-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="submit-order" onclick="handleLogin(event)">
+                    <i class="material-icons">login</i> Log In
+                </button>
+
+                <!-- 소셜 로그인 버튼 추가 -->
+                <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #f2f2f2;">
+                    <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 1rem;">Or log in with:</p>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                        <!-- Google 로그인 버튼 -->
+                        <a href="/auth/google" class="social-login-btn google-btn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M17.64 9.20455C17.64 8.56636 17.5827 7.95273 17.4764 7.36364H9V10.845H13.8436C13.635 11.97 13.0009 12.9232 12.0477 13.5614V15.8195H14.9564C16.6582 14.2527 17.64 11.9455 17.64 9.20455Z" fill="#4285F4"/><path d="M9 18C11.43 18 13.4673 17.1941 14.9564 15.8195L12.0477 13.5614C11.2418 14.1014 10.2109 14.4205 9 14.4205C6.65591 14.4205 4.67182 12.8373 3.96409 10.71H0.957275V13.0418C2.43818 15.9832 5.48182 18 9 18Z" fill="#34A853"/><path d="M3.96409 10.71C3.78409 10.17 3.68182 9.59318 3.68182 9C3.68182 8.40682 3.78409 7.83 3.96409 7.29V4.95818H0.957275C0.347727 6.17182 0 7.54773 0 9C0 10.4523 0.347727 11.8282 0.957275 13.0418L3.96409 10.71Z" fill="#FBBC05"/><path d="M9 3.57955C10.3214 3.57955 11.5077 4.03364 12.4405 4.92545L15.0218 2.34409C13.4632 0.891818 11.43 0 9 0C5.48182 0 2.43818 2.01682 0.957275 4.95818L3.96409 7.29C4.67182 5.16273 6.65591 3.57955 9 3.57955Z" fill="#EA4335"/></svg>
+                            <span>Continue with Google</span>
+                        </a>
+                        <!-- Apple 로그인 버튼 -->
+                        <a href="/auth/apple" class="social-login-btn apple-btn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M14.5377 9.1406C14.5582 8.81475 14.599 8.4889 14.6604 8.16305H11.9651V10.327H14.5377C14.5377 10.327 14.0895 11.7043 12.908 12.5389C12.908 12.5389 13.4172 13.6597 14.8044 14.4534C14.8859 14.515 14.9674 14.5562 15.0489 14.5767C15.0081 14.5973 14.9875 14.6179 14.9468 14.6179C14.4783 14.9642 13.7037 15.2489 12.8883 15.29C11.5825 15.3517 10.8282 14.558 9.93137 14.558C9.01413 14.558 8.34137 15.3312 7.07637 15.3517C5.93391 15.3925 5.03704 14.7817 4.28276 14.0085C3.05861 12.8062 2.26361 10.7043 2.32486 8.6024C2.36561 7.08515 3.20137 5.7693 4.46637 4.93475C5.24088 4.41475 6.17861 4.1508 7.01511 4.13024C7.32137 4.13024 8.03486 4.1918 8.80937 4.64C8.78887 4.66055 8.76837 4.66055 8.74787 4.6811C8.09536 5.0889 7.54536 5.7811 7.56587 6.72755C7.58637 7.9298 8.66637 8.58165 9.05511 8.6022C9.07561 8.6022 9.07561 8.6022 9.09611 8.6022C9.15736 8.6022 10.1536 7.99135 10.1536 6.5836C10.1536 5.3608 9.40937 4.6811 9.15736 4.5172C9.93188 3.96675 10.9894 3.8037 11.9244 3.8653C12.1764 3.8653 13.3778 3.9884 14.4783 5.0484C14.4375 5.06895 14.417 5.0895 14.3965 5.11005C13.4996 5.74024 12.9089 6.96345 12.9496 8.2247C12.9701 8.9789 13.4172 9.8343 14.5377 9.1406Z" fill="white"/><path d="M10.4199 3.20949C10.7874 2.78169 11.0804 2.29228 11.2919 1.76208C10.5376 1.35428 9.68116 1.19128 8.84741 1.19128C7.52116 1.19128 6.31966 1.70048 5.42266 2.57428C5.03391 2.89968 4.70616 3.28669 4.44566 3.71449C5.05691 3.98869 5.77041 4.04988 6.44316 4.04988C7.48041 4.04988 8.43616 3.76308 9.17791 3.29128C9.58566 3.01708 9.99341 2.72238 10.4199 3.20949Z" fill="white"/></svg>
+                            <span>Continue with Apple</span>
+                        </a>
+                        <!-- Facebook 로그인 버튼 -->
+                        <a href="/auth/facebook" class="social-login-btn facebook-btn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M17 9C17 4.58187 13.4181 1 9 1C4.58187 1 1 4.58187 1 9C1 12.9384 3.77313 16.1531 7.375 16.8581V11.625H5.375V9H7.375V7.14375C7.375 5.17594 8.55719 4.125 10.3653 4.125C11.2319 4.125 12.125 4.28125 12.125 4.28125V6.5H10.9834C9.99781 6.5 9.75 7.04063 9.75 7.54906V9H12.0319L11.6731 11.625H9.75V16.8581C13.3519 16.1531 16.125 12.9384 16.125 9H17Z" fill="white"/></svg>
+                            <span>Continue with Facebook</span>
+                        </a>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 1.5rem; color: #86868b; font-size: 0.9rem;">
+                    Don't have an account? <a href="#" style="color: #0071e3; text-decoration: none;" onclick="toggleRegisterModal(event)">Create Account</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div class="order-modal" id="registerModal">
+        <div class="order-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">person_add</i> Create Account</h2>
+                <button class="close-cart" onclick="toggleRegisterModal()"><i class="material-icons">close</i></button>
+            </div>
+            <form class="order-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" placeholder="Create a password" required pattern=".{8,}" title="Password must be at least 8 characters">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="submit-order" onclick="handleRegister(event)">
+                    <i class="material-icons">person_add</i> Create Account
+                </button>
+                <p style="text-align: center; margin-top: 1rem; color: #86868b; font-size: 0.9rem;">
+                    Already have an account? <a href="#" style="color: #0071e3; text-decoration: none;" onclick="backToLogin(event)">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 사용자 계정 대시보드 모달 -->
+    <div class="order-modal" id="accountModal">
+        <div class="order-content" style="max-width: 800px;">
+            <div class="cart-header">
+                <h2><i class="material-icons">account_circle</i> My Account</h2>
+                <button class="close-cart" onclick="toggleAccountModal()"><i class="material-icons">close</i></button>
+            </div>
+            <div style="padding: 0; display: flex; border-bottom: 1px solid #f2f2f2;">
+                <div style="width: 200px; background: #f5f5f7; padding: 1.5rem 0;">
+                    <ul id="accountTabs" style="list-style: none; padding: 0;">
+                        <li class="account-tab active" data-tab="orderHistory">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">receipt</i> Order History
+                            </button>
+                        </li>
+                        <li class="account-tab" data-tab="personalInfo">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">person</i> Personal Info
+                            </button>
+                        </li>
+                        <li class="account-tab" data-tab="favorites">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">favorite</i> Favorites
+                            </button>
+                        </li>
+                        <li class="account-tab" data-tab="addresses">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">location_on</i> Addresses
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="logout()" style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #ff3b30;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">exit_to_app</i> Log Out
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div style="flex: 1; padding: 1.5rem 2rem; overflow-y: auto; max-height: 500px;">
+                    <div id="orderHistory" class="account-tab-content active">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">Order History</h3>
+                        <div id="ordersList">
+                            <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <div style="font-weight: 600;">Order #12345</div>
+                                    <div style="color: #86868b; font-size: 0.9rem;">June 15, 2023</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <div style="color: #86868b; font-size: 0.9rem;">3 items</div>
+                                    <div style="font-weight: 500;">$24.97</div>
+                                </div>
+                                <div style="font-size: 0.9rem; padding-top: 0.8rem; border-top: 1px solid #eee;">
+                                    <span style="display: inline-block; background: #e8f0fd; color: #0071e3; padding: 0.3rem 0.8rem; border-radius: 30px; font-size: 0.8rem;">Delivered</span>
+                                </div>
+                            </div>
+                            <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <div style="font-weight: 600;">Order #12339</div>
+                                    <div style="color: #86868b; font-size: 0.9rem;">June 10, 2023</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <div style="color: #86868b; font-size: 0.9rem;">2 items</div>
+                                    <div style="font-weight: 500;">$12.98</div>
+                                </div>
+                                <div style="font-size: 0.9rem; padding-top: 0.8rem; border-top: 1px solid #eee;">
+                                    <span style="display: inline-block; background: #e8f0fd; color: #0071e3; padding: 0.3rem 0.8rem; border-radius: 30px; font-size: 0.8rem;">Delivered</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="personalInfo" class="account-tab-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">Personal Information</h3>
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email Address</label>
+                                <input type="email" id="profileEmail" value="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="profilePhone">Phone Number</label>
+                                <input type="tel" id="profilePhone" value="(123) 456-7890">
+                            </div>
+                            <button type="submit" class="submit-order" style="margin-top: 1rem;">
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                    <div id="favorites" class="account-tab-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">My Favorites</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                            <div style="background: #f9f9f9; padding: 1rem; border-radius: 12px; width: calc(50% - 0.5rem);">
+                                <img src="https://images.unsplash.com/photo-1527515545081-5db817172677" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 0.8rem;">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.3rem;">CHOCOLATE</h4>
+                                <p style="color: #86868b; font-size: 0.85rem; margin-bottom: 0.8rem;">Rich chocolate donut topped with chocolate icing</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="font-weight: 600;">$1.09</div>
+                                    <button style="background: #0071e3; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Add to Cart</button>
+                                </div>
+                            </div>
+                            <div style="background: #f9f9f9; padding: 1rem; border-radius: 12px; width: calc(50% - 0.5rem);">
+                                <img src="https://images.unsplash.com/photo-1557925923-cd4648e211a0" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 0.8rem;">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.3rem;">BLUEBERRY</h4>
+                                <p style="color: #86868b; font-size: 0.85rem; margin-bottom: 0.8rem;">Cake donut filled with sweet blueberries</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="font-weight: 600;">$1.59</div>
+                                    <button style="background: #0071e3; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="addresses" class="account-tab-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">Delivery Addresses</h3>
+                        <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem; position: relative;">
+                            <div style="position: absolute; top: 1rem; right: 1rem; font-size: 0.8rem; color: #0071e3;">Default</div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Home</h4>
+                            <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 0.5rem;">123 Main Street, Apt 4B</p>
+                            <p style="color: #86868b; font-size: 0.9rem;">New York, NY 10001</p>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Edit</button>
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Remove</button>
+                            </div>
+                        </div>
+                        <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem;">
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Work</h4>
+                            <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 0.5rem;">456 Business Ave, Floor 8</p>
+                            <p style="color: #86868b; font-size: 0.9rem;">New York, NY 10022</p>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Edit</button>
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Remove</button>
+                                <button style="background: none; border: 1px solid #0071e3; color: #0071e3; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Set as Default</button>
+                            </div>
+                        </div>
+                        <button style="width: 100%; background: none; border: 1px dashed #d2d2d7; padding: 0.8rem; border-radius: 12px; margin-top: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #86868b;">
+                            <i class="material-icons" style="font-size: 1rem;">add</i> Add New Address
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메뉴 상세 모달 -->
+    <div class="menu-detail-modal" id="menuDetailModal">
+        <div class="menu-detail-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">restaurant_menu</i> <span id="detailTitle">Donut Details</span></h2>
+                <button class="close-cart" onclick="closeMenuDetail()"><i class="material-icons">close</i></button>
+            </div>
+            <div class="menu-detail-header">
+                <img src="" alt="Donut" class="menu-detail-img" id="detailImage">
+                <div class="menu-detail-info">
+                    <h3 id="detailName"></h3>
+                    <p id="detailDescription"></p>
+                    <div class="menu-detail-price">$ <span id="detailPrice"></span> USD</div>
+                    <button class="add-to-cart" id="detailAddToCartBtn">
+                        <span>Add to Cart</span>
+                    </button>
+                </div>
+            </div>
+            <div class="menu-detail-body">
+                <h4 class="ingredients-title">Ingredients</h4>
+                <div class="ingredients-list" id="detailIngredients">
+                    <!-- Ingredients will be added dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 로딩 오버레이 -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
@@ -994,6 +1772,42 @@
             <p>Processing your order...</p>
         </div>
     </div>
+
+    <!-- 푸터 -->
+    <footer style="background: #f5f5f7; padding: 4rem 0 2rem; text-align: center;" id="contact">
+        <div style="max-width: 980px; margin: 0 auto; padding: 0 2rem;">
+            <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: #1d1d1f;">Sweet Donut</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-bottom: 3rem;">
+                <div style="flex: 1; min-width: 200px; text-align: left;">
+                    <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #1d1d1f;">Visit Us</h4>
+                    <p style="color: #86868b; font-size: 0.9rem; line-height: 1.6;">
+                        123 Donut Street<br>
+                        Sweetville, NY 10001<br>
+                        (123) 456-7890
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 200px; text-align: left;">
+                    <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #1d1d1f;">Opening Hours</h4>
+                    <p style="color: #86868b; font-size: 0.9rem; line-height: 1.6;">
+                        Monday - Friday: 7am - 7pm<br>
+                        Saturday: 8am - 8pm<br>
+                        Sunday: 8am - 6pm
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 200px; text-align: left;">
+                    <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #1d1d1f;">Connect</h4>
+                    <p style="color: #86868b; font-size: 0.9rem; line-height: 1.6;">
+                        <a href="#" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">Facebook</a>
+                        <a href="#" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">Instagram</a>
+                        <a href="#" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">Twitter</a>
+                    </p>
+                </div>
+            </div>
+            <p style="color: #86868b; font-size: 0.8rem; margin-top: 2rem; border-top: 1px solid #d2d2d7; padding-top: 2rem;">
+                © 2023 Sweet Donut. All rights reserved.
+            </p>
+        </div>
+    </footer>
 
     <script>
         // 장바구니 데이터
@@ -1003,6 +1817,295 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbzuIZT-pRiC4o53u0ruWefsfRqyDasNQqW7nOfs5ipHZ0PlicbFP3FixcjDZv4rha8QXQ/exec';
         const SHEET_ID = '1_3vfkReCDiWfQAIHwfC2vNPmJZk-EAhIO6AAsmrYms4';
         const REFRESH_INTERVAL = 5 * 60 * 1000; // 5분마다 메뉴 새로고침
+        
+        // 슬라이더 기능
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        
+        function showSlide(index) {
+            const slider = document.getElementById('slider');
+            if (!slider) return;
+            
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            
+            currentSlide = index;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // 도트 표시기 업데이트
+            document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        function goToSlide(index) {
+            showSlide(index);
+        }
+        
+        // 슬라이더 자동 재생
+        let slideInterval;
+        
+        function startSlideShow() {
+            slideInterval = setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+        
+        function stopSlideShow() {
+            clearInterval(slideInterval);
+        }
+        
+        // 메뉴로 스크롤
+        function scrollToMenu() {
+            document.getElementById('menu').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // 로그인 모달 토글
+        function toggleLoginModal() {
+            const loginModal = document.getElementById('loginModal');
+            loginModal.classList.toggle('show');
+        }
+
+        // 회원가입 모달 토글
+        function toggleRegisterModal(event) {
+            if (event) event.preventDefault();
+            
+            // 로그인 모달 닫기
+            document.getElementById('loginModal').classList.remove('show');
+            
+            // 회원가입 모달 열기
+            document.getElementById('registerModal').classList.toggle('show');
+        }
+
+        // 로그인 모달로 돌아가기
+        function backToLogin(event) {
+            if (event) event.preventDefault();
+            
+            // 회원가입 모달 닫기
+            document.getElementById('registerModal').classList.remove('show');
+            
+            // 로그인 모달 열기
+            document.getElementById('loginModal').classList.add('show');
+        }
+
+        // 계정 모달 토글
+        function toggleAccountModal() {
+            const accountModal = document.getElementById('accountModal');
+            accountModal.classList.toggle('show');
+        }
+
+        // 로그인 처리
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password.');
+                return;
+            }
+            
+            // 실제 구현에서는 서버로 로그인 요청을 보내야 합니다.
+            // 여기서는 간단한 로컬 로그인 시뮬레이션만 합니다.
+            
+            // 로딩 표시
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.querySelector('.loading-content p').textContent = 'Logging in...';
+            
+            // 로그인 시뮬레이션 (1초 후 처리 완료)
+            setTimeout(() => {
+                // 로딩 숨기기
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                // 로그인 성공 처리
+                const userInfo = {
+                    name: 'John Doe',
+                    email: email,
+                    isLoggedIn: true
+                };
+                
+                // 로컬 스토리지에 사용자 정보 저장
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                
+                // 로그인 모달 닫기
+                toggleLoginModal();
+                
+                // UI 업데이트
+                updateUserUI(userInfo);
+                
+                // 사용자 환영 메시지
+                alert(`Welcome back, ${userInfo.name}!`);
+            }, 1000);
+        }
+
+        // 회원가입 처리
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!name || !email || !phone || !password) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+            
+            // 실제 구현에서는 서버로 회원가입 요청을 보내야 합니다.
+            // 여기서는 간단한 로컬 회원가입 시뮬레이션만 합니다.
+            
+            // 로딩 표시
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.querySelector('.loading-content p').textContent = 'Creating your account...';
+            
+            // 회원가입 시뮬레이션 (1초 후 처리 완료)
+            setTimeout(() => {
+                // 로딩 숨기기
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                // 회원가입 성공 처리
+                const userInfo = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    isLoggedIn: true
+                };
+                
+                // 로컬 스토리지에 사용자 정보 저장
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                
+                // 회원가입 모달 닫기
+                document.getElementById('registerModal').classList.remove('show');
+                
+                // UI 업데이트
+                updateUserUI(userInfo);
+                
+                // 사용자 환영 메시지
+                alert(`Welcome to Sweet Donut, ${name}!`);
+            }, 1000);
+        }
+
+        // 로그아웃 처리
+        function logout() {
+            // 로컬 스토리지에서 사용자 정보 제거
+            localStorage.removeItem('userInfo');
+            
+            // 계정 모달 닫기
+            toggleAccountModal();
+            
+            // UI 업데이트
+            updateUserUI(null);
+            
+            // 로그아웃 메시지
+            alert('You have been logged out.');
+        }
+
+        // 사용자 UI 업데이트
+        function updateUserUI(userInfo) {
+            const loginBtn = document.querySelector('.login-btn');
+            
+            if (userInfo && userInfo.isLoggedIn) {
+                // 로그인 상태일 때
+                loginBtn.textContent = userInfo.name.split(' ')[0]; // 첫 번째 이름만 표시
+                // loginBtn.onclick = toggleAccountModal; // 이 부분을 주석 처리 또는 삭제
+                
+                // 계정 모달 업데이트
+                if (document.getElementById('profileName')) {
+                    document.getElementById('profileName').value = userInfo.name;
+                    document.getElementById('profileEmail').value = userInfo.email;
+                    document.getElementById('profilePhone').value = userInfo.phone || '';
+                }
+            } else {
+                // 로그아웃 상태일 때
+                loginBtn.textContent = 'Log In';
+                // loginBtn.onclick = toggleLoginModal; // 이 부분을 주석 처리 또는 삭제
+            }
+        }
+
+        // 메뉴 상세 정보 표시
+        function showMenuDetail(name, description, price, imageUrl, category) {
+            const modal = document.getElementById('menuDetailModal');
+            
+            // 기본 정보 설정
+            document.getElementById('detailTitle').textContent = `${name} Details`;
+            document.getElementById('detailName').textContent = name;
+            document.getElementById('detailDescription').textContent = description || 'A delicious handcrafted donut made with premium ingredients.';
+            document.getElementById('detailPrice').textContent = price.toLocaleString();
+            document.getElementById('detailImage').src = imageUrl;
+            document.getElementById('detailImage').alt = name;
+            
+            // 장바구니 추가 버튼 설정
+            const addToCartBtn = document.getElementById('detailAddToCartBtn');
+            addToCartBtn.onclick = function() {
+                addToCart(name, price);
+                closeMenuDetail();
+            };
+            
+            // 재료 정보 추가
+            const ingredientsContainer = document.getElementById('detailIngredients');
+            ingredientsContainer.innerHTML = '';
+            
+            // 카테고리에 따라 다른 재료 제공
+            const ingredients = getIngredients(name, category);
+            
+            ingredients.forEach(ingredient => {
+                const item = document.createElement('div');
+                item.className = 'ingredient-item';
+                item.textContent = ingredient;
+                ingredientsContainer.appendChild(item);
+            });
+            
+            // 모달 표시
+            modal.classList.add('show');
+        }
+        
+        // 도넛 종류별 재료 정보 (예시)
+        function getIngredients(name, category) {
+            const lowerName = name.toLowerCase();
+            
+            // 기본 재료
+            const baseIngredients = ['Enriched Flour', 'Sugar', 'Vegetable Oil', 'Water', 'Yeast'];
+            
+            // 초코 도넛 재료
+            if (lowerName.includes('chocolate') || lowerName.includes('초코')) {
+                return [...baseIngredients, 'Cocoa Powder', 'Chocolate Chips', 'Milk Solids', 'Natural Flavor'];
+            }
+            
+            // 블루베리 도넛 재료
+            else if (lowerName.includes('blueberry') || lowerName.includes('블루베리')) {
+                return [...baseIngredients, 'Dried Blueberries', 'Blueberry Puree', 'Natural Flavor', 'Citric Acid'];
+            }
+            
+            // 아침 식사류 재료
+            else if (category === 'breakfast') {
+                return ['Enriched Flour', 'Water', 'Eggs', 'Salt', 'Cheese', 'Ham', 'Butter', 'Spices'];
+            }
+            
+            return baseIngredients;
+        }
+         
+        // 메뉴 상세 모달 닫기
+        function closeMenuDetail() {
+            document.getElementById('menuDetailModal').classList.remove('show');
+        }
         
         // 메뉴 데이터 가져오기
         async function fetchMenuData() {
@@ -1194,21 +2297,21 @@
         function getDefaultMenuData() {
             return {
                 "donut": [
-                    { name: "GLAZED", description: "도넛", price: 0.99, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "CHOCOLATE", description: "초코 도넛", price: 1.09, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "SPRINKLES", description: "스프링클 도넛", price: 1.09, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "TWIST", description: "트위스트 도넛", price: 1.79, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "ECLAIR", description: "에클레어 도넛", price: 1.99, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" }
+                    { name: "GLAZED", description: "Our classic glazed donut with sweet icing", price: 0.99, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
+                    { name: "CHOCOLATE", description: "Rich chocolate donut topped with chocolate icing", price: 1.09, imageUrl: "https://images.unsplash.com/photo-1527515545081-5db817172677" },
+                    { name: "SPRINKLES", description: "Glazed donut covered with colorful sprinkles", price: 1.09, imageUrl: "https://images.unsplash.com/photo-1514517604298-cf80e0fb7f1e" },
+                    { name: "TWIST", description: "Twisted dough with a light glaze coating", price: 1.79, imageUrl: "https://images.unsplash.com/photo-1551024709-8f23befc6f87" },
+                    { name: "ECLAIR", description: "Chocolate topped long donut filled with custard", price: 1.99, imageUrl: "https://images.unsplash.com/photo-1551106652-a5bcf4b29ab6" }
                 ],
                 "cake-donut": [
-                    { name: "PLAIN", description: "플레인 케이크 도넛", price: 1.39, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "BUTTERMILK", description: "버터밀크 케이크 도넛", price: 1.59, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "BLUEBERRY", description: "블루베리 케이크 도넛", price: 1.59, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" }
+                    { name: "PLAIN", description: "Traditional cake donut with dense, tender crumb", price: 1.39, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
+                    { name: "BUTTERMILK", description: "Classic southern-style buttermilk cake donut", price: 1.59, imageUrl: "https://images.unsplash.com/photo-1526000771790-6eb5e8a3e93e" },
+                    { name: "BLUEBERRY", description: "Cake donut filled with sweet blueberries", price: 1.59, imageUrl: "https://images.unsplash.com/photo-1557925923-cd4648e211a0" }
                 ],
                 "breakfast": [
-                    { name: "SMALL SAUSAGE", description: "소시지 샌드위치", price: 1.59, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "JUMBO SAUSAGE", description: "점보 소시지 샌드위치", price: 2.99, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-                    { name: "CROISSANT HAM & CHEESE", description: "햄치즈 크루아상", price: 3.99, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307" }
+                    { name: "SMALL SAUSAGE", description: "Savory sausage breakfast sandwich", price: 1.59, imageUrl: "https://images.unsplash.com/photo-1613844043867-52c37b60bc4d" },
+                    { name: "JUMBO SAUSAGE", description: "Large sausage breakfast sandwich with egg", price: 2.99, imageUrl: "https://images.unsplash.com/photo-1529411081224-84ac0d0bf6ab" },
+                    { name: "CROISSANT HAM & CHEESE", description: "Buttery croissant with ham and cheese", price: 3.99, imageUrl: "https://images.unsplash.com/photo-1639667951386-fb351e95953f" }
                 ]
             };
         }
@@ -1440,6 +2543,75 @@
             // 초기 로딩 표시
             document.getElementById('loadingOverlay').style.display = 'flex';
             document.querySelector('.loading-content p').textContent = '메뉴 불러오는 중...';
+            
+            // 슬라이더 초기화
+            showSlide(0);
+            startSlideShow();
+            
+            // 사용자 로그인 상태 확인 및 UI 업데이트
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            updateUserUI(userInfo);
+
+            // 네비게이션 로그인 버튼 이벤트 리스너 추가
+            // 로그인 상태에 따라 updateUserUI에서 onclick 핸들러가 설정되므로
+            // 여기서 별도로 추가할 필요는 없지만, 초기 로그아웃 상태를 위해 명시적으로 추가할 수 있습니다.
+            if (!userInfo || !userInfo.isLoggedIn) {
+                document.querySelector('.login-btn').addEventListener('click', toggleLoginModal);
+            }
+            
+            // 계정 탭 이벤트 리스너 추가
+            const accountTabs = document.querySelectorAll('.account-tab');
+            if (accountTabs) {
+                accountTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        // 활성 탭 변경
+                        document.querySelectorAll('.account-tab').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // 해당 콘텐츠 표시
+                        const tabId = this.getAttribute('data-tab');
+                        document.querySelectorAll('.account-tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        document.getElementById(tabId).classList.add('active');
+                    });
+                });
+            }
+
+            // 계정 탭 컨텐츠 스타일 추가
+            if (!document.getElementById('accountTabsStyle')) {
+                const style = document.createElement('style');
+                style.id = 'accountTabsStyle';
+                style.textContent = `
+                    .account-tab {
+                        position: relative;
+                    }
+                    
+                    .account-tab.active button {
+                        color: #0071e3;
+                        font-weight: 500;
+                    }
+                    
+                    .account-tab.active::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        width: 3px;
+                        background-color: #0071e3;
+                    }
+                    
+                    .account-tab-content {
+                        display: none;
+                    }
+                    
+                    .account-tab-content.active {
+                        display: block;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
             
             // 페이지 깜박임 방지를 위해 초기 카테고리 구조 생성
             const mainContainer = document.querySelector('.container');

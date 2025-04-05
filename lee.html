@@ -413,76 +413,111 @@
             z-index: 1;
         }
 
-        /* 메뉴 아이템 카드 디자인 - Apple 스타일 */
+        /* 메뉴 아이템 카드 디자인 - 개선 */
         .menu-item {
-            display: block;
+            display: flex; /* Flexbox 사용 */
+            flex-direction: column; /* 세로 방향 배치 */
             background: #fff;
-            border: none;
-            border-radius: 18px;
+            border: 1px solid #e5e5e5; /* 테두리 추가 */
+            border-radius: 12px; /* 둥근 모서리 */
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            padding: 2rem;
+            /* padding 제거 */
             position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        .menu-item::before {
-            display: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); /* 그림자 조정 */
         }
 
         .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* 호버 시 그림자 강화 */
         }
 
         .menu-item img {
-            width: 140px;
-            height: 140px;
+            width: 100%; /* 가로 꽉 채움 */
+            height: 200px; /* 이미지 높이 고정 (조절 가능) */
             object-fit: cover;
-            border-radius: 12px;
-            margin-right: 1.5rem;
+            border-radius: 0; /* 이미지 자체의 둥근 모서리 제거 */
+            /* margin-right 제거 */
             box-shadow: none;
-            transition: all 0.4s ease;
+            transition: opacity 0.3s ease; /* 부드러운 전환 효과 */
+            background-color: #f0f0f0; /* 이미지 로딩 전 배경색 */
+        }
+
+        /* 이미지 로드 실패 시 스타일 */
+        .menu-item img.error {
+            /* background-image: url('placeholder-icon.svg'); /* 대체 아이콘 */
+            background-size: 50px 50px;
+            background-repeat: no-repeat;
+            background-position: center;
+            /* height: 200px; 이미 설정됨 */
         }
 
         .menu-item:hover img {
-            transform: scale(1.04);
+            transform: none; /* 호버 시 이미지 확대 효과 제거 */
+            opacity: 0.95;
         }
 
-        .menu-item-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
+        /* menu-item-header 제거 (HTML 구조 변경 필요) */
 
         .menu-item-content {
-            flex: 1;
+            /* flex: 1; 제거 */
+            padding: 1.2rem; /* 내부 콘텐츠 여백 */
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* 내용이 부족해도 공간 채우도록 */
         }
 
         .menu-item h3 {
-            font-size: 1.4rem;
+            font-size: 1.1rem; /* 폰트 크기 조정 */
             font-weight: 600;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.4rem; /* 간격 조정 */
             color: #1d1d1f;
-            transition: all 0.3s ease;
             letter-spacing: -0.01em;
+            flex-grow: 1; /* 이름이 길어도 공간 확보 */
         }
 
         .menu-item p {
-            color: #86868b;
-            font-size: 0.95rem;
+            color: #6e6e73; /* 설명 텍스트 색상 변경 */
+            font-size: 0.85rem; /* 폰트 크기 조정 */
             margin-bottom: 1rem;
-            line-height: 1.6;
+            line-height: 1.5;
+            flex-grow: 2; /* 설명이 이름보다 공간 더 차지하도록 */
         }
 
         .menu-item .price-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.2rem;
-            position: relative;
-            padding-top: 1rem;
-            border-top: 1px solid #f2f2f2;
+            margin-top: auto; /* 항상 하단에 위치하도록 */
+            padding-top: 0.8rem; /* 위쪽 여백 */
+            border-top: none; /* 상단 테두리 제거 */
+        }
+
+        .menu-item .price {
+            font-size: 1.2rem; /* 가격 폰트 크기 */
+            font-weight: 600;
+            color: #1d1d1f;
+            padding: 0;
+        }
+
+        /* 'Add to Cart' 버튼 스타일 수정 */
+        .menu-item .add-to-cart {
+            background: #0071e3;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem; /* 패딩 조정 */
+            border-radius: 20px; /* 둥근 모서리 */
+            cursor: pointer;
+            font-size: 0.85rem; /* 폰트 크기 조정 */
+            transition: all 0.2s ease;
+            font-weight: 500;
+            box-shadow: none;
+        }
+
+        .menu-item .add-to-cart:hover {
+            background: #0077ED;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .menu-item .price-container::before {
@@ -2423,33 +2458,32 @@
                         const menuItemHtml = `
                             <div class="menu-item">
                                 ${isNonVeg ? '<div class="veg-indicator"></div>' : ''}
-                                <div class="menu-item-header">
-                                    <img src="${safeImageUrl}" 
-                                         alt="${item.name}" 
-                                         onerror="
-                                         const fileIdMatch = this.getAttribute('data-original-src').match(/\\/d\\/([^/]+)|\\/id=([^&]+)/);
+                                <img src="${safeImageUrl}"
+                                     alt="${item.name}"
+                                     onerror="
+                                         this.classList.add('error'); // Add error class
+                                         const fileIdMatch = this.getAttribute('data-original-src').match(/\/d\/([^/]+)|\/id=([^&]+)/);
                                          const fileId = fileIdMatch ? (fileIdMatch[1] || fileIdMatch[2]) : null;
                                          if (fileId) {
                                              console.log('이미지 로드 실패, 대체 방법 시도:', fileId);
                                              tryAlternativeImageUrl(this, fileId);
                                          } else {
-                                             this.onerror=null; 
+                                             this.onerror=null;
                                              this.src='https://images.unsplash.com/photo-1551024506-0bccd828d307';
                                              console.error('이미지 로드 실패, 기본 이미지 사용:', this.getAttribute('data-original-src'));
                                          }"
-                                         data-original-src="${safeImageUrl}"
-                                         loading="lazy"
-                                         crossorigin="anonymous">
-                                    <div class="menu-item-content">
-                                        <h3>${item.name}</h3>
-                                        <p>${item.description || '설명 없음'}</p>
+                                     data-original-src="${safeImageUrl}"
+                                     loading="lazy"
+                                     crossorigin="anonymous">
+                                <div class="menu-item-content">
+                                    <h3>${item.name}</h3>
+                                    <p>${item.description || '설명 없음'}</p>
+                                    <div class="price-container">
+                                        <div class="price">$ ${Number(item.price).toLocaleString()} USD</div>
+                                        <button class="add-to-cart" onclick="addToCart('${item.name}', ${item.price})">
+                                            <span>Add to Cart</span>
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="price-container">
-                                    <div class="price">$ ${Number(item.price).toLocaleString()} USD</div>
-                                    <button class="add-to-cart" onclick="addToCart('${item.name}', ${item.price})">
-                                        <span>Add</span>
-                                    </button>
                                 </div>
                             </div>
                         `;

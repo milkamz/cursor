@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texan Lee Donuts - Premium Donuts</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0071e3',
+                        dark: '#1d1d1f',
+                        light: '#fbfbfd',
+                        gray: '#86868b',
+                        lightgray: '#f5f5f7'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: #1d1d1f;
+            line-height: 1.5;
+            background-color: #fff;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <header class="bg-light py-16 text-center relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="text-5xl font-semibold tracking-tight mb-2 fade-in">Texan Lee Donuts</h1>
+            <p class="text-xl text-gray max-w-xl mx-auto slide-up">Handcrafted with thoughtful design. Crafted with care in Texas style.</p>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="sticky top-0 z-10 bg-white bg-opacity-90 backdrop-blur-md border-b border-lightgray">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-dark font-medium">Home</a>
+                    <a href="#products" class="ml-8 text-gray hover:text-dark transition">Menu</a>
+                    <a href="#about" class="ml-8 text-gray hover:text-dark transition">About</a>
+                    <a href="#contact" class="ml-8 text-gray hover:text-dark transition">Contact</a>
+                </div>
+                <div class="flex items-center">
+                    <a href="#" class="text-gray hover:text-dark mr-6 transition">
+                        <span class="material-icons">person</span>
+                    </a>
+                    <button id="cartButton" class="bg-dark text-white rounded-full p-2 flex items-center justify-center relative">
+                        <span class="material-icons">shopping_cart</span>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 배너 -->
+    <section class="relative overflow-hidden py-16 md:py-24 bg-light">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1631397833242-fc6213046352" class="w-full h-full object-cover opacity-25">
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="w-full md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">Fresh, Homemade <br>Delights Every Day</h1>
+                    <p class="text-xl md:text-2xl text-gray mb-6">Discover our artisanal donuts, cakes, and breakfast items made with the freshest ingredients.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#products" class="bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-blue-600 transition transform hover:-translate-y-1">Order Now</a>
+                        <a href="#about" class="bg-transparent border-2 border-primary text-primary px-6 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition transform hover:-translate-y-1">Our Story</a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1533137138-ba67dc4d7246" alt="Assorted Donuts" class="rounded-xl shadow-xl max-w-lg mx-auto">
+                        <div class="absolute -bottom-4 -right-4 bg-white rounded-xl p-4 shadow-lg">
+                            <p class="text-lg font-semibold">Summer Special Flavors</p>
+                            <p class="text-primary">Limited Time Only!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 추천 도넛 섹션 -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold mb-3">Our Favorites</h2>
+                <p class="text-gray max-w-2xl mx-auto">The most loved donuts by our customers, handcrafted daily with premium ingredients</p>
+            </div>
+            
+            <div class="flex flex-wrap -mx-4">
+                <!-- 추천 도넛 아이템 1 -->
+                <div class="w-full md:w-1/3 px-4 mb-8">
+                    <div class="bg-light rounded-xl p-6 h-full transition-all hover:shadow-lg hover:-translate-y-1">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307" alt="Classic Glazed" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold mb-2">Classic Glazed</h3>
+                        <p class="text-gray mb-4">Our signature light and airy donut with a sweet glaze that melts in your mouth.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-medium">$1.99</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition add-to-cart" data-id="1" data-name="Classic Glazed" data-price="1.99">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 추천 도넛 아이템 2 -->
+                <div class="w-full md:w-1/3 px-4 mb-8">
+                    <div class="bg-light rounded-xl p-6 h-full transition-all hover:shadow-lg hover:-translate-y-1">
+                        <img src="https://images.unsplash.com/photo-1586788224331-947f68671cf1" alt="Red Velvet Cake" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold mb-2">Red Velvet Cake</h3>
+                        <p class="text-gray mb-4">Decadent red velvet cake donut with cream cheese frosting.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-medium">$3.49</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition add-to-cart" data-id="4" data-name="Red Velvet Cake" data-price="3.49">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 추천 도넛 아이템 3 -->
+                <div class="w-full md:w-1/3 px-4 mb-8">
+                    <div class="bg-light rounded-xl p-6 h-full transition-all hover:shadow-lg hover:-translate-y-1">
+                        <img src="https://images.unsplash.com/photo-1550507992-eb63ffdc42be" alt="Breakfast Sandwich" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold mb-2">Breakfast Sandwich</h3>
+                        <p class="text-gray mb-4">Egg, cheese, and bacon on a fresh donut bun. The perfect breakfast!</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-medium">$5.99</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition add-to-cart" data-id="7" data-name="Breakfast Sandwich" data-price="5.99">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 제품 카테고리 섹션 -->
+    <section id="products" class="py-16 bg-lightgray">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold mb-3">Our Collection</h2>
+                <p class="text-gray max-w-2xl mx-auto">Explore our signature donuts made with premium ingredients</p>
+            </div>
+            
+            <!-- 카테고리 탭 -->
+            <div class="flex justify-center mb-12 overflow-x-auto pb-2">
+                <button class="category-tab mx-2 py-2 px-6 rounded-full bg-primary text-white" data-category="all">All</button>
+                <button class="category-tab mx-2 py-2 px-6 rounded-full bg-gray-100 text-gray-700 hover:bg-lightgray transition" data-category="Donut">Donut</button>
+                <button class="category-tab mx-2 py-2 px-6 rounded-full bg-gray-100 text-gray-700 hover:bg-lightgray transition" data-category="Cake">Cake</button>
+                <button class="category-tab mx-2 py-2 px-6 rounded-full bg-gray-100 text-gray-700 hover:bg-lightgray transition" data-category="Breakfast">Breakfast</button>
+            </div>
+            
+            <!-- 필터 및 정렬 옵션 -->
+            <div class="flex flex-wrap justify-between items-center mb-8">
+                <div class="w-full md:w-auto mb-4 md:mb-0">
+                    <span class="text-gray mr-2">Filter:</span>
+                    <select class="py-2 px-4 rounded-lg border border-gray-200 focus:outline-none focus:border-primary">
+                        <option>All Items</option>
+                        <option>Vegan</option>
+                        <option>Gluten-Free</option>
+                        <option>Low-Calorie</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-auto">
+                    <span class="text-gray mr-2">Sort By:</span>
+                    <select id="sortOptions" class="py-2 px-4 rounded-lg border border-gray-200 focus:outline-none focus:border-primary">
+                        <option value="default">Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name-asc">Newest</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 제품 그리드 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid">
+                <!-- 제품들은 자바스크립트로 동적 생성 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Our Story</h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray max-w-2xl mx-auto">We're more than just a donut shop - we're a Texan tradition.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">From Our Family To Yours</h3>
+                    <p class="mb-4 text-gray">Founded in 2010 by Lee family patriarch, our little donut shop started with a simple mission: to bring joy through freshly-made, delicious treats.</p>
+                    <p class="mb-4 text-gray">What began as a small shop with just six donut varieties has grown into a beloved Austin institution offering an extensive menu of artisanal donuts, specialty cakes, and hearty breakfast options.</p>
+                    <p class="mb-4 text-gray">We pride ourselves on using only the finest ingredients, with no preservatives or artificial flavors. Every donut, cake, and breakfast item is made fresh daily, using time-honored recipes with a modern twist.</p>
+                    <div class="flex gap-4 mt-6">
+                        <div class="flex items-center">
+                            <span class="text-primary text-3xl mr-2">12</span>
+                            <span class="text-sm text-gray">Years of<br>Service</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-primary text-3xl mr-2">2</span>
+                            <span class="text-sm text-gray">Locations<br>in Austin</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-primary text-3xl mr-2">30+</span>
+                            <span class="text-sm text-gray">Unique<br>Flavors</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b" alt="Our Shop" class="rounded-lg h-48 w-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad" alt="Making Donuts" class="rounded-lg h-48 w-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330" alt="Our Team" class="rounded-lg h-48 w-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94" alt="Fresh Ingredients" class="rounded-lg h-48 w-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="py-16 bg-light">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold mb-3">Contact Us</h2>
+                <p class="text-gray max-w-2xl mx-auto">Have questions or special orders? Get in touch with our team.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-12">
+                    <form class="bg-white p-8 rounded-xl shadow-sm">
+                        <div class="mb-6">
+                            <label class="block text-dark mb-2 font-medium" for="name">Full Name</label>
+                            <input type="text" id="name" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" placeholder="Your name">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-dark mb-2 font-medium" for="email">Email Address</label>
+                            <input type="email" id="email" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-dark mb-2 font-medium" for="message">Message</label>
+                            <textarea id="message" rows="4" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-600 transition">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-xl shadow-sm h-full">
+                        <h3 class="text-xl font-semibold mb-6">Store Information</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-2">Main Location</h4>
+                            <p class="text-gray">123 Donut Street, Austin, TX 78701</p>
+                            <p class="text-gray">Phone: (512) 555-0123</p>
+                            <p class="text-gray">Hours: 6 AM - 3 PM, Monday to Saturday</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-2">Downtown Location</h4>
+                            <p class="text-gray">456 Glaze Avenue, Austin, TX 78702</p>
+                            <p class="text-gray">Phone: (512) 555-0456</p>
+                            <p class="text-gray">Hours: 7 AM - 4 PM, Monday to Sunday</p>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-medium mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-gray hover:text-primary transition">
+                                    <span class="material-icons">facebook</span>
+                                </a>
+                                <a href="#" class="text-gray hover:text-primary transition">
+                                    <span class="material-icons">alternate_email</span>
+                                </a>
+                                <a href="#" class="text-gray hover:text-primary transition">
+                                    <span class="material-icons">photo_camera</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 영역 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Texan Lee Donuts</h3>
+                    <p class="text-gray-400 mb-6">Handcrafted with thoughtful design. Crafted with care in Texas style.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <span class="material-icons">facebook</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <span class="material-icons">alternate_email</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <span class="material-icons">photo_camera</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Menu</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Donut</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Cake</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Breakfast</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Beverages</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Special Offers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Help</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Order Status</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Delivery Information</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Payment Methods</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to receive updates, access to exclusive deals, and more.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter your email" class="p-2 px-4 rounded-l-lg focus:outline-none flex-grow text-dark">
+                        <button class="bg-primary text-white p-2 px-4 rounded-r-lg hover:bg-blue-600 transition">
+                            <span class="material-icons">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Texan Lee Donuts. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Cookies Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 장바구니 모달 -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 hidden">
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden">
+                <div class="flex justify-between items-center p-6 border-b border-gray-100">
+                    <h2 class="text-xl font-semibold flex items-center">
+                        <span class="material-icons mr-2 text-primary">shopping_cart</span>
+                        Your Cart
+                    </h2>
+                    <button id="closeCartBtn" class="text-gray hover:text-dark">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                
+                <div id="cartItems" class="p-6 max-h-96 overflow-y-auto">
+                    <!-- 장바구니 아이템들이 여기에 동적으로 추가됩니다 -->
+                    <div class="text-center text-gray py-8" id="emptyCartMessage">
+                        <span class="material-icons text-5xl mb-3 text-gray-200">shopping_cart</span>
+                        <p>Your cart is empty</p>
+                        <a href="#products" class="text-primary hover:underline mt-2 inline-block" id="startShoppingBtn">Start shopping</a>
+                    </div>
+                </div>
+                
+                <div class="p-6 bg-light border-t border-gray-100">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="font-medium">Total</span>
+                        <span class="text-xl font-semibold">$<span id="cartTotal">0.00</span></span>
+                    </div>
+                    <button id="checkoutBtn" class="w-full bg-primary text-white py-3 rounded-full font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition flex items-center justify-center">
+                        <span class="material-icons mr-2">shopping_bag</span>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 결제 모달 -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 hidden">
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-2xl rounded-2xl overflow-hidden">
+                <div class="flex justify-between items-center p-6 border-b border-gray-100">
+                    <h2 class="text-xl font-semibold flex items-center">
+                        <span class="material-icons mr-2 text-primary">shopping_bag</span>
+                        Checkout
+                    </h2>
+                    <button id="closeCheckoutBtn" class="text-gray hover:text-dark">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    <form id="checkoutForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-medium mb-4">Contact Information</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-gray mb-1 font-medium" for="checkout-name">Full Name</label>
+                                        <input type="text" id="checkout-name" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray mb-1 font-medium" for="checkout-email">Email</label>
+                                        <input type="email" id="checkout-email" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray mb-1 font-medium" for="checkout-phone">Phone</label>
+                                        <input type="tel" id="checkout-phone" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-medium mb-4">Delivery Method</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center p-4 border border-gray-200 rounded-lg">
+                                        <input type="radio" id="pickup" name="delivery-method" value="pickup" class="mr-3" checked>
+                                        <label for="pickup">
+                                            <div class="font-medium">Store Pickup</div>
+                                            <div class="text-sm text-gray">Ready in 15-30 minutes</div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center p-4 border border-gray-200 rounded-lg">
+                                        <input type="radio" id="delivery" name="delivery-method" value="delivery" class="mr-3">
+                                        <label for="delivery">
+                                            <div class="font-medium">Home Delivery</div>
+                                            <div class="text-sm text-gray">Delivery within 1 hour</div>
+                                        </label>
+                                    </div>
+                                    
+                                    <div id="deliveryAddressFields" class="space-y-4 hidden pt-4">
+                                        <div>
+                                            <label class="block text-gray mb-1 font-medium" for="checkout-address">Address</label>
+                                            <input type="text" id="checkout-address" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray mb-1 font-medium" for="checkout-city">City</label>
+                                            <input type="text" id="checkout-city" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray mb-1 font-medium" for="checkout-zip">ZIP Code</label>
+                                            <input type="text" id="checkout-zip" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-lg font-medium mb-4">Payment Method</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="flex items-center p-4 border border-gray-200 rounded-lg">
+                                    <input type="radio" id="credit-card" name="payment-method" value="credit-card" class="mr-3" checked>
+                                    <label for="credit-card">Credit Card</label>
+                                </div>
+                                <div class="flex items-center p-4 border border-gray-200 rounded-lg">
+                                    <input type="radio" id="paypal" name="payment-method" value="paypal" class="mr-3">
+                                    <label for="paypal">PayPal</label>
+                                </div>
+                                <div class="flex items-center p-4 border border-gray-200 rounded-lg">
+                                    <input type="radio" id="cash" name="payment-method" value="cash" class="mr-3">
+                                    <label for="cash">Cash on Delivery</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 border-t border-gray-100 pt-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray">Subtotal</span>
+                                <span>$<span id="checkoutSubtotal">0.00</span></span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray">Delivery Fee</span>
+                                <span id="deliveryFee">$0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center font-semibold text-lg mt-4 pt-4 border-t border-gray-100">
+                                <span>Total</span>
+                                <span>$<span id="checkoutTotal">0.00</span></span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-full font-medium mt-6 hover:bg-blue-600 transition flex items-center justify-center">
+                            <span class="material-icons mr-2">check_circle</span>
+                            Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 코드 -->
+    <script>
+        // Google Sheets API URL
+        const API_URL = 'https://script.google.com/macros/s/AKfycbw5i8gg93taNSsNlbUHxUDe2xq9bH_76SwxzOcRaYK0zKVUXZKZV7b1sGZdvOqzQdid/exec?action=getMenu';
+
+        // 메뉴 데이터를 가져오는 함수
+        function fetchMenuData() {
+            return new Promise((resolve, reject) => {
+                fetch(API_URL)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('네트워크 응답이 정상적이지 않습니다');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Google Sheets에서 메뉴 데이터를 성공적으로 불러왔습니다:', data);
+                        resolve(data);
+                    })
+                    .catch(error => {
+                        console.error('메뉴 데이터 불러오기 오류:', error);
+                        console.log('로컬 데이터를 사용합니다.');
+                        resolve(null); // 오류 발생 시 로컬 데이터 사용
+                    });
+            });
+        }
+
+        // 제품 데이터 생성 (Google Sheets에서 불러오지 못한 경우 사용할 기본 데이터)
+        const products = [
+            // Donut Category
+            {
+                id: 1,
+                name: "Classic Glazed",
+                description: "Our signature light and airy donut with a sweet glaze that melts in your mouth.",
+                price: 1.99,
+                category: "Donut",
+                image: "https://images.unsplash.com/photo-1551024506-0bccd828d307"
+            },
+            {
+                id: 2,
+                name: "Chocolate Frosted",
+                description: "Soft donut topped with rich chocolate frosting and colorful sprinkles.",
+                price: 2.49,
+                category: "Donut",
+                image: "https://images.unsplash.com/photo-1556913396-7a3c459ef219"
+            },
+            {
+                id: 3,
+                name: "Strawberry Sprinkle",
+                description: "Light donut with strawberry glaze and rainbow sprinkles on top.",
+                price: 2.79,
+                category: "Donut",
+                image: "https://images.unsplash.com/photo-1527904324834-3bda86da6771"
+            },
+            {
+                id: 11,
+                name: "Maple Bacon",
+                description: "Sweet maple glaze topped with crispy bacon pieces for the perfect sweet and savory combo.",
+                price: 3.49,
+                category: "Donut",
+                image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac"
+            },
+            {
+                id: 12,
+                name: "Boston Cream",
+                description: "Vanilla custard-filled donut with chocolate glaze on top.",
+                price: 2.99,
+                category: "Donut",
+                image: "https://images.unsplash.com/photo-1574085733277-8597faf6a171"
+            },
+            // Cake Category
+            {
+                id: 4,
+                name: "Red Velvet Cake",
+                description: "Decadent red velvet cake donut with cream cheese frosting.",
+                price: 3.49,
+                category: "Cake",
+                image: "https://images.unsplash.com/photo-1586788224331-947f68671cf1"
+            },
+            {
+                id: 5,
+                name: "Birthday Cake",
+                description: "Vanilla cake donut with vanilla frosting and colorful sprinkles.",
+                price: 3.29,
+                category: "Cake",
+                image: "https://images.unsplash.com/photo-1621236378699-8597faf6a171"
+            },
+            {
+                id: 13,
+                name: "Chocolate Fudge Cake",
+                description: "Rich chocolate cake donut topped with fudge frosting and chocolate chips.",
+                price: 3.79,
+                category: "Cake", 
+                image: "https://images.unsplash.com/photo-1608855238293-a8853e7f7c98"
+            },
+            {
+                id: 14,
+                name: "Lemon Pound Cake",
+                description: "Moist lemon cake donut with tangy lemon glaze.",
+                price: 3.49,
+                category: "Cake",
+                image: "https://images.unsplash.com/photo-1541783245831-57d6fb0926d3"
+            },
+            {
+                id: 15,
+                name: "Carrot Cake",
+                description: "Spiced carrot cake donut with cream cheese frosting and walnut pieces.",
+                price: 3.99,
+                category: "Cake",
+                image: "https://images.unsplash.com/photo-1622926421216-cdd123396d11"
+            },
+            // Breakfast Category
+            {
+                id: 6,
+                name: "Croissant Donut",
+                description: "Flaky croissant-donut hybrid with cinnamon sugar coating.",
+                price: 3.99,
+                category: "Breakfast",
+                image: "https://images.unsplash.com/photo-1630477642510-2a342da6ed8d"
+            },
+            {
+                id: 7,
+                name: "Breakfast Sandwich",
+                description: "Egg, cheese, and bacon on a fresh donut bun. The perfect breakfast!",
+                price: 5.99,
+                category: "Breakfast",
+                image: "https://images.unsplash.com/photo-1550507992-eb63ffdc42be"
+            },
+            {
+                id: 8,
+                name: "Kolache",
+                description: "Traditional Czech pastry filled with sausage and cheese. A Texas breakfast favorite!",
+                price: 3.49,
+                category: "Breakfast",
+                image: "https://images.unsplash.com/photo-1591203647078-2eec9ceccc35"
+            },
+            {
+                id: 16,
+                name: "Avocado Toast",
+                description: "Fresh avocado on toasted sourdough with cherry tomatoes and microgreens.",
+                price: 6.99,
+                category: "Breakfast",
+                image: "https://images.unsplash.com/photo-1603046891744-76e6300f6eac"
+            },
+            {
+                id: 17,
+                name: "Breakfast Burrito",
+                description: "Scrambled eggs, cheese, potatoes, and chorizo wrapped in a warm flour tortilla.",
+                price: 7.49,
+                category: "Breakfast",
+                image: "https://images.unsplash.com/photo-1584178639036-613ba57e5e39"
+            }
+        ];
+
+        // 장바구니 배열
+        let cart = [];
+
+        // 초기 제품 표시
+        let currentCategory = 'all';
+        let currentSort = 'default';
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            // 메뉴 데이터 불러오기 시도
+            fetchMenuData().then(menuData => {
+                // Google Sheets에서 데이터를 가져오면 로컬 데이터 대신 사용
+                if (menuData) {
+                    // Google Sheets의 데이터 형식에 맞게 변환
+                    let allProducts = [];
+                    let id = 1;
+                    
+                    // 카테고리 이름 변환 (API 응답에 맞게 조정)
+                    const categoryMapping = {
+                        'donut': 'Donut',
+                        'cake-donut': 'Cake',
+                        'breakfast': 'Breakfast'
+                    };
+                    
+                    // 각 카테고리의 제품 추가
+                    Object.keys(menuData).forEach(category => {
+                        menuData[category].forEach(item => {
+                            allProducts.push({
+                                id: id++,
+                                name: item.name,
+                                description: item.description || `맛있는 ${item.name}`,
+                                price: item.price,
+                                category: categoryMapping[category] || 'Other',
+                                image: item.imageUrl || 'https://images.unsplash.com/photo-1551024506-0bccd828d307'
+                            });
+                        });
+                    });
+                    
+                    // 제품 데이터 업데이트
+                    if (allProducts.length > 0) {
+                        window.products = allProducts;
+                        console.log('Google Sheets 데이터로 메뉴를 업데이트했습니다.');
+                    }
+                }
+                
+                // 초기 설정 계속 진행
+                setupUI();
+            });
+        });
+        
+        // UI 초기화 함수
+        function setupUI() {
+            // All 탭을 기본적으로 선택된 상태로 설정
+            const allTab = document.querySelector('.category-tab[data-category="all"]');
+            if (allTab) {
+                allTab.classList.add('bg-primary', 'text-white');
+                allTab.classList.remove('bg-gray-100', 'text-gray-700');
+            }
+            
+            // 카테고리 탭 이벤트 리스너
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 활성 탭 스타일링
+                    document.querySelectorAll('.category-tab').forEach(t => {
+                        t.classList.remove('bg-primary', 'text-white');
+                        t.classList.add('bg-gray-100', 'text-gray-700');
+                    });
+                    this.classList.remove('bg-gray-100', 'text-gray-700');
+                    this.classList.add('bg-primary', 'text-white');
+                    
+                    const category = this.getAttribute('data-category');
+                    currentCategory = category;
+                    renderProducts();
+                });
+            });
+            
+            // 정렬 옵션 이벤트 리스너
+            const sortSelect = document.getElementById('sortOptions');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', function() {
+                    currentSort = this.value;
+                    renderProducts();
+                });
+            }
+            
+            // 초기 제품 렌더링
+            renderProducts();
+            
+            // 장바구니 버튼 클릭 시 모달 표시
+            document.getElementById('cartButton').addEventListener('click', toggleCart);
+            
+            // 장바구니 모달 닫기 버튼
+            document.getElementById('closeCartBtn').addEventListener('click', toggleCart);
+            
+            // 장바구니 시작하기 버튼
+            const startShoppingBtn = document.getElementById('startShoppingBtn');
+            if (startShoppingBtn) {
+                startShoppingBtn.addEventListener('click', toggleCart);
+            }
+            
+            // 장바구니 업데이트
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        function renderProducts() {
+            const productContainer = document.getElementById('productGrid');
+            productContainer.innerHTML = '';
+            
+            let filteredProducts = products;
+            
+            // 카테고리 필터링
+            if (currentCategory !== 'all') {
+                filteredProducts = products.filter(product => product.category === currentCategory);
+            }
+            
+            // 정렬
+            if (currentSort === 'price-asc') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-desc') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'name-asc') {
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            
+            // 제품이 없는 경우
+            if (filteredProducts.length === 0) {
+                productContainer.innerHTML = '<div class="col-span-3 text-center py-12 text-gray">No products found in this category.</div>';
+                return;
+            }
+            
+            // 제품 렌더링
+            filteredProducts.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'bg-white rounded-xl shadow-sm overflow-hidden transition-all hover:shadow-md';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-1">${product.name}</h3>
+                        <p class="text-gray text-sm mb-3 h-12 overflow-hidden">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-medium">$${product.price.toFixed(2)}</span>
+                            <button class="bg-primary text-white px-3 py-1 rounded-full text-sm hover:bg-blue-600 transition add-to-cart" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productContainer.appendChild(productElement);
+            });
+            
+            // 카트 버튼 이벤트 핸들러 연결
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    addToCart(id, name, price);
+                });
+            });
+        }
+
+        // 장바구니에 제품 추가
+        function addToCart(id, name, price) {
+            // 이미 장바구니에 있는지 확인
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            // 장바구니 업데이트
+            updateCartDisplay();
+            updateCartCount();
+            
+            // 피드백 제공
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Added!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 1000);
+        }
+
+        // 장바구니 수량 업데이트
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            
+            // 결제 버튼 활성화/비활성화
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (count === 0) {
+                checkoutBtn.disabled = true;
+            } else {
+                checkoutBtn.disabled = false;
+            }
+        }
+
+        // 장바구니 표시 업데이트
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // 장바구니가 비어있는 경우
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartTotal.textContent = '0.00';
+                cartItemsContainer.innerHTML = emptyCartMessage.outerHTML;
+                return;
+            }
+            
+            // 장바구니에 아이템이 있는 경우
+            emptyCartMessage.classList.add('hidden');
+            
+            // 장바구니 아이템 HTML 생성
+            let cartHTML = '';
+            let totalPrice = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+                
+                cartHTML += `
+                    <div class="flex items-center py-4 ${index > 0 ? 'border-t border-gray-100' : ''}">
+                        <div class="flex-grow">
+                            <h4 class="font-medium">${item.name}</h4>
+                            <p class="text-gray text-sm">$${item.price.toFixed(2)} × ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="text-gray hover:text-dark p-1" onclick="updateItemQuantity(${index}, -1)">
+                                <span class="material-icons text-sm">remove</span>
+                            </button>
+                            <span class="mx-2">${item.quantity}</span>
+                            <button class="text-gray hover:text-dark p-1" onclick="updateItemQuantity(${index}, 1)">
+                                <span class="material-icons text-sm">add</span>
+                            </button>
+                            <button class="text-gray hover:text-dark p-1 ml-2" onclick="removeCartItem(${index})">
+                                <span class="material-icons text-sm">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItemsContainer.innerHTML = cartHTML;
+            cartTotal.textContent = totalPrice.toFixed(2);
+        }
+
+        // 장바구니 아이템 수량 업데이트
+        function updateItemQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            // 수량이 0이하면 아이템 제거
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        // 장바구니에서 아이템 제거
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        // 장바구니 모달 토글
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('hidden');
+            
+            // 모달이 표시될 때 스크롤 방지
+            if (!cartModal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+                updateCartDisplay();
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 결제 모달 토글
+        function toggleCheckoutModal() {
+            const checkoutModal = document.getElementById('checkoutModal');
+            const cartModal = document.getElementById('cartModal');
+            
+            checkoutModal.classList.toggle('hidden');
+            
+            // 장바구니 모달 닫기
+            if (!cartModal.classList.contains('hidden')) {
+                cartModal.classList.add('hidden');
+            }
+            
+            // 모달이 표시될 때 스크롤 방지
+            if (!checkoutModal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 결제 요약정보 업데이트
+        function updateCheckoutSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            document.getElementById('checkoutSubtotal').textContent = subtotal.toFixed(2);
+            
+            const deliveryFee = document.querySelector('input[name="delivery-method"]:checked').value === 'delivery' ? 5 : 0;
+            document.getElementById('deliveryFee').textContent = `$${deliveryFee.toFixed(2)}`;
+            
+            const total = subtotal + deliveryFee;
+            document.getElementById('checkoutTotal').textContent = total.toFixed(2);
+        }
+    </script>
+</body>
+</html> 

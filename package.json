@@ -1,0 +1,29 @@
+{
+  "name": "cursor",
+  "version": "1.0.0",
+  "description": "![Sweet Donut Banner](https://images.unsplash.com/photo-1551024506-0bccd828d307)",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-apple": "^2.0.2",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milkamz/cursor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/milkamz/cursor/issues"
+  },
+  "homepage": "https://github.com/milkamz/cursor#readme"
+}

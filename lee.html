@@ -32,7 +32,7 @@
             display: flex;
             justify-content: space-between; /* 로고/링크와 계정 분리 */
             align-items: center;
-            padding: 1rem 2rem; /* 상하 좌우 여백 */
+            padding: 0.8rem 2rem; /* 상하 여백 축소, 좌우 유지 */
             background: rgba(255, 255, 255, 0.7); /* 반투명 흰색 배경 */
             backdrop-filter: blur(10px); /* 블러 효과 */
             position: fixed; /* 상단 고정 */
@@ -66,6 +66,7 @@
         .nav-links {
             display: flex;
             gap: 1.5rem;
+            margin: 0 auto; /* Center links between logo and account */
         }
 
         .nav-link {
@@ -83,7 +84,7 @@
         .nav-account {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem; /* 계정 섹션 내부 간격 축소 */
         }
 
         .login-btn {
@@ -94,11 +95,22 @@
             font-weight: 500;
             cursor: pointer;
             transition: color 0.2s ease;
-            padding: 0.5rem 0;
+            display: none; /* Hide the login button */
         }
 
         .login-btn:hover {
             color: #0071e3;
+        }
+
+        /* Style for disabled login button */
+        .login-btn:disabled,
+        .login-btn[disabled]{
+            color: #aaaaaa; /* Grey out text */
+            cursor: default; /* Default cursor */
+            opacity: 0.6; /* Make it slightly transparent */
+        }
+        .login-btn:disabled:hover {
+             color: #aaaaaa; /* Prevent hover color change */
         }
 
         /* ORDER ONLINE 버튼 스타일 */
@@ -2695,7 +2707,7 @@
             <a href="#contact" class="nav-link">Contact</a>
         </div>
         <div class="nav-account">
-            <button class="login-btn">Log In</button>
+            <button class="login-btn" disabled>Log In</button> 
             <button class="order-online-btn" onclick="showOrderChoiceModal()">ORDER ONLINE</button> <!-- ORDER ONLINE 버튼 추가 -->
             <button class="cart-icon" onclick="toggleCart()">
                 <span class="material-icons" style="font-size: 1.2rem;">shopping_cart</span>

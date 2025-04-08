@@ -554,7 +554,7 @@
 
         /* 'Add to Cart' 버튼 스타일 */
         .menu-item-details .add-to-cart {
-            display: none; /* Hide button to match the target image */
+            display: none !important; /* Hide button to match the target image, ensure it stays hidden */
         }
 
         .menu-item-details .price-container::before {
@@ -2692,6 +2692,222 @@
 
             #menuDetailModal .menu-detail-content { width: 95%; }
         }
+
+        /* Item Options Modal Styles */
+        .options-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            backdrop-filter: blur(5px);
+            z-index: 1010; /* Higher than other modals */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .options-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .options-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 480px; /* Limit max width */
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .close-options {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: background-color 0.2s ease;
+        }
+        .close-options:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .close-options i {
+            font-size: 20px;
+        }
+
+        .options-image {
+            width: 100%;
+            height: 250px; /* Adjust height as needed */
+            object-fit: cover;
+            display: block;
+        }
+
+        .options-details {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Allow details to scroll if needed */
+        }
+
+        .options-details h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1d1d1f;
+        }
+
+        .options-group {
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f2f2f2;
+            padding-top: 1.5rem;
+        }
+
+        .options-group-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #1d1d1f;
+        }
+
+        .options-required {
+            font-size: 0.8rem;
+            color: #86868b;
+            margin-left: 5px;
+        }
+
+        .options-select-prompt {
+            font-size: 0.85rem;
+            color: #86868b;
+            margin-bottom: 1rem;
+        }
+
+        .options-choices {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap; /* Allow wrapping if needed */
+        }
+
+        .option-choice {
+            flex: 1; /* Distribute space */
+            min-width: calc(50% - 0.4rem); /* Aim for 2 columns */
+            padding: 0.8rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .option-choice span:first-child {
+            font-size: 0.9rem;
+            color: #1d1d1f;
+            font-weight: 500;
+        }
+
+        .option-choice span:last-child {
+            font-size: 0.85rem;
+            color: #6e6e73;
+        }
+
+        .option-choice.selected {
+            border-color: #0071e3;
+            background-color: #f5faff;
+        }
+
+        .option-choice.selected span:first-child {
+            font-weight: 600;
+        }
+
+        .options-footer {
+            margin-top: auto; /* Push footer to bottom */
+            padding-top: 1.5rem;
+            border-top: 1px solid #f2f2f2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            background: #f5f5f7;
+            border-radius: 20px;
+            padding: 0.3rem;
+        }
+
+        .quantity-selector .quantity-btn {
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1d1d1f;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .quantity-selector .quantity-btn:hover {
+            background-color: #e8e8ed;
+        }
+        .quantity-selector .quantity-btn i {
+            font-size: 18px;
+        }
+
+        .quantity-selector #optionsQuantity {
+            padding: 0 0.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            min-width: 20px; /* Ensure space for number */
+            text-align: center;
+        }
+
+        .options-add-to-cart {
+            flex-grow: 1; /* Take remaining space */
+            background: #1d1d1f;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .options-add-to-cart:hover {
+            background: #333;
+        }
+        .options-add-to-cart #optionsTotalPrice {
+            font-weight: 600;
+        }
+
     </style>
 </head>
 <body>
@@ -3323,6 +3539,44 @@
         </div>
     </div>
 
+    <!-- Item Options Modal -->
+    <div class="options-modal" id="optionsModal">
+        <div class="options-content">
+            <button class="close-options" onclick="closeOptionsModal()"><i class="material-icons">close</i></button>
+            <img id="optionsImage" src="" alt="Menu Item Image" class="options-image">
+            <div class="options-details">
+                <h3 id="optionsTitle">Item Name</h3>
+                
+                <div class="options-group" id="optionsSelectionGroup">
+                    <label id="optionsGroupLabel" class="options-group-label">Select Option</label>
+                    <span class="options-required">Required*</span>
+                    <p class="options-select-prompt">Please select 1</p>
+                    <div id="optionsChoices" class="options-choices">
+                        <!-- Option buttons will be dynamically added here -->
+                        <!-- Example: 
+                        <button class="option-choice" data-price-modifier="1.75">
+                            <span>6 count</span>
+                            <span>+$1.75</span>
+                        </button>
+                        -->
+                    </div>
+                </div>
+
+                <div class="options-footer">
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="updateOptionsQuantity(-1)"><i class="material-icons">remove</i></button>
+                        <span id="optionsQuantity">1</span>
+                        <button class="quantity-btn" onclick="updateOptionsQuantity(1)"><i class="material-icons">add</i></button>
+                    </div>
+                    <button class="options-add-to-cart" onclick="addOptionsToCart()">
+                        <span>Add to Cart</span>
+                        <span id="optionsTotalPrice">$0.00</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 장바구니 데이터
         let cart = [];
@@ -3935,15 +4189,15 @@
                         
                         console.log(`메뉴 아이템 렌더링: ${item.name}, 이미지 URL: ${safeImageUrl}`);
                         
-                        // Updated HTML structure for horizontal layout
+                        // Updated HTML structure for horizontal layout with options modal trigger
                         const menuItemHtml = `
-                            <div class="menu-item"> 
+                            <div class="menu-item" onclick='showOptionsModal(${JSON.stringify(item)})'> 
                                 <div class="menu-item-details">
                                     <h3>${item.name}</h3>
                                     <p>${item.description || '설명 없음'}</p>
                                     <div class="price-container">
                                         <div class="price">$${Number(item.price).toLocaleString()}</div> 
-                                        <button class="add-to-cart" onclick="addToCart('${item.name}', ${item.price})">
+                                        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price})">
                                             <span>Add to Cart</span>
                                         </button>
                                     </div>
@@ -4266,7 +4520,7 @@
                     <div class="empty-cart-message">
                         <i class="material-icons">shopping_cart</i>
                         <p>Your cart is empty</p>
-                    </div>
+                                    </div>
                 `;
                 cartTotal.textContent = '0';
                 return;
@@ -4281,7 +4535,7 @@
                         <div class="cart-item-info">
                             <div class="cart-item-name">${item.name}</div>
                             <div class="cart-item-price">$${item.price.toLocaleString()} × ${item.quantity}</div>
-                        </div>
+                                </div>
                         <div class="cart-item-quantity">
                             <button class="quantity-btn" onclick="updateQuantity(${index}, -1)"><i class="material-icons">remove</i></button>
                             <span>${item.quantity}</span>
@@ -5211,6 +5465,228 @@
             });
         }
 
+        // --- Options Modal Logic --- 
+        let currentOptionsItem = null;
+        let currentOptionsQuantity = 1;
+        let selectedOptionPriceModifier = 0;
+        let itemToAddAfterPickupSelection = null; // Variable to hold item details temporarily
+
+        function showOptionsModal(item) {
+            currentOptionsItem = item;
+            currentOptionsQuantity = 1;
+            selectedOptionPriceModifier = 0; // Reset selected option
+            console.log("Showing options for:", item);
+
+            const modal = document.getElementById('optionsModal');
+            document.getElementById('optionsImage').src = item.imageUrl || 'https://images.unsplash.com/photo-1551024506-0bccd828d307';
+            document.getElementById('optionsTitle').textContent = item.name;
+            document.getElementById('optionsQuantity').textContent = currentOptionsQuantity;
+
+            // --- Option Generation Logic --- 
+            const optionsChoicesDiv = document.getElementById('optionsChoices');
+            const optionsGroupLabel = document.getElementById('optionsGroupLabel');
+            const optionsSelectionGroup = document.getElementById('optionsSelectionGroup');
+            optionsChoicesDiv.innerHTML = ''; // Clear previous options
+            selectedOptionPriceModifier = 0; // Reset modifier
+
+            const itemNameLower = item.name.toLowerCase();
+
+            // Example: Options for "Glazed Donut Holes"
+            if (itemNameLower.includes('glazed donut holes')) {
+                optionsSelectionGroup.style.display = 'block';
+                optionsGroupLabel.textContent = 'Glazed Donut Holes Count';
+
+                const options = [
+                    { label: '6 count', priceModifier: 1.75 },
+                    { label: '12 count', priceModifier: 3.50 }
+                ];
+
+                options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice';
+                    button.dataset.priceModifier = option.priceModifier;
+                    button.innerHTML = `
+                        <span>${option.label}</span>
+                        <span>+$${option.priceModifier.toFixed(2)}</span>
+                    `;
+                    button.onclick = () => selectOption(button, option.priceModifier);
+                    optionsChoicesDiv.appendChild(button);
+                    
+                    // Automatically select the first option initially
+                    if (index === 0) {
+                        selectOption(button, option.priceModifier);
+                    }
+                });
+            } 
+            // NEW: Options for "Glazed" or "Chocolate" donuts
+            else if (itemNameLower.includes('glazed') || itemNameLower.includes('chocolate')) {
+                optionsSelectionGroup.style.display = 'block';
+                optionsGroupLabel.textContent = 'Select Quantity'; // Or your preferred label
+
+                const dozenPrice = 10.00; // Assumed price for a dozen
+
+                const options = [
+                    { label: 'Single', priceModifier: item.price }, // Single price is item's base price
+                    { label: 'Dozen', priceModifier: dozenPrice }     // Dozen price
+                ];
+
+                options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice';
+                    // Store the price for this specific option quantity (single or dozen)
+                    button.dataset.priceModifier = option.priceModifier; 
+                    button.innerHTML = `
+                        <span>${option.label}</span>
+                        <span>$${option.priceModifier.toFixed(2)}</span> 
+                    `;
+                    button.onclick = () => selectOption(button, option.priceModifier);
+                    optionsChoicesDiv.appendChild(button);
+
+                    // Automatically select the first option ("Single") initially
+                    if (index === 0) {
+                        selectOption(button, option.priceModifier);
+                    }
+                });
+            }
+            else {
+                // Hide options section if not applicable for other items
+                optionsSelectionGroup.style.display = 'none';
+                // For items without options, the price modifier should be the item's own price
+                // so that total = item.price * quantity
+                selectedOptionPriceModifier = item.price; 
+            }
+            // --- End Option Generation --- 
+
+            updateOptionsPrice(); // Update price based on default selection
+            modal.classList.add('show');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeOptionsModal() {
+            const modal = document.getElementById('optionsModal');
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+            currentOptionsItem = null; // Clear current item
+        }
+
+        function selectOption(selectedButton, priceModifier) {
+            // Deselect previously selected button
+            const currentlySelected = document.querySelector('.option-choice.selected');
+            if (currentlySelected) {
+                currentlySelected.classList.remove('selected');
+            }
+            // Select the new button
+            selectedButton.classList.add('selected');
+            selectedOptionPriceModifier = priceModifier;
+            updateOptionsPrice();
+        }
+
+        function updateOptionsQuantity(change) {
+            currentOptionsQuantity += change;
+            if (currentOptionsQuantity < 1) {
+                currentOptionsQuantity = 1; // Minimum quantity is 1
+            }
+            document.getElementById('optionsQuantity').textContent = currentOptionsQuantity;
+            updateOptionsPrice();
+        }
+
+        function updateOptionsPrice() {
+            if (!currentOptionsItem) return;
+            
+            // Price is determined by the selected option's modifier
+            // If no options displayed, modifier was set to item.price in showOptionsModal
+            const totalPrice = selectedOptionPriceModifier * currentOptionsQuantity;
+            document.getElementById('optionsTotalPrice').textContent = `$${totalPrice.toFixed(2)}`;
+        }
+
+        function addOptionsToCart() {
+            if (!currentOptionsItem) return;
+
+            // --- Check for Pickup Time --- 
+            if (!document.body.classList.contains('pickup-active')) {
+                // Ensure an option is selected if required (before storing)
+                if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('.option-choice.selected')) {
+                    alert('Please select an option.');
+                    return;
+                }
+                
+                // Calculate details to store
+                let itemNameWithOptions = currentOptionsItem.name;
+                const selectedButton = document.querySelector('.option-choice.selected');
+                if (selectedButton) {
+                    const optionLabel = selectedButton.querySelector('span:first-child').textContent;
+                    itemNameWithOptions += ` (${optionLabel})`;
+                }
+                let basePrice = 0;
+                if (document.getElementById('optionsSelectionGroup').style.display === 'none') {
+                    basePrice = currentOptionsItem.price;
+                }
+                const finalPricePerItem = basePrice + selectedOptionPriceModifier;
+
+                // Store details
+                itemToAddAfterPickupSelection = {
+                    name: itemNameWithOptions,
+                    price: finalPricePerItem,
+                    quantity: currentOptionsQuantity
+                };
+                console.log("Pickup time not set. Storing item:", itemToAddAfterPickupSelection);
+
+                // Close current modal and show pickup time modal
+                closeOptionsModal();
+                showPickupTimeModal(); // Assuming this function exists and opens the pickup modal
+                return; // Stop execution here
+            }
+            // --- End Pickup Time Check ---
+
+            // Continue with original logic if pickup time IS set
+            // Ensure an option is selected if required
+            if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('.option-choice.selected')) {
+                 alert('Please select an option.');
+                 return;
+            }
+
+            // Determine item name (could include selected option)
+            let itemNameWithOptions = currentOptionsItem.name;
+            const selectedButton = document.querySelector('.option-choice.selected');
+            if (selectedButton) {
+                const optionLabel = selectedButton.querySelector('span:first-child').textContent;
+                itemNameWithOptions += ` (${optionLabel})`;
+            }
+
+            // Calculate final price per item based on selected option
+            // If no options displayed, modifier was set to item.price in showOptionsModal
+            const finalPricePerItem = selectedOptionPriceModifier; 
+
+            // Find existing item in cart
+            const existingItemIndex = cart.findIndex(item => item.name === itemNameWithOptions);
+
+            if (existingItemIndex > -1) {
+                // Update quantity of existing item
+                cart[existingItemIndex].quantity += currentOptionsQuantity;
+            } else {
+                // Add new item to cart
+                cart.push({
+                    name: itemNameWithOptions,
+                    price: finalPricePerItem, 
+                    quantity: currentOptionsQuantity
+                });
+            }
+
+            updateCartCount();
+            updateCartDisplay(); // Optional: Update cart display while modal is open
+            closeOptionsModal();
+
+            // Optional: Visual feedback (similar to original addToCart)
+            const cartIcon = document.querySelector('.cart-icon');
+            cartIcon.classList.add('add-success');
+            setTimeout(() => {
+                cartIcon.classList.remove('add-success');
+            }, 500);
+        }
+
+
+        // --- Existing Functions Continue Below --- 
+        // DOMContentLoaded, toggleCart, closeCartOnOutsideClick, addToCart (original simple version), etc.
     </script>
 </body>
 </html> 

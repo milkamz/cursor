@@ -8,18 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script> --> <!-- 지도 API 스크립트 제거 -->
     <style>
-        /* 기본 스타일 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
+              body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             background-color: #fff;
             color: #1d1d1f;
             line-height: 1.5;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         /* 모달 열렸을 때 body 스크롤 방지 */
@@ -42,6 +37,8 @@
             z-index: 900;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 약간의 그림자 */
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+            padding: 0.8rem 1.5rem;
         }
 
         .nav-logo {
@@ -84,7 +81,7 @@
         .nav-account {
             display: flex;
             align-items: center;
-            gap: 1rem; /* 계정 섹션 내부 간격 축소 */
+            gap: 0.5rem; /* 계정 섹션 내부 간격 축소 */
         }
 
         .login-btn {
@@ -119,9 +116,9 @@
             background-color: #1d1d1f; /* 진한 회색 배경 */
             color: white;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -5477,6 +5474,19 @@
             selectedOptionPriceModifier = 0; // Reset selected option
             console.log("Showing options for:", item);
 
+            // 먼저 이전에 생성된 ECLAIR 관련 옵션 그룹들 제거
+            const optionsDetailsDiv = document.querySelector('.options-details');
+            if (optionsDetailsDiv) {
+                // 아이싱과 필링 옵션 그룹들 찾기
+                const allOptionGroups = optionsDetailsDiv.querySelectorAll('.options-group');
+                allOptionGroups.forEach(group => {
+                    // 기본 옵션 그룹(id가 optionsSelectionGroup인 것)은 유지
+                    if (group.id !== 'optionsSelectionGroup') {
+                        group.remove();
+                    }
+                });
+            }
+
             const modal = document.getElementById('optionsModal');
             document.getElementById('optionsImage').src = item.imageUrl || 'https://images.unsplash.com/photo-1551024506-0bccd828d307';
             document.getElementById('optionsTitle').textContent = item.name;
@@ -5548,8 +5558,142 @@
                     }
                 });
             }
+            // NEW: Options for SPRINKLES
+            else if (itemNameLower.includes('sprinkles')) {
+                optionsSelectionGroup.style.display = 'block';
+                optionsGroupLabel.textContent = 'Select Icing';
+                document.querySelector('#optionsSelectionGroup .options-select-prompt').textContent = 'Please select 1'; // Ensure prompt is correct
+
+                const options = [
+                    { label: 'Strawberry Icing' },
+                    { label: 'Vanilla Icing' },
+                    { label: 'Chocolate Icing' }
+                ];
+
+                options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice';
+                    button.dataset.priceModifier = item.price; // Price doesn't change with icing
+                    button.innerHTML = `<span>${option.label}</span>`; // Only show label
+                    button.onclick = () => selectOption(button, item.price);
+                    optionsChoicesDiv.appendChild(button);
+
+                    if (index === 0) {
+                        selectOption(button, item.price);
+                    }
+                });
+            }
+            // NEW: Options for TWIST
+            else if (itemNameLower.includes('twist')) {
+                optionsSelectionGroup.style.display = 'block';
+                optionsGroupLabel.textContent = 'Select Flavor';
+                 document.querySelector('#optionsSelectionGroup .options-select-prompt').textContent = 'Please select 1';
+
+                const options = [
+                    { label: 'Strawberry Icing' },
+                    { label: 'Chocolate Icing' },
+                    { label: 'Cinnamon Glazed' },
+                    { label: 'Glazed' },
+                    { label: 'Cinnamon Sugar' }
+                ];
+
+                options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice';
+                    button.dataset.priceModifier = item.price; // Price doesn't change with flavor
+                    button.innerHTML = `<span>${option.label}</span>`;
+                    button.onclick = () => selectOption(button, item.price);
+                    optionsChoicesDiv.appendChild(button);
+
+                    if (index === 0) {
+                        selectOption(button, item.price);
+                    }
+                });
+            }
+            // NEW: Options for ECLAIR
+            else if (itemNameLower.includes('eclair')) {
+                optionsSelectionGroup.style.display = 'block'; // Keep this block visible
+
+                // --- ICING Options ---
+                const icingGroupDiv = document.createElement('div');
+                icingGroupDiv.className = 'options-group';
+                icingGroupDiv.innerHTML = `
+                    <label class="options-group-label">Select Icing</label>
+                    <span class="options-required">Required*</span>
+                    <p class="options-select-prompt">Please select 1</p>
+                    <div class="options-choices icing-choices"></div>
+                `;
+                optionsDetailsDiv.insertBefore(icingGroupDiv, optionsDetailsDiv.querySelector('.options-footer')); // Insert before footer
+
+                const icingChoicesDiv = icingGroupDiv.querySelector('.icing-choices');
+                const icingOptions = [
+                    { label: 'Chocolate Icing' },
+                    { label: 'Glazed' },
+                    { label: 'Maple Icing' }
+                ];
+
+                icingOptions.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice icing-option'; // Add specific class
+                    button.dataset.optionType = 'icing'; // Identify option type
+                    button.dataset.label = option.label;
+                    button.innerHTML = `<span>${option.label}</span>`;
+                    button.onclick = () => selectIndependentOption(button);
+                    icingChoicesDiv.appendChild(button);
+
+                    // Select first icing option by default
+                    if (index === 0) {
+                        selectIndependentOption(button);
+                    }
+                });
+
+                // --- FILLING Options ---
+                const fillingGroupDiv = document.createElement('div');
+                fillingGroupDiv.className = 'options-group';
+                fillingGroupDiv.innerHTML = `
+                    <label class="options-group-label">Select Filling</label>
+                    <span class="options-required">Required*</span>
+                    <p class="options-select-prompt">Please select 1</p>
+                    <div class="options-choices filling-choices"></div>
+                `;
+                optionsDetailsDiv.insertBefore(fillingGroupDiv, optionsDetailsDiv.querySelector('.options-footer')); // Insert before footer
+
+                const fillingChoicesDiv = fillingGroupDiv.querySelector('.filling-choices');
+                const fillingOptions = [
+                    { label: 'BAVARIAN CREAM' },
+                    { label: 'RASPBERRY' },
+                    { label: 'LEMON' },
+                    { label: 'NO FILLING' }
+                ];
+
+                fillingOptions.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice filling-option'; // Add specific class
+                    button.dataset.optionType = 'filling'; // Identify option type
+                    button.dataset.label = option.label;
+                    button.innerHTML = `<span>${option.label}</span>`;
+                    button.onclick = () => selectIndependentOption(button);
+                    fillingChoicesDiv.appendChild(button);
+
+                     // Select first filling option by default
+                    if (index === 0) {
+                        selectIndependentOption(button);
+                    }
+                });
+
+                 // Hide the original single options group as we now have specific groups
+                optionsSelectionGroup.style.display = 'none';
+                selectedOptionPriceModifier = item.price; // Price is based on the base item for Eclair
+            }
             else {
                 // Hide options section if not applicable for other items
+                // Ensure specific Eclair groups are hidden if another item is selected
+                const optionsDetailsDiv = document.querySelector('.options-details');
+                const existingIcingGroup = optionsDetailsDiv.querySelector('.options-group:has(.icing-choices)');
+                const existingFillingGroup = optionsDetailsDiv.querySelector('.options-group:has(.filling-choices)');
+                if (existingIcingGroup) existingIcingGroup.remove();
+                if (existingFillingGroup) existingFillingGroup.remove();
+
                 optionsSelectionGroup.style.display = 'none';
                 // For items without options, the price modifier should be the item's own price
                 // so that total = item.price * quantity
@@ -5561,6 +5705,20 @@
             modal.classList.add('show');
             document.body.classList.add('modal-open');
         }
+
+        // Function to handle selection within independent groups (like Eclair icing/filling)
+        function selectIndependentOption(selectedButton) {
+            const optionType = selectedButton.dataset.optionType;
+            // Deselect others within the same group
+            document.querySelectorAll(`.option-choice.${optionType}-option.selected`).forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            // Select the clicked button
+            selectedButton.classList.add('selected');
+            // Price update is handled by updateOptionsPrice based on base item price for Eclair
+            updateOptionsPrice();
+        }
+
 
         function closeOptionsModal() {
             const modal = document.getElementById('optionsModal');
@@ -5595,6 +5753,7 @@
             
             // Price is determined by the selected option's modifier
             // If no options displayed, modifier was set to item.price in showOptionsModal
+            // For Eclair, selectedOptionPriceModifier is set to the base item price
             const totalPrice = selectedOptionPriceModifier * currentOptionsQuantity;
             document.getElementById('optionsTotalPrice').textContent = `$${totalPrice.toFixed(2)}`;
         }
@@ -5602,7 +5761,44 @@
         function addOptionsToCart() {
             if (!currentOptionsItem) return;
 
-            // --- Check for Pickup Time --- 
+            const itemNameLower = currentOptionsItem.name.toLowerCase();
+            let optionsValid = true;
+            let selectedOptions = [];
+
+            // Special handling for Eclair to check both selections
+            if (itemNameLower.includes('eclair')) {
+                const selectedIcing = document.querySelector('.option-choice.icing-option.selected');
+                const selectedFilling = document.querySelector('.option-choice.filling-option.selected');
+
+                if (!selectedIcing) {
+                    alert('Please select an icing.');
+                    optionsValid = false;
+                } else {
+                    selectedOptions.push(selectedIcing.dataset.label);
+                }
+
+                if (!selectedFilling) {
+                    alert('Please select a filling.');
+                    optionsValid = false;
+                } else {
+                    selectedOptions.push(selectedFilling.dataset.label);
+                }
+            } else {
+                // Original logic for other items with single option group
+                const optionsGroupVisible = document.getElementById('optionsSelectionGroup').style.display !== 'none';
+                const singleOptionSelected = document.querySelector('#optionsChoices .option-choice.selected');
+                if (optionsGroupVisible && !singleOptionSelected) {
+                    alert('Please select an option.');
+                    optionsValid = false;
+                } else if (singleOptionSelected) {
+                     selectedOptions.push(singleOptionSelected.querySelector('span:first-child').textContent);
+                }
+            }
+
+            if (!optionsValid) return;
+
+
+            // --- Check for Pickup Time ---
             if (!document.body.classList.contains('pickup-active')) {
                 // Ensure an option is selected if required (before storing)
                 if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('.option-choice.selected')) {
@@ -5639,25 +5835,21 @@
             // --- End Pickup Time Check ---
 
             // Continue with original logic if pickup time IS set
-            // Ensure an option is selected if required
-            if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('.option-choice.selected')) {
-                 alert('Please select an option.');
-                 return;
+
+            // Determine item name including selected options
+            let itemNameWithOptions = currentOptionsItem.name;
+            if (selectedOptions.length > 0) {
+                 // Join selected options, e.g., "ECLAIR (Chocolate Icing, Bavarian)"
+                 itemNameWithOptions += ` (${selectedOptions.join(', ')})`;
             }
 
-            // Determine item name (could include selected option)
-            let itemNameWithOptions = currentOptionsItem.name;
-            const selectedButton = document.querySelector('.option-choice.selected');
-            if (selectedButton) {
-                const optionLabel = selectedButton.querySelector('span:first-child').textContent;
-                itemNameWithOptions += ` (${optionLabel})`;
-            }
 
             // Calculate final price per item based on selected option
-            // If no options displayed, modifier was set to item.price in showOptionsModal
-            const finalPricePerItem = selectedOptionPriceModifier; 
+            // For Eclair, price doesn't change with options, use base price
+            // For others, use selectedOptionPriceModifier which holds the correct price (single/dozen or base price)
+            const finalPricePerItem = selectedOptionPriceModifier;
 
-            // Find existing item in cart
+            // Find existing item in cart (match name with options)
             const existingItemIndex = cart.findIndex(item => item.name === itemNameWithOptions);
 
             if (existingItemIndex > -1) {
@@ -5689,4 +5881,4 @@
         // DOMContentLoaded, toggleCart, closeCartOnOutsideClick, addToCart (original simple version), etc.
     </script>
 </body>
-</html> 
+</html>

@@ -272,41 +272,6 @@
             right: 20px;
         }
 
-        /* 회사 소개 섹션 */
-        .about-section {
-            background-color: #fff;
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .about-content h2 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: #1d1d1f;
-        }
-
-        .about-content p {
-            font-size: 1.1rem;
-            color: #86868b;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-        }
-
-        .about-features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
         .feature {
             flex-basis: calc(33.333% - 2rem);
             min-width: 250px;
@@ -824,7 +789,6 @@
             /* 컨테이너 배경 fade 효과 */
             transition: visibility 0s linear 0.6s, opacity 0.6s ease; /* opacity 시간 일치, 숨길 때 지연 */
         }
-
         .cart-modal.show,
         .order-modal.show {
             /* display: flex; 이미 설정됨 */
@@ -882,9 +846,9 @@
         #registerModal .order-content,
         #accountModal .order-content,
         #menuDetailModal .menu-detail-content {
-             width: 450px; /* 작은 모달들 너비 */
+             width: 90%; /* 화면 너비에 따라 조절 */
+             max-width: 450px; /* 최대 너비 제한 */
              height: auto; /* 높이는 자동으로 */
-             max-height: 90vh; /* 너무 길어지지 않도록 */
              border-radius: 12px; /* 일반 모달은 모든 모서리 둥글게 */
              /* 슬라이드 관련 스타일 리셋 */
              transform: none; 
@@ -1161,10 +1125,11 @@
         }
 
         .order-form {
-            padding: 1.5rem 2rem 2rem;
+            padding: 1.5rem 1.5rem 2rem; /* 좌우 패딩 축소 */
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
             /* overflow-y: auto; 제거 */
             /* max-height: 60vh; 제거 */
         }
@@ -1173,6 +1138,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
         }
 
         .form-group label {
@@ -1193,6 +1159,7 @@
             transition: all 0.3s ease;
             width: 100%;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
         }
 
         .form-group textarea {
@@ -1746,9 +1713,9 @@
         #registerModal .order-content,
         #accountModal .order-content,
         #menuDetailModal .menu-detail-content {
-             width: 450px; /* 작은 모달들 너비 */
+             width: 90%; /* 화면 너비에 따라 조절 */
+             max-width: 450px; /* 최대 너비 제한 */
              height: auto; /* 높이는 자동으로 */
-             max-height: 90vh; /* 너무 길어지지 않도록 */
              border-radius: 12px; /* 일반 모달은 모든 모서리 둥글게 */
              /* 슬라이드 관련 스타일 리셋 */
              transform: none; 
@@ -2025,10 +1992,11 @@
         }
 
         .order-form {
-            padding: 1.5rem 2rem 2rem;
+            padding: 1.5rem 1.5rem 2rem; /* 좌우 패딩 축소 */
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
             /* overflow-y: auto; 제거 */
             /* max-height: 60vh; 제거 */
         }
@@ -2037,6 +2005,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
         }
 
         .form-group label {
@@ -2057,6 +2026,7 @@
             transition: all 0.3s ease;
             width: 100%;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
         }
 
         .form-group textarea {
@@ -2931,37 +2901,11 @@
             <span class="material-icons">chevron_right</span>
         </div>
     </div>
-
-    <!-- 회사 소개 섹션 -->
-    <section class="about-section" id="about">
-        <div class="about-content">
-            <h2>Our Story</h2>
-            <p>Sweet Donut began with a simple mission: to create the perfect donut that balances exceptional taste, quality ingredients, and beautiful design. Founded in 2018, we've been delighting customers with our handcrafted creations made fresh daily.</p>
-            <div class="about-features">
-                <div class="feature">
-                    <span class="material-icons feature-icon">eco</span>
-                    <h3>Premium Ingredients</h3>
-                    <p>We source only the finest ingredients to ensure each bite delivers exceptional quality and taste.</p>
-                </div>
-                <div class="feature">
-                    <span class="material-icons feature-icon">restaurant</span>
-                    <h3>Crafted Daily</h3>
-                    <p>Every donut is made fresh each morning in our kitchen using traditional methods.</p>
-                </div>
-                <div class="feature">
-                    <span class="material-icons feature-icon">palette</span>
-                    <h3>Artistic Designs</h3>
-                    <p>Our donuts aren't just delicious—they're beautiful works of edible art designed to delight.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- 메인 컨텐츠 -->
     <main class="container" id="menu">
         <!-- 섹션 타이틀 -->
         <div class="section-title">
-            <h2>Our Collection</h2>
+            <h2>Menu</h2>
             <p>Explore our signature donuts made with premium ingredients</p>
         </div>
         
@@ -3332,30 +3276,26 @@
                 <div style="flex: 1; min-width: 200px; text-align: left;">
                     <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #1d1d1f;">Visit Us</h4>
                     <p style="color: #86868b; font-size: 0.9rem; line-height: 1.6;">
-                        123 Donut Street<br>
-                        Sweetville, NY 10001<br>
-                        (123) 456-7890
+                        1490 Valley Ridge Blvd #104<br>
+                        Lewisville, TX 75077<br>
+                        (972) 436-1054
                     </p>
                 </div>
                 <div style="flex: 1; min-width: 200px; text-align: left;">
                     <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #1d1d1f;">Opening Hours</h4>
                     <p style="color: #86868b; font-size: 0.9rem; line-height: 1.6;">
-                        Monday - Friday: 7am - 7pm<br>
-                        Saturday: 8am - 8pm<br>
-                        Sunday: 8am - 6pm
+                        Monday - Sunday: 5am - 12pm<br>
                     </p>
                 </div>
                 <div style="flex: 1; min-width: 200px; text-align: left;">
                     <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #1d1d1f;">Connect</h4>
                     <p style="color: #86868b; font-size: 0.9rem; line-height: 1.6;">
-                        <a href="#" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">Facebook</a>
-                        <a href="#" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">Instagram</a>
-                        <a href="#" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">Twitter</a>
+                        <a href="mailto:texanleedonuts@gmail.com" style="color: #86868b; text-decoration: none; display: block; margin-bottom: 0.5rem;">texanleedonuts@gmail.com</a>
                     </p>
                 </div>
             </div>
             <p style="color: #86868b; font-size: 0.8rem; margin-top: 2rem; border-top: 1px solid #d2d2d7; padding-top: 2rem;">
-                © 2023 Sweet Donut. All rights reserved.
+                © 2024 Texan Lee Donuts All rights reserved.
             </p>
         </div>
     </footer>
@@ -3535,7 +3475,7 @@
         // 구글 시트 API URL (기존 주문 처리 URL과 동일)
         const API_URL = 'https://script.google.com/macros/s/AKfycbzuIZT-pRiC4o53u0ruWefsfRqyDasNQqW7nOfs5ipHZ0PlicbFP3FixcjDZv4rha8QXQ/exec';
         const SHEET_ID = '1_3vfkReCDiWfQAIHwfC2vNPmJZk-EAhIO6AAsmrYms4';
-        const REFRESH_INTERVAL = 5 * 60 * 1000; // 5분마다 메뉴 새로고침
+        const REFRESH_INTERVAL = 60 * 60 * 1000; // 1시간간마다 메뉴 새로고침
         
         // 슬라이더 기능
         let currentSlide = 0;
@@ -3759,73 +3699,7 @@
             }
         }
 
-        // 메뉴 상세 정보 표시
-        function showMenuDetail(name, description, price, imageUrl, category) {
-            const modal = document.getElementById('menuDetailModal');
-            
-            // 기본 정보 설정
-            document.getElementById('detailTitle').textContent = `${name} Details`;
-            document.getElementById('detailName').textContent = name;
-            document.getElementById('detailDescription').textContent = description || 'A delicious handcrafted donut made with premium ingredients.';
-            document.getElementById('detailPrice').textContent = price.toLocaleString();
-            document.getElementById('detailImage').src = imageUrl;
-            document.getElementById('detailImage').alt = name;
-            
-            // 장바구니 추가 버튼 설정
-            const addToCartBtn = document.getElementById('detailAddToCartBtn');
-            addToCartBtn.onclick = function() {
-                addToCart(name, price);
-                closeMenuDetail();
-            };
-            
-            // 재료 정보 추가
-            const ingredientsContainer = document.getElementById('detailIngredients');
-            ingredientsContainer.innerHTML = '';
-            
-            // 카테고리에 따라 다른 재료 제공
-            const ingredients = getIngredients(name, category);
-            
-            ingredients.forEach(ingredient => {
-                const item = document.createElement('div');
-                item.className = 'ingredient-item';
-                item.textContent = ingredient;
-                ingredientsContainer.appendChild(item);
-            });
-            
-            // 모달 표시
-            modal.classList.add('show');
-        }
-        
-        // 도넛 종류별 재료 정보 (예시)
-        function getIngredients(name, category) {
-            const lowerName = name.toLowerCase();
-            
-            // 기본 재료
-            const baseIngredients = ['Enriched Flour', 'Sugar', 'Vegetable Oil', 'Water', 'Yeast'];
-            
-            // 초코 도넛 재료
-            if (lowerName.includes('chocolate') || lowerName.includes('초코')) {
-                return [...baseIngredients, 'Cocoa Powder', 'Chocolate Chips', 'Milk Solids', 'Natural Flavor'];
-            }
-            
-            // 블루베리 도넛 재료
-            else if (lowerName.includes('blueberry') || lowerName.includes('블루베리')) {
-                return [...baseIngredients, 'Dried Blueberries', 'Blueberry Puree', 'Natural Flavor', 'Citric Acid'];
-            }
-            
-            // 아침 식사류 재료
-            else if (category === 'breakfast') {
-                return ['Enriched Flour', 'Water', 'Eggs', 'Salt', 'Cheese', 'Ham', 'Butter', 'Spices'];
-            }
-            
-            return baseIngredients;
-        }
-         
-        // 메뉴 상세 모달 닫기
-        function closeMenuDetail() {
-            document.getElementById('menuDetailModal').classList.remove('show');
-        }
-        
+       
         // 메뉴 데이터 가져오기
         async function fetchMenuData() {
             // 로딩 표시
@@ -5835,3 +5709,4 @@
     </script>
 </body>
 </html>
+

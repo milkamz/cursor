@@ -5701,13 +5701,14 @@
             const itemNameLower = item.name.toLowerCase();
 
             // Example: Options for "Glazed Donut Holes"
-            if (itemNameLower.includes('glazed donut holes')) {
+            if (itemNameLower.includes('donut holes')) {
                 optionsSelectionGroup.style.display = 'block';
                 optionsGroupLabel.textContent = 'Glazed Donut Holes Count';
 
                 const options = [
-                    { label: '6 count', priceModifier: 1.75 },
-                    { label: '12 count', priceModifier: 3.50 }
+                    { label: 'Glazed holes - dozen', priceModifier: 1.99 },
+                    { label: 'Chocolate holes - dozen', priceModifier: 2.49 },
+                    { label: 'Sprinkle holes - dozen', priceModifier: 3.99 }
                 ];
 
                 options.forEach((option, index) => {
@@ -5735,14 +5736,14 @@
                 const dozenPrice = 10.00; // Assumed price for a dozen
 
                 const options = [
-                    { label: 'Single', priceModifier: item.price }, // Single price is item's base price
-                    { label: 'Dozen', priceModifier: dozenPrice }     // Dozen price
+                    { label: 'Single', priceModifier: item.price }, // Added back Single option
+                    { label: 'Dozen', priceModifier: dozenPrice }
                 ];
 
                 options.forEach((option, index) => {
                     const button = document.createElement('button');
                     button.className = 'option-choice';
-                    // Store the price for this specific option quantity (single or dozen)
+                    // Store the price for this specific option quantity
                     button.dataset.priceModifier = option.priceModifier; 
                     button.innerHTML = `
                         <span>${option.label}</span>
@@ -5751,7 +5752,7 @@
                     button.onclick = () => selectOption(button, option.priceModifier);
                     optionsChoicesDiv.appendChild(button);
 
-                    // Automatically select the first option ("Single") initially
+                    // Select the first option (Single) by default
                     if (index === 0) {
                         selectOption(button, option.priceModifier);
                     }

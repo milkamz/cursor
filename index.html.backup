@@ -3594,6 +3594,3600 @@
                                 <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Edit</button>
                                 <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Remove</button>
                                 <button style="background: none; border: 1px solid #0071e3; color: #0071e3; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Set as Default</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Texan Lee Donuts</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script> --> <!-- 지도 API 스크립트 제거 -->
+    <style>
+        /* Base styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+              
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #fff;
+            color: #1d1d1f;
+            line-height: 1.5;
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 모달 열렸을 때 body 스크롤 방지 */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* 네비게이션 바 */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between; /* 로고/링크와 계정 분리 */
+            align-items: center;
+            padding: 0.8rem 3.5rem; /* 상하 여백 축소, 좌우 유지 */
+            background: rgba(255, 255, 255, 0.7); /* 반투명 흰색 배경 */
+            backdrop-filter: blur(10px); /* 블러 효과 */
+            position: fixed; /* 상단 고정 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 900;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 약간의 그림자 */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+            display: inline-block; /* Ensure link wraps image */
+            vertical-align: middle; /* Align vertically */
+        }
+
+        .nav-logo img {
+            max-height: 65px; /* Increased height */
+            display: block; /* Remove extra space below image */
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+
+        .nav-account {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* 계정 섹션 내부 간격 축소 */
+        }
+
+        .login-btn {
+            background: none;
+            border: none;
+            color: #1d1d1f;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            display: none; /* Hide the login button */
+        }
+
+        .login-btn:hover {
+            color: #0071e3;
+        }
+
+        /* Style for disabled login button */
+        .login-btn:disabled,
+        .login-btn[disabled]{
+            color: #aaaaaa; /* Grey out text */
+            cursor: default; /* Default cursor */
+            opacity: 0.6; /* Make it slightly transparent */
+        }
+        .login-btn:disabled:hover {
+             color: #aaaaaa; /* Prevent hover color change */
+        }
+
+        /* ORDER ONLINE 버튼 스타일 */
+        .order-online-btn {
+            /* background-color: #0071e3; */
+            background-color: #1d1d1f; /* 진한 회색 배경 */
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-left: 0.5rem; 
+            box-shadow: none; /* 그림자 제거 */
+        }
+
+        .order-online-btn:hover {
+            /* background-color: #0077ED; */
+            background-color: #333; /* 호버 시 약간 밝은 회색 */
+            transform: translateY(0); /* 호버 시 이동 효과 제거 */
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+        }
+
+        /* 헤더 스타일 - Apple 스타일 */
+        .header {
+            background: #fbfbfd;
+            padding: 6rem 0 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 100;
+            letter-spacing: -0.015em;
+            margin-bottom: 0.5rem;
+            color: #1d1d1f;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header p {
+            font-size: 1.0rem;
+            color: #86868b;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .header-divider {
+            display: none;
+        }
+
+        /* 슬라이더 배너 */
+        .slider-container {
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            max-width: 1200px;
+            margin-bottom: 3rem;
+            width: 95%;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .slide-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .slide-btn {
+            background: white;
+            color: #1d1d1f;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slide-btn:hover {
+            background: #f5f5f7;
+            transform: translateY(-2px);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .slider-arrow:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-prev {
+            left: 20px;
+        }
+
+        .slider-next {
+            right: 20px;
+        }
+
+        .feature {
+            flex-basis: calc(33.333% - 2rem);
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #0071e3;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #1d1d1f;
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            color: #86868b;
+            line-height: 1.6;
+        }
+
+        /* 메인 컨테이너 스타일 - Apple 스타일 */
+        .container {
+            max-width: 980px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+            position: relative;
+        }
+
+        /* 카테고리 탭 스타일 - Apple 스타일 */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 3rem auto 2.5rem;
+            max-width: 800px;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            position: sticky;
+            top: 70px; /* 네비게이션 바 아래에 위치 */
+            z-index: 10;
+            backdrop-filter: saturate(180%) blur(20px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #f2f2f2;
+            padding: 1rem 0;
+            width: 95%;
+        }
+
+        .category-tab {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.8rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #1d1d1f;
+            position: relative;
+            font-weight: 500;
+            border-radius: 18px;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .category-tab.active {
+            color: #fff;
+            background: #1d1d1f;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .category-tab:not(.active):hover {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+
+        /* 섹션 타이틀 스타일 - Apple 스타일 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 1rem;
+            letter-spacing: -0.015em;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto;
+            letter-spacing: -0.01em;
+        }
+
+        /* 카테고리 콘텐츠 스타일 */
+        .category-content {
+            display: none !important;
+        }
+
+        .category-content.active {
+            display: grid !important;
+        }
+
+        /* 메뉴 그리드 - Apple 스타일 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 메뉴 아이템 카드 디자인 - 크기 축소 */
+        .menu-item {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .menu-item img {
+            width: 160px;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
+            background-color: #f5f5f5;
+            flex-shrink: 0;
+        }
+
+        /* 이미지 로드 실패 시 스타일 */
+        .menu-item img.error {
+            background-size: 50px 50px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .menu-item:hover img {
+            transform: none;
+            opacity: 1;
+        }
+
+        /* New class for text details */
+        .menu-item-details {
+            flex: 1;
+            padding: 1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Apply styles previously on menu-item-content to menu-item-details */
+        .menu-item-details h3 {
+            font-size: 1.0rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+        }
+
+        .menu-item-details p {
+            color: #6e6e73;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .menu-item-details .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 0.5rem;
+            border-top: none;
+        }
+
+        .menu-item-details .price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            padding: 0;
+        }
+
+        /* 'Add to Cart' 버튼 스타일 */
+        .menu-item-details .add-to-cart {
+            display: none !important;
+        }
+
+        .menu-item-details .price-container::before {
+            display: none;
+        }
+
+        .menu-item .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 0.6rem;
+            border-top: none;
+        }
+
+        .menu-item .price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            padding: 0;
+        }
+
+        /* 'Add to Cart' 버튼 스타일 - 크기 축소 */
+        .menu-item .add-to-cart {
+            background: #f5f5f7;
+            color: #1d1d1f;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            box-shadow: none;
+        }
+
+        .menu-item .add-to-cart:hover {
+            background: #1d1d1f;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item .price-container::before {
+            display: none;
+        }
+
+        .menu-item .price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            padding: 0;
+            position: relative;
+        }
+
+        .details-btn {
+            color: #0071e3;
+            background: none;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0;
+            margin-top: 0.7rem;
+            text-decoration: underline;
+        }
+
+        /* 메뉴 상세 모달 */
+        .menu-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .menu-detail-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .menu-detail-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            animation: slideUp 0.4s ease;
+        }
+
+        .menu-detail-header {
+            display: flex;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .menu-detail-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .menu-detail-info {
+            flex: 1;
+        }
+
+        .menu-detail-info h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #1d1d1f;
+        }
+
+        .menu-detail-info p {
+            color: #86868b;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .menu-detail-price {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-detail-body {
+            padding: 0 2rem 2rem;
+        }
+
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .nutrition-table th {
+            text-align: left;
+            padding: 0.8rem 1rem;
+            background-color: #f5f5f7;
+            font-weight: 500;
+            color: #1d1d1f;
+            font-size: 0.9rem;
+        }
+
+        .nutrition-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f5f5f7;
+            color: #86868b;
+            font-size: 0.9rem;
+        }
+
+        .ingredients-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1d1d1f;
+        }
+
+        .ingredients-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .ingredient-item {
+            background-color: #f5f5f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #86868b;
+        }
+
+        .menu-detail-footer {
+            padding: 1.5rem 2rem;
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-detail-total {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .add-to-cart {
+            background: #0071e3;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            box-shadow: none;
+        }
+
+        .add-to-cart::before {
+            display: none;
+        }
+
+        .add-to-cart:hover {
+            background: #0077ED;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .veg-indicator {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .veg-indicator::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+
+        /* 장바구니 아이콘 - Apple 스타일 */
+        .cart-icon {
+            background: #1d1d1f;
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            margin-left: 10px;
+        }
+
+        .cart-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #0071e3;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            border: 1.5px solid #fff;
+        }
+
+        /* 장바구니 모달 - Apple 스타일 */
+        .cart-modal {
+            /* display: none; 제거 */
+            display: flex; /* 항상 flex로 설정 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0; 
+            bottom: 0; 
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            overflow: hidden; 
+            /* 초기 상태: 숨김 */
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none; /* 숨겨졌을 때 클릭 방지 */
+            /* 컨테이너 배경 fade 효과 */
+            transition: visibility 0s linear 0.6s, opacity 0.6s ease; /* opacity 시간 일치, 숨길 때 지연 */
+        }
+        .cart-modal.show,
+        .order-modal.show {
+            /* display: flex; 이미 설정됨 */
+            /* 상태 변경: 보임 */
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+            /* 컨테이너 배경 fade-in 즉시 시작 */
+            transition: visibility 0s linear 0s, opacity 0.6s ease;
+        }
+
+        /* 슬라이드 인/아웃 애니메이션 (참고용, 현재는 transition 사용) */
+        @keyframes slideInFromRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes slideOutToRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(100%); }
+        }
+
+        /* 모달 콘텐츠 공통 스타일 (슬라이드 적용) */
+        .cart-content,
+        .order-content {
+            background: #fff;
+            padding: 0;
+            border-radius: 12px 0 0 12px; 
+            width: 480px; 
+            max-width: 90%;
+            height: 100%; 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15); 
+            /* 초기 상태: 오른쪽 밖 */
+            transform: translateX(100%); 
+            /* opacity: 0; 제거 -> 컨테이너 opacity로 제어 */
+            /* 콘텐츠 슬라이드 애니메이션 */
+            transition: transform 0.3s ease; /* 슬라이드 속도 0.3초로 변경 */
+        }
+
+        /* 특정 모달 너비 조정 */
+        #checkoutModal .order-content {
+            width: 550px; 
+        }
+        /* Payment 모달도 슬라이드되도록 너비 지정 */
+        #orderModal .order-content {
+             width: 500px; /* Payment 모달 너비 조정 */
+        }
+
+        /* 슬라이드되지 않는 모달들 */
+        #orderChoiceModal .order-content,
+        #pickupTimeModal .order-content,
+        #loginModal .order-content,
+        #registerModal .order-content,
+        #accountModal .order-content,
+        #menuDetailModal .menu-detail-content {
+             width: 90%; /* 화면 너비에 따라 조절 */
+             max-width: 450px; /* 최대 너비 제한 */
+             height: auto; /* 높이는 자동으로 */
+             border-radius: 12px; /* 일반 모달은 모든 모서리 둥글게 */
+             /* 슬라이드 관련 스타일 리셋 */
+             transform: none; 
+             transition: none; /* 트랜지션 제거 */
+             /* 중앙 정렬을 위해 컨테이너 스타일 재정의 */
+             /* 부모(.order-modal)에 justify-content: center; align-items: center; 필요 */
+             /* -> 이 방식 대신, show 할 때 컨테이너에 클래스 추가해서 제어하는 것이 나을 수 있음 */
+             /* -> 또는, 각 모달 컨테이너 자체에 다른 클래스를 부여 */
+              /* 임시: 기존 fadeIn/slideUp 애니메이션 유지 */
+              opacity: 1;
+              animation: fadeIn 0.3s ease, slideUp 0.4s ease; 
+        }
+        /* 계정 모달은 더 넓게 */
+        #accountModal .order-content { width: 800px; }
+        /* 메뉴 상세 모달도 넓게 */
+        #menuDetailModal .menu-detail-content { width: 700px; }
+
+        /* 기존 slideUp/fadeIn 애니메이션 유지 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+             from { opacity: 0; }
+             to { opacity: 1; }
+         }
+
+
+        /* 슬라이드 모달 열릴 때 콘텐츠 위치 변경 */
+        .cart-modal.show .cart-content,
+        #checkoutModal.show .order-content,
+        #orderModal.show .order-content { /* Payment 모달 추가 */
+            transform: translateX(0);
+            /* opacity: 1; 제거 -> 컨테이너 opacity로 제어 */
+        }
+
+        /* 슬라이드 모달 닫힐 때 (참고용) */
+        /* JS에서 닫기 전에 .hiding 클래스 추가 후 transitionend 이벤트 기다려서 .show 제거 */
+        /*
+        .cart-modal.hiding .cart-content,
+        #checkoutModal.hiding .order-content,
+        #orderModal.hiding .order-content {
+            transform: translateX(100%);
+        }
+        */
+
+        /* 모달 내부 스크롤 영역 처리 (변경 없음) */
+        .cart-items, 
+        .checkout-body, 
+        .order-form, 
+        #accountModal > div:last-child, 
+        .menu-detail-body
+         {
+            overflow-y: auto;
+            flex-grow: 1; 
+            padding: 1.5rem 2rem; 
+        }
+        .checkout-body { padding: 1.5rem 2rem 2rem; }
+        #orderModal .order-form { padding: 1.5rem 2rem 2rem; }
+
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #f2f2f2;
+            flex-shrink: 0; /* 헤더 크기 고정 */
+        }
+
+        .cart-header h2 {
+            color: #1d1d1f;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+
+        .cart-header h2 i {
+            color: #0071e3;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #86868b;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .close-cart:hover {
+            color: #1d1d1f;
+            background-color: #f5f5f7;
+        }
+
+        .cart-items {
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            flex: 1;
+            max-height: 50vh;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 14px;
+            background-color: #f5f5f7;
+        }
+
+        .cart-item:hover {
+            background-color: #f0f0f2;
+            transform: translateX(5px);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: #1d1d1f;
+        }
+
+        .cart-item-price {
+            color: #86868b;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .quantity-btn {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #1d1d1f;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .quantity-btn:hover {
+            background: #0071e3;
+            color: white;
+        }
+
+        .cart-footer {
+            padding: 1.5rem 2rem;
+            background-color: #fbfbfd;
+            border-top: 1px solid #f2f2f2;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .cart-total-label {
+            font-weight: 500;
+            color: #1d1d1f;
+        }
+
+        .cart-total-amount {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        /* Checkout 버튼 (장바구니 모달) */
+        .checkout-btn {
+            /* background: #0071e3; */
+            background: #1d1d1f; /* 진한 회색 배경 */
+            color: white;
+            border: none;
+            padding: 1rem 0;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: none;
+            letter-spacing: -0.01em;
+        }
+
+        .checkout-btn:hover {
+            /* background: #0077ED; */
+            background: #333; /* 호버 시 약간 밝은 회색 */
+            transform: translateY(0); /* 호버 시 이동 효과 제거 */
+            /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #86868b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .empty-cart-message .material-icons {
+            font-size: 3rem;
+            color: #ddd;
+        }
+
+        .empty-cart-message p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 주문 모달 - Apple 스타일 */
+        .order-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .order-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .order-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* hidden에서 auto로 변경 */
+            animation: slideUp 0.4s ease;
+        }
+
+        .order-form {
+            padding: 1.5rem 1.5rem 2rem; /* 좌우 패딩 축소 */
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+            /* overflow-y: auto; 제거 */
+            /* max-height: 60vh; 제거 */
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.9rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: #fff;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+        }
+
+        .form-group textarea {
+            resize: none;
+            line-height: 1.5;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0071e3;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+        }
+
+        /* 시간 표시용 div 스타일 추가 */
+        .form-control-display {
+            padding: 0.9rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: #f5f5f7; /* 약간 다른 배경색으로 비활성 상태 표시 */
+            color: #1d1d1f;
+            min-height: calc(0.9rem * 2 + 1rem + 2px); /* 다른 input과 높이 맞추기 */
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #86868b;
+        }
+
+        /* 최종 제출 버튼 (Confirm, Complete, Place Order 등) */
+        .submit-order {
+            /* background: #0071e3; */
+            background: #1d1d1f; /* 진한 회색 배경 */
+            color: white;
+            border: none;
+            padding: 1rem 0;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .submit-order:hover {
+            /* background: #0077ED; */
+            background: #333; /* 호버 시 약간 밝은 회색 */
+            transform: translateY(0); /* 호버 시 이동 효과 제거 */
+            /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+        }
+
+        .submit-order .material-icons {
+            font-size: 1.3rem;
+        }
+
+        /* 로딩 오버레이 - Apple 스타일 */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0071e3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes addToCartSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .add-success {
+            animation: addToCartSuccess 0.5s ease;
+        }
+
+        /* 메뉴 아이템이 없을 때 스타일 */
+        .no-items-message {
+            text-align: center;
+            padding: 3rem;
+            color: #86868b;
+            font-size: 1rem;
+            background: #fbfbfd;
+            border-radius: 18px;
+            border: none;
+            margin: 2rem auto;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        /* 모바일 반응형 디자인 - Apple 스타일 */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                -webkit-text-size-adjust: 100%;
+            }
+
+            .nav-bar {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-logo img {
+                max-height: 40px;
+            }
+            
+            .order-online-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+            
+            .cart-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .header {
+                padding: 5rem 0 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+            
+            .category-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 0.8rem 0.5rem;
+                margin: 2rem auto 1.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .category-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                margin: 0 0.3rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+            }
+            
+            .menu-item img {
+                width: 100%;
+                height: 180px;
+            }
+            
+            .menu-item-details {
+                padding: 1rem;
+            }
+            
+            .menu-item-details .price-container,
+            .menu-item .price-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .cart-content,
+            .order-content {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 12px 12px 0 0 !important;
+                transform: translateY(100%) !important;
+                height: 85vh;
+                bottom: 0;
+                top: auto;
+                position: fixed;
+            }
+            
+            .cart-modal.show .cart-content,
+            #checkoutModal.show .order-content,
+            #orderModal.show .order-content {
+                transform: translateY(0) !important;
+            }
+            
+            .slide {
+                height: 250px;
+            }
+            
+            .slide img {
+                height: 250px;
+            }
+            
+            .slide-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .slide-content p {
+                font-size: 0.8rem;
+                margin-bottom: 0.7rem;
+            }
+            
+            .slide-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .slider-arrow {
+                width: 30px;
+                height: 30px;
+            }
+
+            /* Modal adjustments */
+            .cart-items, 
+            .checkout-body, 
+            .order-form, 
+            #accountModal > div:last-child, 
+            .menu-detail-body {
+                padding: 1rem;
+                max-height: 60vh;
+            }
+            
+            .cart-header, 
+            .cart-footer {
+                padding: 1rem;
+            }
+            
+            .cart-header h2 {
+                font-size: 1.1rem;
+            }
+            
+            .cart-total {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .checkout-btn, 
+            .submit-order {
+                padding: 0.8rem 0;
+                font-size: 0.9rem;
+            }
+            
+            /* Menu detail modal */
+            .menu-detail-content {
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .menu-detail-header {
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+            
+            .menu-detail-img {
+                width: 100%;
+                height: 180px;
+            }
+            
+            .menu-detail-info h3 {
+                font-size: 1.4rem;
+            }
+            
+            .menu-detail-info p,
+            .menu-detail-price {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            /* Options modal */
+            .options-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .options-image {
+                height: 180px;
+            }
+            
+            .options-details {
+                padding: 1rem;
+            }
+            
+            .options-details h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .option-choice {
+                min-width: 100%;
+                padding: 0.7rem;
+            }
+            
+            .options-footer {
+                padding-top: 1rem;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem 4rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .nav-bar {
+                padding: 0.8rem 2rem;
+            }
+            
+            .slider-container {
+                width: 90%;
+            }
+            
+            .category-tabs {
+                width: 95%;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 1rem 0.8rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .cart-content,
+            .order-content {
+                width: 70%;
+                max-width: 400px;
+            }
+        }
+
+        /* Large desktop */
+        @media (min-width: 1025px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 주문 모달 & 로그인 모달 공통 스타일 */
+        .order-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* 소셜 로그인 버튼 스타일 */
+        .social-login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center; /* 가운데 정렬 */
+            width: 100%; /* 부모 요소 너비에 맞춤 */
+            max-width: 280px; /* 최대 너비 설정 */
+            height: 44px; /* 높이 조절 */
+            border-radius: 8px; /* 둥근 모서리 */
+            border: 1px solid #dadce0; /* 테두리 */
+            background-color: white; /* 기본 배경 흰색 */
+            color: #3c4043; /* 기본 글자색 */
+            text-decoration: none;
+            font-size: 0.9rem; /* 글자 크기 조절 */
+            font-weight: 500;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            padding: 0 15px; /* 내부 여백 */
+        }
+
+        .social-login-btn:hover {
+            background-color: #f8f9fa; /* 호버 시 배경색 */
+            border-color: #c6cacc;
+            opacity: 1; /* 호버 시 투명도 제거 */
+        }
+
+        .social-login-btn svg {
+            /* SVG 아이콘 스타일 (필요시 추가) */
+        }
+
+        /* 각 소셜 버튼별 특화 스타일 */
+        .social-login-btn.apple-btn {
+            background-color: #000;
+            color: white;
+            border-color: #000;
+        }
+        .social-login-btn.apple-btn:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        .social-login-btn.facebook-btn {
+            background-color: #1877f2; /* Facebook 파란색 */
+            color: white;
+            border-color: #1877f2;
+        }
+        .social-login-btn.facebook-btn:hover {
+            background-color: #166fe5;
+            border-color: #166fe5;
+        }
+
+        /* 로그인 모달 크기 조정 */
+        #loginModal .order-form {
+            padding: 1rem 1.5rem 1.5rem; /* 패딩 축소 */
+            gap: 0.8rem; /* 요소 간 간격 축소 */
+        }
+
+        #loginModal .form-group {
+            gap: 0.3rem; /* 레이블과 인풋 간격 축소 */
+        }
+
+        #loginModal .form-group label {
+            font-size: 0.85rem; /* 레이블 폰트 크기 축소 */
+        }
+
+        #loginModal .form-group input {
+            padding: 0.7rem 0.8rem; /* 인풋 패딩 축소 */
+            font-size: 0.9rem; /* 인풋 폰트 크기 축소 */
+        }
+
+        #loginModal .submit-order {
+            padding: 0.7rem 0; /* 버튼 패딩 축소 */
+            font-size: 0.9rem; /* 버튼 폰트 크기 축소 */
+            margin-top: 0.8rem; /* 버튼 상단 마진 축소 */
+        }
+        #loginModal .submit-order .material-icons {
+            font-size: 1.1rem; /* 버튼 아이콘 크기 축소 */
+        }
+
+        #loginModal .social-login-btn {
+            height: 38px; /* 소셜 버튼 높이 축소 */
+            font-size: 0.85rem; /* 소셜 버튼 폰트 크기 축소 */
+            max-width: 250px; /* 소셜 버튼 최대 너비 축소 */
+        }
+         #loginModal .social-login-btn svg {
+            width: 16px; /* 소셜 버튼 아이콘 크기 축소 */
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        #loginModal div[style*="text-align: center"] {
+            margin-top: 1rem; /* "Or log in with:" 위 마진 축소 */
+            padding-top: 0.8rem; /* 구분선 위 패딩 축소 */
+        }
+        #loginModal div[style*="text-align: center"] p {
+            font-size: 0.8rem; /* "Or...", "Don't have..." 폰트 크기 축소 */
+            margin-bottom: 0.8rem; /* "Or log in with:" 아래 마진 축소 */
+        }
+        #loginModal div[style*="text-align: center"] > div {
+             gap: 0.6rem; /* 소셜 버튼 간격 축소 */
+        }
+        #loginModal form > p[style*="text-align: center"] {
+             margin-top: 1rem; /* "Don't have account?" 위 마진 축소 */
+        }
+
+        /* 주문 선택 모달 내부 버튼 스타일 */
+        .order-choice-btn {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+                 font-size: 1rem;
+            font-weight: 500;
+            color: #1d1d1f;
+            text-align: left;
+        }
+
+        .order-choice-btn .material-icons {
+            margin-right: 1rem;
+            color: #0071e3;
+        }
+
+        .order-choice-btn .arrow {
+            margin-left: auto;
+            color: #86868b;
+            transition: transform 0.2s ease;
+        }
+
+        .order-choice-btn:hover {
+            border-color: #0071e3;
+            background-color: #f5faff;
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.1);
+        }
+
+        .order-choice-btn:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        /* 장바구니 버튼 비활성화/숨김 스타일 */
+        .menu-item .add-to-cart {
+            display: none; /* 기본적으로 숨김 */
+        }
+        .cart-footer .checkout-btn {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none; /* 클릭 이벤트 방지 */
+        }
+
+        /* PICKUP 활성화 시 장바구니 버튼 활성화/표시 */
+        body.pickup-active .menu-item .add-to-cart {
+            display: inline-block; /* 활성화 시 표시 (inline-block 또는 block 등 적절히 선택) */
+            /* display: flex; */ /* 버튼 내용에 따라 flex도 가능 */
+        }
+        body.pickup-active .cart-footer .checkout-btn {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* 커스텀 시간 선택 드롭다운 스타일 */
+        .custom-time-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .time-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .time-select-trigger:hover, .time-select-trigger.open {
+            border-color: #0071e3;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+        }
+
+        .time-select-trigger span {
+            color: #1d1d1f;
+        }
+
+        .time-select-trigger .material-icons {
+            color: #86868b;
+            transition: transform 0.2s ease;
+        }
+
+        .time-select-trigger.open .material-icons {
+            transform: rotate(180deg);
+        }
+
+        .time-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1001; /* 다른 모달 요소 위에 오도록 */
+        }
+
+        .time-dropdown.show {
+            display: block;
+        }
+
+        .time-option {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            color: #1d1d1f;
+        }
+
+        .time-option:hover {
+            background-color: #f5f5f7;
+        }
+
+        .time-option.selected {
+            background-color: #e8f0fd;
+            font-weight: 500;
+            color: #0071e3;
+        }
+
+        /* 장바구니/주문 관련 모달 공통 스타일 (슬라이드 효과 적용) */
+        .cart-modal,
+        .order-modal {
+            /* display: none; 제거 */
+            display: flex; /* 항상 flex로 설정 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0; 
+            bottom: 0; 
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            overflow: hidden; 
+            /* 초기 상태: 숨김 */
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none; /* 숨겨졌을 때 클릭 방지 */
+            /* 컨테이너 배경 fade 효과 */
+            transition: visibility 0s linear 0.6s, opacity 0.6s ease; /* opacity 시간 일치, 숨길 때 지연 */
+        }
+
+        .cart-modal.show,
+        .order-modal.show {
+            /* display: flex; 이미 설정됨 */
+            /* 상태 변경: 보임 */
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+            /* 컨테이너 배경 fade-in 즉시 시작 */
+            transition: visibility 0s linear 0s, opacity 0.6s ease;
+        }
+
+        /* 슬라이드 인/아웃 애니메이션 (참고용, 현재는 transition 사용) */
+        @keyframes slideInFromRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes slideOutToRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(100%); }
+        }
+
+        /* 모달 콘텐츠 공통 스타일 (슬라이드 적용) */
+        .cart-content,
+        .order-content {
+            background: #fff;
+            padding: 0;
+            border-radius: 12px 0 0 12px; 
+            width: 480px; 
+            max-width: 90%;
+            height: 100%; 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15); 
+            /* 초기 상태: 오른쪽 밖 */
+            transform: translateX(100%); 
+            /* opacity: 0; 제거 -> 컨테이너 opacity로 제어 */
+            /* 콘텐츠 슬라이드 애니메이션 */
+            transition: transform 0.3s ease; /* 슬라이드 속도 0.3초로 변경 */
+        }
+
+        /* 특정 모달 너비 조정 */
+        #checkoutModal .order-content {
+            width: 550px; 
+        }
+        /* Payment 모달도 슬라이드되도록 너비 지정 */
+        #orderModal .order-content {
+             width: 500px; /* Payment 모달 너비 조정 */
+        }
+
+        /* 슬라이드되지 않는 모달들 */
+        #orderChoiceModal .order-content,
+        #pickupTimeModal .order-content,
+        #loginModal .order-content,
+        #registerModal .order-content,
+        #accountModal .order-content,
+        #menuDetailModal .menu-detail-content {
+             width: 90%; /* 화면 너비에 따라 조절 */
+             max-width: 450px; /* 최대 너비 제한 */
+             height: auto; /* 높이는 자동으로 */
+             border-radius: 12px; /* 일반 모달은 모든 모서리 둥글게 */
+             /* 슬라이드 관련 스타일 리셋 */
+             transform: none; 
+             transition: none; /* 트랜지션 제거 */
+             /* 중앙 정렬을 위해 컨테이너 스타일 재정의 */
+             /* 부모(.order-modal)에 justify-content: center; align-items: center; 필요 */
+             /* -> 이 방식 대신, show 할 때 컨테이너에 클래스 추가해서 제어하는 것이 나을 수 있음 */
+             /* -> 또는, 각 모달 컨테이너 자체에 다른 클래스를 부여 */
+              /* 임시: 기존 fadeIn/slideUp 애니메이션 유지 */
+              opacity: 1;
+              animation: fadeIn 0.3s ease, slideUp 0.4s ease; 
+        }
+        /* 계정 모달은 더 넓게 */
+        #accountModal .order-content { width: 800px; }
+        /* 메뉴 상세 모달도 넓게 */
+        #menuDetailModal .menu-detail-content { width: 700px; }
+
+        /* 기존 slideUp/fadeIn 애니메이션 유지 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+             from { opacity: 0; }
+             to { opacity: 1; }
+         }
+
+
+        /* 슬라이드 모달 열릴 때 콘텐츠 위치 변경 */
+        .cart-modal.show .cart-content,
+        #checkoutModal.show .order-content,
+        #orderModal.show .order-content { /* Payment 모달 추가 */
+            transform: translateX(0);
+            /* opacity: 1; 제거 -> 컨테이너 opacity로 제어 */
+        }
+
+        /* 슬라이드 모달 닫힐 때 (참고용) */
+        /* JS에서 닫기 전에 .hiding 클래스 추가 후 transitionend 이벤트 기다려서 .show 제거 */
+        /*
+        .cart-modal.hiding .cart-content,
+        #checkoutModal.hiding .order-content,
+        #orderModal.hiding .order-content {
+            transform: translateX(100%);
+        }
+        */
+
+        /* 모달 내부 스크롤 영역 처리 (변경 없음) */
+        .cart-items, 
+        .checkout-body, 
+        .order-form, 
+        #accountModal > div:last-child, 
+        .menu-detail-body
+         {
+            overflow-y: auto;
+            flex-grow: 1; 
+            padding: 1.5rem 2rem; 
+        }
+        .checkout-body { padding: 1.5rem 2rem 2rem; }
+        #orderModal .order-form { padding: 1.5rem 2rem 2rem; }
+
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #f2f2f2;
+            flex-shrink: 0; /* 헤더 크기 고정 */
+        }
+
+        .cart-header h2 {
+            color: #1d1d1f;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+
+        .cart-header h2 i {
+            color: #0071e3;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #86868b;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .close-cart:hover {
+            color: #1d1d1f;
+            background-color: #f5f5f7;
+        }
+
+        .cart-items {
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            flex: 1;
+            max-height: 50vh;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 14px;
+            background-color: #f5f5f7;
+        }
+
+        .cart-item:hover {
+            background-color: #f0f0f2;
+            transform: translateX(5px);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: #1d1d1f;
+        }
+
+        .cart-item-price {
+            color: #86868b;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .quantity-btn {
+            background: white;
+            border: none;
+            border-radius: 50%;
+                 width: 28px;
+                 height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #1d1d1f;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .quantity-btn:hover {
+            background: #0071e3;
+            color: white;
+        }
+
+        .cart-footer {
+            padding: 1.5rem 2rem;
+            background-color: #fbfbfd;
+            border-top: 1px solid #f2f2f2;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .cart-total-label {
+            font-weight: 500;
+            color: #1d1d1f;
+        }
+
+        .cart-total-amount {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        /* Checkout 버튼 (장바구니 모달) */
+        .checkout-btn {
+            /* background: #0071e3; */
+            background: #1d1d1f; /* 진한 회색 배경 */
+            color: white;
+            border: none;
+            padding: 1rem 0;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: none;
+            letter-spacing: -0.01em;
+        }
+
+        .checkout-btn:hover {
+            /* background: #0077ED; */
+            background: #333; /* 호버 시 약간 밝은 회색 */
+            transform: translateY(0); /* 호버 시 이동 효과 제거 */
+            /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #86868b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+                 gap: 1rem;
+             }
+
+        .empty-cart-message .material-icons {
+            font-size: 3rem;
+            color: #ddd;
+        }
+
+        .empty-cart-message p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 주문 모달 - Apple 스타일 */
+        .order-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .order-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .order-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* hidden에서 auto로 변경 */
+            animation: slideUp 0.4s ease;
+        }
+
+        .order-form {
+            padding: 1.5rem 1.5rem 2rem; /* 좌우 패딩 축소 */
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+            /* overflow-y: auto; 제거 */
+            /* max-height: 60vh; 제거 */
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.9rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+                 font-size: 1rem;
+            background-color: #fff;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+        }
+
+        .form-group textarea {
+            resize: none;
+                 line-height: 1.5;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0071e3;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+        }
+
+        /* 시간 표시용 div 스타일 추가 */
+        .form-control-display {
+            padding: 0.9rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: #f5f5f7; /* 약간 다른 배경색으로 비활성 상태 표시 */
+            color: #1d1d1f;
+            min-height: calc(0.9rem * 2 + 1rem + 2px); /* 다른 input과 높이 맞추기 */
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #86868b;
+        }
+
+        /* 최종 제출 버튼 (Confirm, Complete, Place Order 등) */
+        .submit-order {
+            /* background: #0071e3; */
+            background: #1d1d1f; /* 진한 회색 배경 */
+            color: white;
+            border: none;
+            padding: 1rem 0;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .submit-order:hover {
+            /* background: #0077ED; */
+            background: #333; /* 호버 시 약간 밝은 회색 */
+            transform: translateY(0); /* 호버 시 이동 효과 제거 */
+            /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+        }
+
+        .submit-order .material-icons {
+            font-size: 1.3rem;
+        }
+
+        /* 로딩 오버레이 - Apple 스타일 */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0071e3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes addToCartSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .add-success {
+            animation: addToCartSuccess 0.5s ease;
+        }
+
+        /* 메뉴 아이템이 없을 때 스타일 */
+        .no-items-message {
+            text-align: center;
+            padding: 3rem;
+            color: #86868b;
+            font-size: 1rem;
+            background: #fbfbfd;
+            border-radius: 18px;
+            border: none;
+            margin: 2rem auto;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        /* 모바일 반응형 디자인 - Apple 스타일 */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                -webkit-text-size-adjust: 100%;
+            }
+
+            .nav-bar {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-logo img {
+                max-height: 40px;
+            }
+            
+            .order-online-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+            
+            .cart-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .header {
+                padding: 5rem 0 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+            
+            .category-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 0.8rem 0.5rem;
+                margin: 2rem auto 1.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .category-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                margin: 0 0.3rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+            }
+            
+            .menu-item img {
+                width: 100%;
+                height: 180px;
+            }
+            
+            .menu-item-details {
+                padding: 1rem;
+            }
+            
+            .menu-item-details .price-container,
+            .menu-item .price-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .cart-content,
+            .order-content {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 12px 12px 0 0 !important;
+                transform: translateY(100%) !important;
+                height: 85vh;
+                bottom: 0;
+                top: auto;
+                position: fixed;
+            }
+            
+            .cart-modal.show .cart-content,
+            #checkoutModal.show .order-content,
+            #orderModal.show .order-content {
+                transform: translateY(0) !important;
+            }
+            
+            .slide {
+                height: 250px;
+            }
+            
+            .slide img {
+                height: 250px;
+            }
+            
+            .slide-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .slide-content p {
+                font-size: 0.8rem;
+                margin-bottom: 0.7rem;
+            }
+            
+            .slide-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .slider-arrow {
+                width: 30px;
+                height: 30px;
+            }
+
+            /* Modal adjustments */
+            .cart-items, 
+            .checkout-body, 
+            .order-form, 
+            #accountModal > div:last-child, 
+            .menu-detail-body {
+                padding: 1rem;
+                max-height: 60vh;
+            }
+            
+            .cart-header, 
+            .cart-footer {
+                padding: 1rem;
+            }
+            
+            .cart-header h2 {
+                font-size: 1.1rem;
+            }
+            
+            .cart-total {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .checkout-btn, 
+            .submit-order {
+                padding: 0.8rem 0;
+                font-size: 0.9rem;
+            }
+            
+            /* Menu detail modal */
+            .menu-detail-content {
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .menu-detail-header {
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+            
+            .menu-detail-img {
+                width: 100%;
+                height: 180px;
+            }
+            
+            .menu-detail-info h3 {
+                font-size: 1.4rem;
+            }
+            
+            .menu-detail-info p,
+            .menu-detail-price {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            /* Options modal */
+            .options-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .options-image {
+                height: 180px;
+            }
+            
+            .options-details {
+                padding: 1rem;
+            }
+            
+            .options-details h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .option-choice {
+                min-width: 100%;
+                padding: 0.7rem;
+            }
+            
+            .options-footer {
+                padding-top: 1rem;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem 4rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .nav-bar {
+                padding: 0.8rem 2rem;
+            }
+            
+            .slider-container {
+                width: 90%;
+            }
+            
+            .category-tabs {
+                width: 95%;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 1rem 0.8rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .cart-content,
+            .order-content {
+                width: 70%;
+                max-width: 400px;
+            }
+        }
+
+        /* Large desktop */
+        @media (min-width: 1025px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 주문 모달 & 로그인 모달 공통 스타일 */
+        .order-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* 소셜 로그인 버튼 스타일 */
+        .social-login-btn {
+            display: inline-flex;
+                align-items: center;
+            justify-content: center; /* 가운데 정렬 */
+            width: 100%; /* 부모 요소 너비에 맞춤 */
+            max-width: 280px; /* 최대 너비 설정 */
+            height: 44px; /* 높이 조절 */
+            border-radius: 8px; /* 둥근 모서리 */
+            border: 1px solid #dadce0; /* 테두리 */
+            background-color: white; /* 기본 배경 흰색 */
+            color: #3c4043; /* 기본 글자색 */
+            text-decoration: none;
+            font-size: 0.9rem; /* 글자 크기 조절 */
+            font-weight: 500;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            padding: 0 15px; /* 내부 여백 */
+        }
+
+        .social-login-btn:hover {
+            background-color: #f8f9fa; /* 호버 시 배경색 */
+            border-color: #c6cacc;
+            opacity: 1; /* 호버 시 투명도 제거 */
+        }
+
+        .social-login-btn svg {
+            /* SVG 아이콘 스타일 (필요시 추가) */
+        }
+
+        /* 각 소셜 버튼별 특화 스타일 */
+        .social-login-btn.apple-btn {
+            background-color: #000;
+            color: white;
+            border-color: #000;
+        }
+        .social-login-btn.apple-btn:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        .social-login-btn.facebook-btn {
+            background-color: #1877f2; /* Facebook 파란색 */
+            color: white;
+            border-color: #1877f2;
+        }
+        .social-login-btn.facebook-btn:hover {
+            background-color: #166fe5;
+            border-color: #166fe5;
+        }
+
+        /* 로그인 모달 크기 조정 */
+        #loginModal .order-form {
+            padding: 1rem 1.5rem 1.5rem; /* 패딩 축소 */
+            gap: 0.8rem; /* 요소 간 간격 축소 */
+        }
+
+        #loginModal .form-group {
+            gap: 0.3rem; /* 레이블과 인풋 간격 축소 */
+        }
+
+        #loginModal .form-group label {
+            font-size: 0.85rem; /* 레이블 폰트 크기 축소 */
+        }
+
+        #loginModal .form-group input {
+            padding: 0.7rem 0.8rem; /* 인풋 패딩 축소 */
+            font-size: 0.9rem; /* 인풋 폰트 크기 축소 */
+        }
+
+        #loginModal .submit-order {
+            padding: 0.7rem 0; /* 버튼 패딩 축소 */
+            font-size: 0.9rem; /* 버튼 폰트 크기 축소 */
+            margin-top: 0.8rem; /* 버튼 상단 마진 축소 */
+        }
+        #loginModal .submit-order .material-icons {
+            font-size: 1.1rem; /* 버튼 아이콘 크기 축소 */
+        }
+
+        #loginModal .social-login-btn {
+            height: 38px; /* 소셜 버튼 높이 축소 */
+            font-size: 0.85rem; /* 소셜 버튼 폰트 크기 축소 */
+            max-width: 250px; /* 소셜 버튼 최대 너비 축소 */
+        }
+         #loginModal .social-login-btn svg {
+            width: 16px; /* 소셜 버튼 아이콘 크기 축소 */
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        #loginModal div[style*="text-align: center"] {
+            margin-top: 1rem; /* "Or log in with:" 위 마진 축소 */
+            padding-top: 0.8rem; /* 구분선 위 패딩 축소 */
+        }
+        #loginModal div[style*="text-align: center"] p {
+            font-size: 0.8rem; /* "Or...", "Don't have..." 폰트 크기 축소 */
+            margin-bottom: 0.8rem; /* "Or log in with:" 아래 마진 축소 */
+        }
+        #loginModal div[style*="text-align: center"] > div {
+             gap: 0.6rem; /* 소셜 버튼 간격 축소 */
+        }
+        #loginModal form > p[style*="text-align: center"] {
+             margin-top: 1rem; /* "Don't have account?" 위 마진 축소 */
+        }
+
+        /* 주문 선택 모달 내부 버튼 스타일 */
+        .order-choice-btn {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1d1d1f;
+            text-align: left;
+        }
+
+        .order-choice-btn .material-icons {
+            margin-right: 1rem;
+            color: #0071e3;
+        }
+
+        .order-choice-btn .arrow {
+            margin-left: auto;
+            color: #86868b;
+            transition: transform 0.2s ease;
+        }
+
+        .order-choice-btn:hover {
+            border-color: #0071e3;
+            background-color: #f5faff;
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.1);
+        }
+
+        .order-choice-btn:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        /* 장바구니 버튼 비활성화/숨김 스타일 */
+             .menu-item .add-to-cart {
+            display: none; /* 기본적으로 숨김 */
+        }
+        .cart-footer .checkout-btn {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none; /* 클릭 이벤트 방지 */
+        }
+
+        /* PICKUP 활성화 시 장바구니 버튼 활성화/표시 */
+        body.pickup-active .menu-item .add-to-cart {
+            display: inline-block; /* 활성화 시 표시 (inline-block 또는 block 등 적절히 선택) */
+            /* display: flex; */ /* 버튼 내용에 따라 flex도 가능 */
+        }
+        body.pickup-active .cart-footer .checkout-btn {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* 커스텀 시간 선택 드롭다운 스타일 */
+        .custom-time-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .time-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 1rem;
+            border: 1px solid #d2d2d7;
+                 border-radius: 12px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .time-select-trigger:hover, .time-select-trigger.open {
+            border-color: #0071e3;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+        }
+
+        .time-select-trigger span {
+            color: #1d1d1f;
+        }
+
+        .time-select-trigger .material-icons {
+            color: #86868b;
+            transition: transform 0.2s ease;
+        }
+
+        .time-select-trigger.open .material-icons {
+            transform: rotate(180deg);
+        }
+
+        .time-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #d2d2d7;
+                 border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1001; /* 다른 모달 요소 위에 오도록 */
+        }
+
+        .time-dropdown.show {
+            display: block;
+        }
+
+        .time-option {
+                   padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            color: #1d1d1f;
+        }
+
+        .time-option:hover {
+            background-color: #f5f5f7;
+        }
+
+        .time-option.selected {
+            background-color: #e8f0fd;
+            font-weight: 500;
+            color: #0071e3;
+        }
+
+        /* Payment 모달 크기 조정 */
+        #orderModal .order-form {
+            padding: 1.2rem 2rem 1.5rem; /* 상하 패딩 축소 */
+            gap: 1rem; /* 요소 간 간격 축소 */
+        }
+
+        #orderModal .form-group {
+            gap: 0.4rem; /* 레이블과 인풋 간격 축소 */
+        }
+
+        #orderModal .form-group input,
+        #orderModal .form-group textarea {
+            padding: 0.7rem 1rem; /* 인풋/텍스트 영역 내부 패딩 축소 */
+            font-size: 0.95rem; /* 폰트 크기 약간 축소 */
+        }
+
+        #orderModal .form-group textarea#notes {
+            rows: 2; /* 텍스트 영역 높이 줄임 */
+            min-height: 60px; /* 최소 높이 설정 (약 2줄) */
+        }
+
+        #orderModal .pricing-summary {
+            padding-top: 1rem; /* 가격 요약 위쪽 패딩 축소 */
+            margin-top: 0.8rem; /* 가격 요약 위쪽 마진 축소 */
+        }
+
+        #orderModal .submit-order {
+            padding: 0.8rem 0; /* 버튼 패딩 축소 */
+            font-size: 0.95rem; /* 버튼 폰트 크기 축소 */
+            margin-top: 1rem; /* 버튼 상단 마진 축소 */
+        }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* 모바일 반응형 디자인 - 추가 최적화 */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden; /* Ensure no horizontal scroll */
+                -webkit-text-size-adjust: 100%; /* Prevent font scaling on iOS */
+            }
+
+            /* Ensure all images are responsive */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* 네비게이션 바 조정 */
+            .nav-bar {
+                padding: 0.8rem 1rem; /* 유지 */
+                justify-content: space-between; /* 로고와 계정 영역 분리 */
+                align-items: center; /* 수직 중앙 정렬 */
+            }
+            .nav-logo {
+                font-size: 1.1rem; /* 유지 */
+                flex-shrink: 0; /* 로고 줄어들지 않게 */
+            }
+            .nav-account {
+                gap: 0.5rem; /* 계정 영역 내부 간격 축소 */
+                flex-shrink: 0; /* 계정 영역 줄어들지 않게 */
+            }
+            /* TODO: Add hamburger menu button styling and JS */
+            .login-btn,
+            .order-online-btn {
+                font-size: 0.8rem; /* 유지 */
+                padding: 0.4rem 0.6rem; /* 버튼 내부 패딩 축소 */
+            }
+            .cart-icon {
+                width: 36px; /* 유지 */
+                height: 36px; /* 유지 */
+                margin-left: 0; /* 왼쪽 마진 제거 (gap으로 처리) */
+            }
+            .cart-badge {
+                width: 16px; /* 유지 */
+                height: 16px;
+                font-size: 8px;
+            }
+
+            .cart-content,
+            .order-content {
+                width: 90%;
+                max-width: 90%;
+                border-radius: 12px !important;
+                transform: none !important;
+                max-height: 85vh; /* 모달 최대 높이 제한 */
+                /* overflow-y: auto; /* 개별 스크롤 영역 대신 전체 모달에 적용 고려 */
+            }
+
+            /* 개별 스크롤 영역 패딩 재확인 */
+            .cart-items,
+            .checkout-body,
+            .order-form,
+            #accountModal > div:last-child > div, /* Corrected selector for account content */
+            .menu-detail-body {
+                padding: 1rem 1.2rem;
+                overflow-y: auto; /* Ensure individual sections scroll if needed */
+                flex-grow: 1; /* Allow content to take available space */
+            }
+
+            #accountModal .order-content { width: 95%; } /* 계정 모달 너비 모바일 맞춤 */
+            #accountModal > div:last-child {
+                flex-direction: column; /* Account modal tabs stack vertically */
+            }
+            #accountModal > div:last-child > div:first-child {
+                width: 100%; /* Tab bar full width */
+                border-bottom: 1px solid #f2f2f2;
+                padding: 0.5rem 0;
+            }
+            #accountModal #accountTabs button {
+                padding: 0.8rem 1.2rem;
+            }
+            #accountModal > div:last-child > div:last-child {
+                max-height: 60vh; /* Limit content height */
+                padding: 1rem 1.2rem;
+            }
+
+            #menuDetailModal .menu-detail-content { width: 95%; }
+        }
+
+        /* Item Options Modal Styles */
+        .options-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            backdrop-filter: blur(5px);
+            z-index: 1010; /* Higher than other modals */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .options-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .options-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 480px; /* Limit max width */
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .close-options {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: background-color 0.2s ease;
+        }
+        .close-options:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .close-options i {
+            font-size: 20px;
+        }
+
+        .options-image {
+            width: 100%;
+            height: 250px; /* Adjust height as needed */
+            object-fit: cover;
+            display: block;
+        }
+
+        .options-details {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Allow details to scroll if needed */
+        }
+
+        .options-details h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1d1d1f;
+        }
+
+        .options-group {
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f2f2f2;
+            padding-top: 1.5rem;
+        }
+
+        .options-group-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #1d1d1f;
+        }
+
+        .options-required {
+            font-size: 0.8rem;
+            color: #86868b;
+            margin-left: 5px;
+        }
+
+        .options-select-prompt {
+            font-size: 0.85rem;
+            color: #86868b;
+            margin-bottom: 1rem;
+        }
+
+        .options-choices {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap; /* Allow wrapping if needed */
+        }
+
+        .option-choice {
+            flex: 1; /* Distribute space */
+            min-width: calc(50% - 0.4rem); /* Aim for 2 columns */
+            padding: 0.8rem 1rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .option-choice span:first-child {
+            font-size: 0.9rem;
+            color: #1d1d1f;
+            font-weight: 500;
+        }
+
+        .option-choice span:last-child {
+            font-size: 0.85rem;
+            color: #6e6e73;
+        }
+
+        .option-choice.selected {
+            border-color: #0071e3;
+            background-color: #f5faff;
+        }
+
+        .option-choice.selected span:first-child {
+            font-weight: 600;
+        }
+
+        .options-footer {
+            margin-top: auto; /* Push footer to bottom */
+            padding-top: 1.5rem;
+            border-top: 1px solid #f2f2f2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            background: #f5f5f7;
+            border-radius: 20px;
+            padding: 0.3rem;
+        }
+
+        .quantity-selector .quantity-btn {
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1d1d1f;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .quantity-selector .quantity-btn:hover {
+            background-color: #e8e8ed;
+        }
+        .quantity-selector .quantity-btn i {
+            font-size: 18px;
+        }
+
+        .quantity-selector #optionsQuantity {
+            padding: 0 0.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            min-width: 20px; /* Ensure space for number */
+            text-align: center;
+        }
+
+        .options-add-to-cart {
+            flex-grow: 1; /* Take remaining space */
+            background: #1d1d1f;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .options-add-to-cart:hover {
+            background: #333;
+        }
+        .options-add-to-cart #optionsTotalPrice {
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo">
+            <img src="https://lh3.googleusercontent.com/d/1u6bQ-JqAPk8ByCykJ42y3rvq8vx3U2C8" alt="Texan Lee Donuts Logo">
+        </a>
+        <div class="nav-account">
+            <button class="login-btn" disabled>Log In</button> 
+            <button class="order-online-btn" onclick="showOrderChoiceModal()">ORDER ONLINE</button> <!-- ORDER ONLINE 버튼 추가 -->
+            <button class="cart-icon" onclick="toggleCart()">
+                <span class="material-icons" style="font-size: 1.2rem;">shopping_cart</span>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Texan Lee Donuts</h1>
+            <p>1490 Valley Ridge Blvd #104, Lewisville, TX 75077</p>
+        </div>
+    </header>
+
+    <!-- 슬라이더 배너 -->
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <div class="slide">
+                <img src="https://lh3.googleusercontent.com/d/1oNILmuOtjILdaVIJPSSQdlrrubraYFY3" alt="Special Promotion">
+                <div class="slide-content">
+                    <h3>Summer Special Collection</h3>
+                    <p>Enjoy our limited edition fruit-topped donuts perfect for summer!</p>
+                    <button class="slide-btn" onclick="scrollToMenu()">Order Now</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1527515673510-8e0af7649b6f" alt="New Flavors">
+                <div class="slide-content">
+                    <h3>New Flavors Added</h3>
+                    <p>Try our exciting new chocolate hazelnut and caramel sea salt flavors!</p>
+                    <button class="slide-btn" onclick="scrollToMenu()">See Menu</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94" alt="Breakfast Bundle">
+                <div class="slide-content">
+                    <h3>Breakfast Bundle</h3>
+                    <p>Get 6 donuts + 2 coffees for just $12.99 every morning from 7-10am!</p>
+                    <button class="slide-btn" onclick="scrollToMenu()">Learn More</button>
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-dot active" onclick="goToSlide(0)"></div>
+            <div class="slider-dot" onclick="goToSlide(1)"></div>
+            <div class="slider-dot" onclick="goToSlide(2)"></div>
+        </div>
+        <div class="slider-arrow slider-prev" onclick="prevSlide()">
+            <span class="material-icons">chevron_left</span>
+        </div>
+        <div class="slider-arrow slider-next" onclick="nextSlide()">
+            <span class="material-icons">chevron_right</span>
+        </div>
+    </div>
+    <!-- 메인 컨텐츠 -->
+    <main class="container" id="menu">
+        <!-- 섹션 타이틀 -->
+        <div class="section-title">
+            <h2>Menu</h2>
+            <p>Explore our signature donuts made with premium ingredients</p>
+        </div>
+        
+        <!-- 카테고리 탭 -->
+        <div class="category-tabs">
+            <!-- 탭은 동적으로 생성됩니다 -->
+        </div>
+
+        <!-- 카테고리 콘텐츠도 동적으로 생성됩니다 -->
+    </main>
+
+    <!-- 장바구니 모달 -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">shopping_cart</i> Your Cart</h2>
+                <button class="close-cart" onclick="toggleCart()"><i class="material-icons">close</i></button>
+            </div>
+            <div id="cartItems" class="cart-items">
+                <!-- 장바구니 아이템들이 여기에 동적으로 추가됩니다 -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span class="cart-total-label">Total</span>
+                    <span class="cart-total-amount">$ <span id="cartTotal">0</span> USD</span>
+                </div>
+                <button class="checkout-btn" onclick="showCheckoutModal()"> <!-- 함수 호출 변경 -->
+                    <i class="material-icons">shopping_bag</i> Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Information / Payment 모달 (기존 orderModal 재활용) -->
+    <div class="order-modal" id="orderModal">
+        <div class="order-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">payment</i> Payment Information</h2> <!-- 타이틀 변경 -->
+                <button class="close-cart" onclick="closeOrderForm()"><i class="material-icons">close</i></button>
+            </div>
+            <form class="order-form" id="orderForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="orderEmail">Email Address</label> <!-- 이메일 필드 추가 -->
+                    <input type="email" id="orderEmail" placeholder="Enter your email" required>
+                </div>
+                <!-- 제거된 필드들 -->
+                <!-- <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <input type="text" id="address" placeholder="Enter your address" required>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryOption">Delivery Status</label>
+                    <select id="deliveryOption" required>
+                        <option value="pickup" selected>Pickup at Restaurant</option>
+                        <option value="delivery" disabled>Home Delivery (Coming Soon)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Time</label>
+                    <div id="displayPickupTime" class="form-control-display"></div>
+                </div> -->
+
+                <!-- 가격 정보 표시 영역 추가 -->
+                <div class="pricing-summary" style="border-top: 1px solid #eee; padding-top: 1.5rem; margin-top: 1rem;">
+                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
+                        <span>Subtotal</span>
+                        <span id="paymentSubtotal">$0.00</span>
+                </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
+                        <span>Tax</span>
+                        <span id="paymentTax">$0.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 600;">
+                        <span>Total</span>
+                        <span id="paymentTotal">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Special Instructions (Optional)</label>
+                    <textarea id="notes" rows="3" placeholder="Any special requests or notes for your order"></textarea>
+                </div>
+                <button type="submit" class="submit-order" onclick="submitFinalOrder(event)"> <!-- 함수 호출 변경 -->
+                    <i class="material-icons">check_circle</i> Place Order <!-- 버튼 텍스트 변경 -->
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="order-modal">
+        <div class="order-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">login</i> Log In</h2>
+                <button class="close-cart" onclick="toggleLoginModal()"><i class="material-icons">close</i></button>
+            </div>
+            <form class="order-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="submit-order" onclick="handleLogin(event)">
+                    <i class="material-icons">login</i> Log In
+                </button>
+
+                <!-- 소셜 로그인 버튼 추가 -->
+                <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #f2f2f2;">
+                    <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 1rem;">Or log in with:</p>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                        <!-- Google 로그인 버튼 -->
+                        <a href="/auth/google" class="social-login-btn google-btn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M17.64 9.20455C17.64 8.56636 17.5827 7.95273 17.4764 7.36364H9V10.845H13.8436C13.635 11.97 13.0009 12.9232 12.0477 13.5614V15.8195H14.9564C16.6582 14.2527 17.64 11.9455 17.64 9.20455Z" fill="#4285F4"/><path d="M9 18C11.43 18 13.4673 17.1941 14.9564 15.8195L12.0477 13.5614C11.2418 14.1014 10.2109 14.4205 9 14.4205C6.65591 14.4205 4.67182 12.8373 3.96409 10.71H0.957275V13.0418C2.43818 15.9832 5.48182 18 9 18Z" fill="#34A853"/><path d="M3.96409 10.71C3.78409 10.17 3.68182 9.59318 3.68182 9C3.68182 8.40682 3.78409 7.83 3.96409 7.29V4.95818H0.957275C0.347727 6.17182 0 7.54773 0 9C0 10.4523 0.347727 11.8282 0.957275 13.0418L3.96409 10.71Z" fill="#FBBC05"/><path d="M9 3.57955C10.3214 3.57955 11.5077 4.03364 12.4405 4.92545L15.0218 2.34409C13.4632 0.891818 11.43 0 9 0C5.48182 0 2.43818 2.01682 0.957275 4.95818L3.96409 7.29C4.67182 5.16273 6.65591 3.57955 9 3.57955Z" fill="#EA4335"/></svg>
+                            <span>Continue with Google</span>
+                        </a>
+                        <!-- Apple 로그인 버튼 -->
+                        <a href="/auth/apple" class="social-login-btn apple-btn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M14.5377 9.1406C14.5582 8.81475 14.599 8.4889 14.6604 8.16305H11.9651V10.327H14.5377C14.5377 10.327 14.0895 11.7043 12.908 12.5389C12.908 12.5389 13.4172 13.6597 14.8044 14.4534C14.8859 14.515 14.9674 14.5562 15.0489 14.5767C15.0081 14.5973 14.9875 14.6179 14.9468 14.6179C14.4783 14.9642 13.7037 15.2489 12.8883 15.29C11.5825 15.3517 10.8282 14.558 9.93137 14.558C9.01413 14.558 8.34137 15.3312 7.07637 15.3517C5.93391 15.3925 5.03704 14.7817 4.28276 14.0085C3.05861 12.8062 2.26361 10.7043 2.32486 8.6024C2.36561 7.08515 3.20137 5.7693 4.46637 4.93475C5.24088 4.41475 6.17861 4.1508 7.01511 4.13024C7.32137 4.13024 8.03486 4.1918 8.80937 4.64C8.78887 4.66055 8.76837 4.66055 8.74787 4.6811C8.09536 5.0889 7.54536 5.7811 7.56587 6.72755C7.58637 7.9298 8.66637 8.58165 9.05511 8.6022C9.07561 8.6022 9.07561 8.6022 9.09611 8.6022C9.15736 8.6022 10.1536 7.99135 10.1536 6.5836C10.1536 5.3608 9.40937 4.6811 9.15736 4.5172C9.93188 3.96675 10.9894 3.8037 11.9244 3.8653C12.1764 3.8653 13.3778 3.9884 14.4783 5.0484C14.4375 5.06895 14.417 5.0895 14.3965 5.11005C13.4996 5.74024 12.9089 6.96345 12.9496 8.2247C12.9701 8.9789 13.4172 9.8343 14.5377 9.1406Z" fill="white"/><path d="M10.4199 3.20949C10.7874 2.78169 11.0804 2.29228 11.2919 1.76208C10.5376 1.35428 9.68116 1.19128 8.84741 1.19128C7.52116 1.19128 6.31966 1.70048 5.42266 2.57428C5.03391 2.89968 4.70616 3.28669 4.44566 3.71449C5.05691 3.98869 5.77041 4.04988 6.44316 4.04988C7.48041 4.04988 8.43616 3.76308 9.17791 3.29128C9.58566 3.01708 9.99341 2.72238 10.4199 3.20949Z" fill="white"/></svg>
+                            <span>Continue with Apple</span>
+                        </a>
+                        <!-- Facebook 로그인 버튼 -->
+                        <a href="/auth/facebook" class="social-login-btn facebook-btn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M17 9C17 4.58187 13.4181 1 9 1C4.58187 1 1 4.58187 1 9C1 12.9384 3.77313 16.1531 7.375 16.8581V11.625H5.375V9H7.375V7.14375C7.375 5.17594 8.55719 4.125 10.3653 4.125C11.2319 4.125 12.125 4.28125 12.125 4.28125V6.5H10.9834C9.99781 6.5 9.75 7.04063 9.75 7.54906V9H12.0319L11.6731 11.625H9.75V16.8581C13.3519 16.1531 16.125 12.9384 16.125 9H17Z" fill="white"/></svg>
+                            <span>Continue with Facebook</span>
+                        </a>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 1.5rem; color: #86868b; font-size: 0.9rem;">
+                    Don't have an account? <a href="#" style="color: #0071e3; text-decoration: none;" onclick="toggleRegisterModal(event)">Create Account</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div class="order-modal" id="registerModal">
+        <div class="order-content">
+            <div class="cart-header">
+                <h2><i class="material-icons">person_add</i> Create Account</h2>
+                <button class="close-cart" onclick="toggleRegisterModal()"><i class="material-icons">close</i></button>
+            </div>
+            <form class="order-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" placeholder="Create a password" required pattern=".{8,}" title="Password must be at least 8 characters">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="submit-order" onclick="handleRegister(event)">
+                    <i class="material-icons">person_add</i> Create Account
+                </button>
+                <p style="text-align: center; margin-top: 1rem; color: #86868b; font-size: 0.9rem;">
+                    Already have an account? <a href="#" style="color: #0071e3; text-decoration: none;" onclick="backToLogin(event)">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 사용자 계정 대시보드 모달 -->
+    <div class="order-modal" id="accountModal">
+        <div class="order-content" style="max-width: 800px;">
+            <div class="cart-header">
+                <h2><i class="material-icons">account_circle</i> My Account</h2>
+                <button class="close-cart" onclick="toggleAccountModal()"><i class="material-icons">close</i></button>
+            </div>
+            <div style="padding: 0; display: flex; border-bottom: 1px solid #f2f2f2;">
+                <div style="width: 200px; background: #f5f5f7; padding: 1.5rem 0;">
+                    <ul id="accountTabs" style="list-style: none; padding: 0;">
+                        <li class="account-tab active" data-tab="orderHistory">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">receipt</i> Order History
+                            </button>
+                        </li>
+                        <li class="account-tab" data-tab="personalInfo">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">person</i> Personal Info
+                            </button>
+                        </li>
+                        <li class="account-tab" data-tab="favorites">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">favorite</i> Favorites
+                            </button>
+                        </li>
+                        <li class="account-tab" data-tab="addresses">
+                            <button style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">location_on</i> Addresses
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="logout()" style="width: 100%; text-align: left; padding: 0.8rem 1.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #ff3b30;">
+                                <i class="material-icons" style="vertical-align: middle; margin-right: 0.5rem;">exit_to_app</i> Log Out
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div style="flex: 1; padding: 1.5rem 2rem; overflow-y: auto; max-height: 500px;">
+                    <div id="orderHistory" class="account-tab-content active">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">Order History</h3>
+                        <div id="ordersList">
+                            <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <div style="font-weight: 600;">Order #12345</div>
+                                    <div style="color: #86868b; font-size: 0.9rem;">June 15, 2023</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <div style="color: #86868b; font-size: 0.9rem;">3 items</div>
+                                    <div style="font-weight: 500;">$24.97</div>
+                                </div>
+                                <div style="font-size: 0.9rem; padding-top: 0.8rem; border-top: 1px solid #eee;">
+                                    <span style="display: inline-block; background: #e8f0fd; color: #0071e3; padding: 0.3rem 0.8rem; border-radius: 30px; font-size: 0.8rem;">Delivered</span>
+                                </div>
+                            </div>
+                            <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <div style="font-weight: 600;">Order #12339</div>
+                                    <div style="color: #86868b; font-size: 0.9rem;">June 10, 2023</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <div style="color: #86868b; font-size: 0.9rem;">2 items</div>
+                                    <div style="font-weight: 500;">$12.98</div>
+                                </div>
+                                <div style="font-size: 0.9rem; padding-top: 0.8rem; border-top: 1px solid #eee;">
+                                    <span style="display: inline-block; background: #e8f0fd; color: #0071e3; padding: 0.3rem 0.8rem; border-radius: 30px; font-size: 0.8rem;">Delivered</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="personalInfo" class="account-tab-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">Personal Information</h3>
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email Address</label>
+                                <input type="email" id="profileEmail" value="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="profilePhone">Phone Number</label>
+                                <input type="tel" id="profilePhone" value="(123) 456-7890">
+                            </div>
+                            <button type="submit" class="submit-order" style="margin-top: 1rem;">
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                    <div id="favorites" class="account-tab-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">My Favorites</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                            <div style="background: #f9f9f9; padding: 1rem; border-radius: 12px; width: calc(50% - 0.5rem);">
+                                <img src="https://images.unsplash.com/photo-1527515545081-5db817172677" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 0.8rem;">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.3rem;">CHOCOLATE</h4>
+                                <p style="color: #86868b; font-size: 0.85rem; margin-bottom: 0.8rem;">Rich chocolate donut topped with chocolate icing</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="font-weight: 600;">$1.09</div>
+                                    <button style="background: #0071e3; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Add to Cart</button>
+                                </div>
+                            </div>
+                            <div style="background: #f9f9f9; padding: 1rem; border-radius: 12px; width: calc(50% - 0.5rem);">
+                                <img src="https://images.unsplash.com/photo-1557925923-cd4648e211a0" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 0.8rem;">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.3rem;">BLUEBERRY</h4>
+                                <p style="color: #86868b; font-size: 0.85rem; margin-bottom: 0.8rem;">Cake donut filled with sweet blueberries</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="font-weight: 600;">$1.59</div>
+                                    <button style="background: #0071e3; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="addresses" class="account-tab-content">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: #1d1d1f;">Delivery Addresses</h3>
+                        <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem; position: relative;">
+                            <div style="position: absolute; top: 1rem; right: 1rem; font-size: 0.8rem; color: #0071e3;">Default</div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Home</h4>
+                            <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 0.5rem;">123 Main Street, Apt 4B</p>
+                            <p style="color: #86868b; font-size: 0.9rem;">New York, NY 10001</p>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Edit</button>
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Remove</button>
+                            </div>
+                        </div>
+                        <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1rem;">
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Work</h4>
+                            <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 0.5rem;">456 Business Ave, Floor 8</p>
+                            <p style="color: #86868b; font-size: 0.9rem;">New York, NY 10022</p>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Edit</button>
+                                <button style="background: none; border: 1px solid #d2d2d7; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Remove</button>
+                                <button style="background: none; border: 1px solid #0071e3; color: #0071e3; padding: 0.4rem 0.8rem; border-radius: 15px; font-size: 0.8rem; cursor: pointer;">Set as Default</button>
                             </div>
                         </div>
                         <button style="width: 100%; background: none; border: 1px dashed #d2d2d7; padding: 0.8rem; border-radius: 12px; margin-top: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #86868b;">
@@ -5758,33 +9352,6 @@
                     }
                 });
             }
-            // NEW: Options for "HALF&HALF" or "MIXED" donuts
-            else if (itemNameLower.includes('half&half') || itemNameLower.includes('mixed')) {
-                optionsSelectionGroup.style.display = 'block';
-                optionsGroupLabel.textContent = 'Select Quantity'; // Or your preferred label
-
-                const options = [
-                    { label: 'Dozen', priceModifier: item.price } // Added back Single option
-                ];
-
-                options.forEach((option, index) => {
-                    const button = document.createElement('button');
-                    button.className = 'option-choice';
-                    // Store the price for this specific option quantity
-                    button.dataset.priceModifier = option.priceModifier; 
-                    button.innerHTML = `
-                        <span>${option.label}</span>
-                        <span>$${option.priceModifier.toFixed(2)}</span> 
-                    `;
-                    button.onclick = () => selectOption(button, option.priceModifier);
-                    optionsChoicesDiv.appendChild(button);
-
-                    // Select the first option (Single) by default
-                    if (index === 0) {
-                        selectOption(button, option.priceModifier);
-                    }
-                });
-            }
             // NEW: Options for SPRINKLES
             else if (itemNameLower.includes('sprinkles')) {
                 optionsSelectionGroup.style.display = 'block';
@@ -5933,167 +9500,6 @@
                     selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
                 }
             }
-            // NEW: Options for APPLE FRITTER
-            else if (itemNameLower.includes('apple fritter')) {
-                optionsSelectionGroup.style.display = 'block';
-                const options = [
-                    {label: 'Small', price: 0.99, modifier: 0.99},
-                    {label: 'Large', price: 1.99, modifier: 1.99}
-                ];
-                
-                options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-choice';
-                    button.innerHTML = `<span>${option.label}</span><span>$${option.price.toFixed(2)}</span>`;
-                    button.onclick = () => selectOption(button, option.modifier);
-                    optionsChoicesDiv.appendChild(button);
-                });
-                
-                // Select first option by default
-                if (optionsChoicesDiv.firstChild) {
-                    selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
-                }
-            }
-            // NEW: Options for VANILLA CAKE
-            else if (itemNameLower.includes('vanilla cake')) {
-                optionsSelectionGroup.style.display = 'block';
-                const options = [
-                    {label: 'Plain', modifier: item.price},
-                    {label: 'Cinnamon Sugar', modifier: item.price},
-                    {label: 'Choco Icing', modifier: item.price}
-                ];
-                
-                options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-choice';
-                    button.innerHTML = `<span>${option.label}</span>`;
-                    button.onclick = () => selectOption(button, option.modifier);
-                    optionsChoicesDiv.appendChild(button);
-                });
-                
-                // Select first option by default
-                if (optionsChoicesDiv.firstChild) {
-                    selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
-                }
-            }
-            // NEW: Options for BUTTERMILK
-            else if (itemNameLower.includes('buttermilk')) {
-                optionsSelectionGroup.style.display = 'block';
-                const options = [
-                    {label: 'Glazed', modifier: item.price},
-                    {label: 'Cinnamon', modifier: item.price},
-                    {label: 'Choco Icing', modifier: item.price}
-                ];
-                
-                options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-choice';
-                    button.innerHTML = `<span>${option.label}</span>`;
-                    button.onclick = () => selectOption(button, option.modifier);
-                    optionsChoicesDiv.appendChild(button);
-                });
-                
-                // Select first option by default
-                if (optionsChoicesDiv.firstChild) {
-                    selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
-                }
-            }
-           // NEW: Options for BLUEBERRY
-           else if (itemNameLower.includes('blueberry')) {
-            optionsSelectionGroup.style.display = 'block';
-            optionsGroupLabel.textContent = 'Select Quantity';
-            document.querySelector('#optionsSelectionGroup .options-select-prompt').textContent = 'Please select 1';
-
-            const options = [
-                { label: 'Single', priceModifier: item.price } // Only Single option
-            ];
-
-            options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-choice';
-                button.dataset.priceModifier = option.priceModifier;
-                button.innerHTML = `
-                    <span>${option.label}</span>
-                    <span>$${option.priceModifier.toFixed(2)}</span>
-                `;
-                button.onclick = () => selectOption(button, option.priceModifier);
-                optionsChoicesDiv.appendChild(button);
-
-                // Select the first (and only) option by default
-                if (index === 0) {
-                    selectOption(button, option.priceModifier);
-                }
-            });
-       }
-            // NEW: Options for SMALL SAUSAGE
-            else if (itemNameLower.includes('small sausage')) {
-                optionsSelectionGroup.style.display = 'block';
-                const options = [
-                    {label: 'Single', price: 1.59, modifier: 1.59},
-                    {label: 'Dozen', price: 17.99, modifier: 17.99}
-                ];
-                
-                options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-choice';
-                    button.innerHTML = `<span>${option.label}</span><span>$${option.price.toFixed(2)}</span>`;
-                    button.onclick = () => selectOption(button, option.modifier);
-                    optionsChoicesDiv.appendChild(button);
-                });
-                
-                // Select first option by default
-                if (optionsChoicesDiv.firstChild) {
-                    selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
-                }
-            }
-            // NEW: Options for JUMBO SAUSAGE
-            else if (itemNameLower.includes('jumbo sausage')) {
-                optionsSelectionGroup.style.display = 'block';
-                const options = [
-                    {label: 'Spicy Cheese', modifier: item.price},
-                    {label: 'Regular Cheese', modifier: item.price}
-                ];
-                
-                options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-choice';
-                    button.innerHTML = `<span>${option.label}</span>`;
-                    button.onclick = () => selectOption(button, option.modifier);
-                    optionsChoicesDiv.appendChild(button);
-                });
-                
-                // Select first option by default
-                if (optionsChoicesDiv.firstChild) {
-                    selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
-                }
-            }
-             // NEW: Options for CROISSANT SAUSAGE
-           else if (itemNameLower.includes('croissant sausage')) {
-            optionsSelectionGroup.style.display = 'block';
-            optionsGroupLabel.textContent = 'Select Quantity';
-            document.querySelector('#optionsSelectionGroup .options-select-prompt').textContent = 'Please select 1';
-
-            const options = [
-                { label: 'Single', priceModifier: item.price } // Only Single option
-            ];
-
-            options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-choice';
-                button.dataset.priceModifier = option.priceModifier;
-                button.innerHTML = `
-                    <span>${option.label}</span>
-                    <span>$${option.priceModifier.toFixed(2)}</span>
-                `;
-                button.onclick = () => selectOption(button, option.priceModifier);
-                optionsChoicesDiv.appendChild(button);
-
-                // Select the first (and only) option by default
-                if (index === 0) {
-                    selectOption(button, option.priceModifier);
-                }
-            });
-       }
             // NEW: Options for CROISSANT SANDWICH
             else if (itemNameLower.includes('croissant sandwich')) {
                 optionsSelectionGroup.style.display = 'block';
@@ -6101,6 +9507,29 @@
                     {label: 'Ham/Egg/Cheese', modifier: item.price},
                     {label: 'Bacon/Egg/Cheese', modifier: item.price},
                     {label: 'Sausage/Egg/Cheese', modifier: item.price}
+                ];
+                
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-choice';
+                    button.innerHTML = `<span>${option.label}</span>`;
+                    button.onclick = () => selectOption(button, option.modifier);
+                    optionsChoicesDiv.appendChild(button);
+                });
+                
+                // Select first option by default
+                if (optionsChoicesDiv.firstChild) {
+                    selectOption(optionsChoicesDiv.firstChild, options[0].modifier);
+                }
+            }
+            // NEW: Options for BLUEBERRY
+            else if (itemNameLower.includes('blueberry')) {
+                optionsSelectionGroup.style.display = 'block';
+                optionsGroupLabel.textContent = 'Select Coating';
+                const options = [
+                    {label: 'Glazed', modifier: item.price},
+                    {label: 'Sugar Coated', modifier: item.price},
+                    {label: 'Powdered', modifier: item.price}
                 ];
                 
                 options.forEach(option => {

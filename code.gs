@@ -40,7 +40,7 @@ function doPost(e) {
             // 시트가 없으면 새로 생성
             sheet = spreadsheet.insertSheet(SHEET_NAME);
             // 헤더 추가
-            sheet.getRange('A1:J1').setValues([['주문시간', '주문자', '연락처', '주소', '수령방법', '픽업시간', '상품명', '가격', '수량', '총 금액']]);
+            sheet.getRange('A1:K1').setValues([['주문시간', '주문자', '연락처', '주소', '수령방법', '픽업시간', '상품명', '가격', '수량', '총 금액', '요청사항']]);
         }
 
         // 주문 시간
@@ -48,6 +48,10 @@ function doPost(e) {
 
         // 각 상품을 개별 행으로 저장
         data.items.forEach((item, index) => {
+            // 첫 번째 항목에만 전체 주문 정보 및 요청사항 포함
+            const notesValue = index === 0 ? data.notes || '' : ''; // notes 값 처리
+            Logger.log(`Processing item ${index}: notesValue = "${notesValue}"`); // notes 값 로깅
+
             const rowData = [
                 orderTime,
                 data.name,
@@ -59,6 +63,7 @@ function doPost(e) {
                 item.price,
                 item.quantity,
                 item.price * item.quantity,
+                notesValue,
             ];
 
             // 데이터 추가

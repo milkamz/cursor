@@ -2346,567 +2346,6 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* 모바일 반응형 디자인 - Apple 스타일 */
-        @media (max-width: 768px) {
-            html, body {
-                overflow-x: hidden;
-                -webkit-text-size-adjust: 100%;
-            }
-
-            .nav-bar {
-                padding: 0.8rem 1rem;
-            }
-            
-            .nav-logo img {
-                max-height: 40px;
-            }
-            
-            .order-online-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.75rem;
-            }
-            
-            .cart-icon {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .header {
-                padding: 5rem 0 1rem;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .header p {
-                font-size: 0.9rem;
-                padding: 0 1rem;
-            }
-
-            .container {
-                padding: 0 1rem 3rem;
-            }
-            
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title p {
-                font-size: 0.9rem;
-                padding: 0 1rem;
-            }
-            
-            .category-tabs {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding: 0.8rem 0.5rem;
-                margin: 2rem auto 1.5rem;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .category-tab {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-                margin: 0 0.3rem;
-            }
-            
-            .menu-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .menu-item {
-                flex-direction: column;
-            }
-            
-            .menu-item img {
-                width: 100%;
-                height: 180px;
-            }
-            
-            .menu-item-details {
-                padding: 1rem;
-            }
-            
-            .menu-item-details .price-container,
-            .menu-item .price-container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-            
-            .cart-content,
-            .order-content {
-                width: 100%;
-                max-width: 100%;
-                border-radius: 12px 12px 0 0 !important;
-                transform: translateY(100%) !important;
-                height: 85vh;
-                bottom: 0;
-                top: auto;
-                position: fixed;
-            }
-            
-            .cart-modal.show .cart-content,
-            #checkoutModal.show .order-content,
-            #orderModal.show .order-content {
-                transform: translateY(0) !important;
-            }
-            
-            .slide {
-                height: 250px;
-            }
-            
-            .slide img {
-                height: 250px;
-            }
-            
-            .slide-content h3 {
-                font-size: 1.3rem;
-            }
-            
-            .slide-content p {
-                font-size: 0.8rem;
-                margin-bottom: 0.7rem;
-            }
-            
-            .slide-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-            
-            .slider-arrow {
-                width: 30px;
-                height: 30px;
-            }
-
-            /* Modal adjustments */
-            .cart-items, 
-            .checkout-body, 
-            .order-form, 
-            #accountModal > div:last-child, 
-            .menu-detail-body {
-                padding: 1rem;
-                max-height: 60vh;
-            }
-            
-            .cart-header, 
-            .cart-footer {
-                padding: 1rem;
-            }
-            
-            .cart-header h2 {
-                font-size: 1.1rem;
-            }
-            
-            .cart-total {
-                font-size: 1rem;
-                margin-bottom: 1rem;
-            }
-            
-            .checkout-btn, 
-            .submit-order {
-                padding: 0.8rem 0;
-                font-size: 0.9rem;
-            }
-            
-            /* Menu detail modal */
-            .menu-detail-content {
-                width: 95%;
-                max-height: 85vh;
-            }
-            
-            .menu-detail-header {
-                flex-direction: column;
-                padding: 1.5rem;
-                gap: 1rem;
-            }
-            
-            .menu-detail-img {
-                width: 100%;
-                height: 180px;
-            }
-            
-            .menu-detail-info h3 {
-                font-size: 1.4rem;
-            }
-            
-            .menu-detail-info p,
-            .menu-detail-price {
-                font-size: 1rem;
-                margin-bottom: 1rem;
-            }
-            
-            /* Options modal */
-            .options-content {
-                width: 95%;
-                max-height: 90vh;
-            }
-            
-            .options-image {
-                height: 180px;
-            }
-            
-            .options-details {
-                padding: 1rem;
-            }
-            
-            .options-details h3 {
-                font-size: 1.2rem;
-                margin-bottom: 1rem;
-            }
-            
-            .option-choice {
-                min-width: 100%;
-                padding: 0.7rem;
-            }
-            
-            .options-footer {
-                padding-top: 1rem;
-            }
-        }
-
-        /* Tablet adjustments */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                padding: 0 1.5rem 4rem;
-            }
-            
-            .menu-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-            
-            .nav-bar {
-                padding: 0.8rem 2rem;
-            }
-            
-            .slider-container {
-                width: 90%;
-            }
-            
-            .category-tabs {
-                width: 95%;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding: 1rem 0.8rem;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .cart-content,
-            .order-content {
-                width: 70%;
-                max-width: 400px;
-            }
-        }
-
-        /* Large desktop */
-        @media (min-width: 1025px) {
-            .container {
-                max-width: 1200px;
-            }
-            
-            .menu-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* 애니메이션 효과 */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* 주문 모달 & 로그인 모달 공통 스타일 */
-        .order-content {
-            background: white;
-            padding: 0;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 85vh;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            animation: slideUp 0.4s ease;
-        }
-
-        /* 소셜 로그인 버튼 스타일 */
-        .social-login-btn {
-            display: inline-flex;
-                align-items: center;
-            justify-content: center; /* 가운데 정렬 */
-            width: 100%; /* 부모 요소 너비에 맞춤 */
-            max-width: 280px; /* 최대 너비 설정 */
-            height: 44px; /* 높이 조절 */
-            border-radius: 8px; /* 둥근 모서리 */
-            border: 1px solid #dadce0; /* 테두리 */
-            background-color: white; /* 기본 배경 흰색 */
-            color: #3c4043; /* 기본 글자색 */
-            text-decoration: none;
-            font-size: 0.9rem; /* 글자 크기 조절 */
-            font-weight: 500;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-            cursor: pointer;
-            padding: 0 15px; /* 내부 여백 */
-        }
-
-        .social-login-btn:hover {
-            background-color: #f8f9fa; /* 호버 시 배경색 */
-            border-color: #c6cacc;
-            opacity: 1; /* 호버 시 투명도 제거 */
-        }
-
-        .social-login-btn svg {
-            /* SVG 아이콘 스타일 (필요시 추가) */
-        }
-
-        /* 각 소셜 버튼별 특화 스타일 */
-        .social-login-btn.apple-btn {
-            background-color: #000;
-            color: white;
-            border-color: #000;
-        }
-        .social-login-btn.apple-btn:hover {
-            background-color: #333;
-            border-color: #333;
-        }
-
-        .social-login-btn.facebook-btn {
-            background-color: #1877f2; /* Facebook 파란색 */
-            color: white;
-            border-color: #1877f2;
-        }
-        .social-login-btn.facebook-btn:hover {
-            background-color: #166fe5;
-            border-color: #166fe5;
-        }
-
-        /* 로그인 모달 크기 조정 */
-        #loginModal .order-form {
-            padding: 1rem 1.5rem 1.5rem; /* 패딩 축소 */
-            gap: 0.8rem; /* 요소 간 간격 축소 */
-        }
-
-        #loginModal .form-group {
-            gap: 0.3rem; /* 레이블과 인풋 간격 축소 */
-        }
-
-        #loginModal .form-group label {
-            font-size: 0.85rem; /* 레이블 폰트 크기 축소 */
-        }
-
-        #loginModal .form-group input {
-            padding: 0.7rem 0.8rem; /* 인풋 패딩 축소 */
-            font-size: 0.9rem; /* 인풋 폰트 크기 축소 */
-        }
-
-        #loginModal .submit-order {
-            padding: 0.7rem 0; /* 버튼 패딩 축소 */
-            font-size: 0.9rem; /* 버튼 폰트 크기 축소 */
-            margin-top: 0.8rem; /* 버튼 상단 마진 축소 */
-        }
-        #loginModal .submit-order .material-icons {
-            font-size: 1.1rem; /* 버튼 아이콘 크기 축소 */
-        }
-
-        #loginModal .social-login-btn {
-            height: 38px; /* 소셜 버튼 높이 축소 */
-            font-size: 0.85rem; /* 소셜 버튼 폰트 크기 축소 */
-            max-width: 250px; /* 소셜 버튼 최대 너비 축소 */
-        }
-         #loginModal .social-login-btn svg {
-            width: 16px; /* 소셜 버튼 아이콘 크기 축소 */
-            height: 16px;
-            margin-right: 8px;
-        }
-
-        #loginModal div[style*="text-align: center"] {
-            margin-top: 1rem; /* "Or log in with:" 위 마진 축소 */
-            padding-top: 0.8rem; /* 구분선 위 패딩 축소 */
-        }
-        #loginModal div[style*="text-align: center"] p {
-            font-size: 0.8rem; /* "Or...", "Don't have..." 폰트 크기 축소 */
-            margin-bottom: 0.8rem; /* "Or log in with:" 아래 마진 축소 */
-        }
-        #loginModal div[style*="text-align: center"] > div {
-             gap: 0.6rem; /* 소셜 버튼 간격 축소 */
-        }
-        #loginModal form > p[style*="text-align: center"] {
-             margin-top: 1rem; /* "Don't have account?" 위 마진 축소 */
-        }
-
-        /* 주문 선택 모달 내부 버튼 스타일 */
-        .order-choice-btn {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
-            background-color: #fff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #1d1d1f;
-            text-align: left;
-        }
-
-        .order-choice-btn .material-icons {
-            margin-right: 1rem;
-            color: #0071e3;
-        }
-
-        .order-choice-btn .arrow {
-            margin-left: auto;
-            color: #86868b;
-            transition: transform 0.2s ease;
-        }
-
-        .order-choice-btn:hover {
-            border-color: #0071e3;
-            background-color: #f5faff;
-            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.1);
-        }
-
-        .order-choice-btn:hover .arrow {
-            transform: translateX(3px);
-        }
-
-        /* 장바구니 버튼 비활성화/숨김 스타일 */
-             .menu-item .add-to-cart {
-            display: none; /* 기본적으로 숨김 */
-        }
-        .cart-footer .checkout-btn {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none; /* 클릭 이벤트 방지 */
-        }
-
-        /* PICKUP 활성화 시 장바구니 버튼 활성화/표시 */
-        body.pickup-active .menu-item .add-to-cart {
-            display: inline-block; /* 활성화 시 표시 (inline-block 또는 block 등 적절히 선택) */
-            /* display: flex; */ /* 버튼 내용에 따라 flex도 가능 */
-        }
-        body.pickup-active .cart-footer .checkout-btn {
-            opacity: 1;
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        /* 커스텀 시간 선택 드롭다운 스타일 */
-        .custom-time-select {
-            position: relative;
-            width: 100%;
-        }
-
-        .time-select-trigger {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.9rem 1rem;
-            border: 1px solid #d2d2d7;
-                 border-radius: 12px;
-            background-color: #fff;
-            cursor: pointer;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .time-select-trigger:hover, .time-select-trigger.open {
-            border-color: #0071e3;
-            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
-        }
-
-        .time-select-trigger span {
-            color: #1d1d1f;
-        }
-
-        .time-select-trigger .material-icons {
-            color: #86868b;
-            transition: transform 0.2s ease;
-        }
-
-        .time-select-trigger.open .material-icons {
-            transform: rotate(180deg);
-        }
-
-        .time-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 5px);
-            left: 0;
-            right: 0;
-            background-color: #fff;
-            border: 1px solid #d2d2d7;
-                 border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1001; /* 다른 모달 요소 위에 오도록 */
-        }
-
-        .time-dropdown.show {
-            display: block;
-        }
-
-        .time-option {
-                   padding: 0.8rem 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            font-size: 0.95rem;
-            color: #1d1d1f;
-        }
-
-        .time-option:hover {
-            background-color: #f5f5f7;
-        }
-
-        .time-option.selected {
-            background-color: #e8f0fd;
-            font-weight: 500;
-            color: #0071e3;
-        }
-
-        /* Payment 모달 크기 조정 */
-        #orderModal .order-form {
-            padding: 1.2rem 2rem 1.5rem; /* 상하 패딩 축소 */
-            gap: 1rem; /* 요소 간 간격 축소 */
-        }
-
-        #orderModal .form-group {
-            gap: 0.4rem; /* 레이블과 인풋 간격 축소 */
-        }
-
-        #orderModal .form-group input,
-        #orderModal .form-group textarea {
-            padding: 0.7rem 1rem; /* 인풋/텍스트 영역 내부 패딩 축소 */
-            font-size: 0.95rem; /* 폰트 크기 약간 축소 */
-        }
-
-        #orderModal .form-group textarea#notes {
-            rows: 2; /* 텍스트 영역 높이 줄임 */
-            min-height: 60px; /* 최소 높이 설정 (약 2줄) */
-        }
-
-        #orderModal .pricing-summary {
-            padding-top: 1rem; /* 가격 요약 위쪽 패딩 축소 */
-            margin-top: 0.8rem; /* 가격 요약 위쪽 마진 축소 */
-        }
-
-        #orderModal .submit-order {
-            padding: 0.8rem 0; /* 버튼 패딩 축소 */
-            font-size: 0.95rem; /* 버튼 폰트 크기 축소 */
-            margin-top: 1rem; /* 버튼 상단 마진 축소 */
-        }
-
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
         /* 모바일 반응형 디자인 - 추가 최적화 */
         @media (max-width: 768px) {
             html, body {
@@ -3353,11 +2792,12 @@
                      <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
                         <span>Subtotal</span>
                         <span id="paymentSubtotal">$0.00</span>
-                </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
+                    </div>
+                    <!-- Tax Display Removed -->
+                    <!-- <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
                         <span>Tax</span>
                         <span id="paymentTax">$0.00</span>
-                    </div>
+                    </div> -->
                     <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 600;">
                         <span>Total</span>
                         <span id="paymentTotal">$0.00</span>
@@ -3783,10 +3223,11 @@
                         <span>Subtotal</span>
                         <span id="checkoutSubtotal">$0.00</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
-                        <span>Tax (<span id="checkoutTaxRate">8.25</span>%)</span> <!-- 세율 표시 (예시) -->
+                    <!-- Tax Display Removed -->
+                    <!-- <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #6e6e73;">
+                        <span>Tax (<span id="checkoutTaxRate">8.25</span>%)</span> 
                         <span id="checkoutTax">$0.00</span>
-                    </div>
+                    </div> -->
                     <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 600;">
                         <span>Total</span>
                         <span id="checkoutTotal">$0.00</span>
@@ -3845,7 +3286,7 @@
         let isPickupActive = false; // PICKUP 활성화 상태 변수
         
         // 구글 시트 API URL (기존 주문 처리 URL과 동일)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzuIZT-pRiC4o53u0ruWefsfRqyDasNQqW7nOfs5ipHZ0PlicbFP3FixcjDZv4rha8QXQ/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbz_44bQc86PRDS2D75SR0sVs4Wz3SXOMK7mJfI2GNubJmPBf-uGBEy7CkaBpF77OJmYvA/exec';
         const SHEET_ID = '1_3vfkReCDiWfQAIHwfC2vNPmJZk-EAhIO6AAsmrYms4';
         const REFRESH_INTERVAL = 60 * 60 * 1000; // 1시간간마다 메뉴 새로고침
         
@@ -4790,7 +4231,7 @@
                     displayTimeString = 'Invalid time stored';
                 }
             }
-            document.getElementById('displayPickupTime').textContent = displayTimeString;
+            // document.getElementById('displayPickupTime').textContent = displayTimeString; // This element might not exist anymore
 
             document.getElementById('orderModal').classList.add('show');
         }
@@ -4800,100 +4241,14 @@
             document.getElementById('orderModal').classList.remove('show');
         }
 
-        // 주문 제출 (수정됨)
+        // 주문 제출 (수정됨) - This function is now effectively replaced by submitFinalOrder
         function submitOrder(event) {
             event.preventDefault();
-
-            // 필수 입력값 검증
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim(); // 주소는 Pickup 시 사용 안 함
-            const deliveryOption = document.getElementById('deliveryOption').value;
-            // const pickupTime = document.getElementById('pickupTime').value; // 이전 방식 제거
-
-            // localStorage에서 픽업 시간 가져오기
-            const pickupDateTimeString = localStorage.getItem('pickupDateTime');
-            let pickupTimeCombined = 'N/A';
-            if (pickupDateTimeString) {
-                try {
-                    const pickupInfo = JSON.parse(pickupDateTimeString);
-                    pickupTimeCombined = `${pickupInfo.date} ${pickupInfo.time}`;
-                } catch (e) {
-                    console.error('Error reading pickup time for submission:', e);
-                    alert('There was an error retrieving the selected pickup time. Please re-select the time.');
-                    return;
-                }
-            } else {
-                alert('Pickup time is missing. Please ensure you have selected a pickup time.');
-                return;
-            }
-
-            if (!name || !phone) {
-                alert('이름과 전화번호는 필수 입력 항목입니다.');
-                return;
-            }
-
-            // Delivery Option이 pickup인지 확인 (Home Delivery는 현재 비활성화)
-            if (deliveryOption !== 'pickup') {
-                 alert('Currently, only Pickup is available.');
-                return;
-            }
-
-            // 장바구니 아이템을 문자열로 변환
-            const itemDetails = cart.map(item => 
-                `${item.name} (${item.price}원 x ${item.quantity}개)`
-            ).join('\n');
-
-            // 총 주문 금액 계산
-            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            const orderData = {
-                name: name,
-                phone: phone,
-                address: 'N/A (Pickup)', // Pickup이므로 주소 대신 표시
-                deliveryOption: deliveryOption, // 'pickup'
-                pickupTime: pickupTimeCombined, // 저장된 날짜/시간 사용
-                items: cart.map(item => ({
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity
-                })),
-                itemDetails: itemDetails,
-                total: totalAmount,
-                notes: document.getElementById('notes').value.trim() // Special Instructions 추가
-            };
-
-            // 로딩 표시
-            document.getElementById('loadingOverlay').style.display = 'flex';
-
-            // 구글 시트에 데이터 전송
-            fetch('https://script.google.com/macros/s/AKfycbzuIZT-pRiC4o53u0ruWefsfRqyDasNQqW7nOfs5ipHZ0PlicbFP3FixcjDZv4rha8QXQ/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(orderData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(() => {
-                // no-cors 모드에서는 응답을 받을 수 없으므로 바로 성공 처리
-                alert('주문이 완료되었습니다! 감사합니다.');
-                cart = [];
-                updateCartCount();
-                closeOrderForm();
-                toggleCart();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('주문이 처리되었습니다. 감사합니다.');
-                cart = [];
-                updateCartCount();
-                closeOrderForm();
-                toggleCart();
-            })
-            .finally(() => {
-                document.getElementById('loadingOverlay').style.display = 'none';
-            });
+            // This function is likely deprecated by the new checkout flow.
+            // Calling submitFinalOrder instead for consistency, though it might need adjustments
+            // if called from an unexpected context.
+            console.warn("submitOrder called, redirecting to submitFinalOrder. Ensure this is intended.");
+            submitFinalOrder(event); 
         }
 
         // JSONP로 데이터 가져오기
@@ -5363,15 +4718,15 @@
             orderItemsContainer.style.display = 'none';
             document.getElementById('orderDetailsToggleIcon').textContent = 'expand_more';
 
-            // 3. 가격 요약 계산 및 표시
-            const TAX_RATE = 0.0825; // 8.25% 세금 (예시, 필요시 수정)
-            const tax = subtotal * TAX_RATE;
-            const total = subtotal + tax;
+            // 3. 가격 요약 계산 및 표시 (Tax 제거)
+            // const TAX_RATE = 0.0825; // Tax Rate 제거
+            // const tax = subtotal * TAX_RATE; // Tax 계산 제거
+            const total = subtotal; // Total is now just the subtotal
             
-            document.getElementById('checkoutTaxRate').textContent = (TAX_RATE * 100).toFixed(2); // 세율 표시
+            // document.getElementById('checkoutTaxRate').textContent = (TAX_RATE * 100).toFixed(2); // Tax Rate 표시 제거
+            // document.getElementById('checkoutTax').textContent = `$${tax.toFixed(2)}`; // Tax 금액 표시 제거
             document.getElementById('checkoutSubtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('checkoutTax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('checkoutTotal').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('checkoutTotal').textContent = `$${total.toFixed(2)}`; // Total 업데이트 (이제 subtotal과 같음)
 
             // 4. 모달 표시
             document.getElementById('checkoutModal').classList.add('show');
@@ -5405,107 +4760,14 @@
             document.getElementById('orderModal').classList.remove('show');
         }
 
-        // 주문 제출 (수정됨 - Checkout 모달 컨텍스트 반영)
-        function submitOrder(event) {
-            event.preventDefault();
-
-            // localStorage에서 픽업 시간 가져오기
-            const pickupDateTimeString = localStorage.getItem('pickupDateTime');
-            let pickupTimeCombined = 'N/A';
-            if (pickupDateTimeString) {
-                try {
-                    const pickupInfo = JSON.parse(pickupDateTimeString);
-                    pickupTimeCombined = `${pickupInfo.date} ${pickupInfo.time}`;
-                } catch (e) {
-                    console.error('Error reading pickup time for submission:', e);
-                    alert('There was an error retrieving the selected pickup time. Please re-select the time.');
-                    return;
-                }
-            } else {
-                 alert('Pickup time is missing. Please ensure you have selected a pickup time.');
-                return;
-            }
-
-            // 필수 입력값 가져오기 (Checkout 모달 컨텍스트)
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const name = userInfo ? userInfo.name : 'Guest User'; // 로그인 정보 활용
-            const phone = userInfo ? userInfo.phone : 'N/A'; // 로그인 정보 활용 (전화번호가 저장되어 있다면)
-             // 실제 앱에서는 이름/전화번호를 Checkout 모달에서 받거나, 로그인 정보를 필수로 요구해야 함
-            if (name === 'Guest User' || phone === 'N/A') {
-                 // 임시로 이전 Order Information 모달을 열어 정보 입력 유도
-                 alert('Please provide your name and phone number.');
-                 closeCheckoutModal();
-                 document.getElementById('orderModal').classList.add('show'); 
-                 // Order Information 모달에도 픽업 시간 표시 업데이트
-                 document.getElementById('displayPickupTime').textContent = document.getElementById('checkoutPickupTime').textContent;
-                 return;
-             }
-
-            const deliveryOption = 'pickup'; // Checkout 경로는 무조건 pickup
-
-            // 장바구니 아이템을 문자열로 변환
-            const itemDetails = cart.map(item => 
-                `${item.name} (${item.price}원 x ${item.quantity}개)`
-            ).join('\n');
-
-            // 총 주문 금액 재계산 (submitOrder에서 다시 계산)
-            const TAX_RATE = 0.0825;
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const totalAmount = subtotal * (1 + TAX_RATE);
-
-            const orderData = {
-                name: name,
-                phone: phone,
-                address: 'N/A (Pickup)',
-                deliveryOption: deliveryOption,
-                pickupTime: pickupTimeCombined,
-                items: cart.map(item => ({
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity
-                })),
-                itemDetails: itemDetails,
-                total: totalAmount,
-                 notes: '' // Checkout 모달에 notes 필드 없으므로 빈 값
-            };
-
-            // 로딩 표시
-            document.getElementById('loadingOverlay').style.display = 'flex';
-
-            // 구글 시트에 데이터 전송
-            fetch('https://script.google.com/macros/s/AKfycbzuIZT-pRiC4o53u0ruWefsfRqyDasNQqW7nOfs5ipHZ0PlicbFP3FixcjDZv4rha8QXQ/exec', { 
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(orderData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(() => {
-                alert('주문이 완료되었습니다! 감사합니다.');
-                cart = [];
-                updateCartCount();
-                closeCheckoutModal(); // Checkout 모달 닫기
-                document.body.classList.remove('pickup-active'); // Pickup 상태 해제
-                 localStorage.removeItem('pickupDateTime'); // 저장된 픽업 시간 제거
-            })
-            .catch(error => {
-                console.error('Error submitting order:', error);
-                alert('주문 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
-            })
-            .finally(() => {
-                document.getElementById('loadingOverlay').style.display = 'none';
-            });
-        }
-
         // Checkout 모달에서 Payment 단계로 진행
         function proceedToPayment(event) {
             event.preventDefault();
-            // 가격 정보 저장 (checkoutModal에서 계산된 값 사용)
+            // 가격 정보 저장 (checkoutModal에서 계산된 값 사용 - Tax 없음)
             const pricing = {
                 subtotal: document.getElementById('checkoutSubtotal').textContent,
-                tax: document.getElementById('checkoutTax').textContent,
-                total: document.getElementById('checkoutTotal').textContent
+                // tax: document.getElementById('checkoutTax').textContent, // Tax 정보 제거
+                total: document.getElementById('checkoutTotal').textContent // Total (이제 subtotal과 같음)
             };
             localStorage.setItem('orderPricing', JSON.stringify(pricing));
 
@@ -5522,12 +4784,12 @@
                 try {
                     const pricing = JSON.parse(pricingString);
                     document.getElementById('paymentSubtotal').textContent = pricing.subtotal;
-                    document.getElementById('paymentTax').textContent = pricing.tax;
-                    document.getElementById('paymentTotal').textContent = pricing.total;
+                    // document.getElementById('paymentTax').textContent = pricing.tax; // Tax 표시 제거
+                    document.getElementById('paymentTotal').textContent = pricing.total; // Total (subtotal) 표시
                 } catch (e) {
                     console.error('Error parsing pricing from localStorage:', e);
                     document.getElementById('paymentSubtotal').textContent = '$?.??';
-                    document.getElementById('paymentTax').textContent = '$?.??';
+                    // document.getElementById('paymentTax').textContent = '$?.??'; // Tax 표시 제거
                     document.getElementById('paymentTotal').textContent = '$?.??';
                 }
             }
@@ -5592,26 +4854,22 @@
                 `${item.name} (${item.price}원 x ${item.quantity}개)`
             ).join('\n');
 
-            // 저장된 가격 정보 가져오기 (또는 다시 계산)
+            // 저장된 가격 정보 가져오기 (또는 다시 계산 - Tax 없음)
             const pricingString = localStorage.getItem('orderPricing');
             let totalAmount = 0;
             if(pricingString) {
                  try {
                      const pricing = JSON.parse(pricingString);
                      // $ 기호 제거하고 숫자로 변환
-                     totalAmount = parseFloat(pricing.total.replace('$', '')); 
+                     totalAmount = parseFloat(pricing.total.replace('$', '')); // total is now subtotal
                  } catch(e) {
                      console.error("Error parsing total price for submission");
-                     // 안전하게 다시 계산
-                     const TAX_RATE = 0.0825;
-                     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                     totalAmount = subtotal * (1 + TAX_RATE);
+                     // 안전하게 다시 계산 (Tax 없이)
+                     totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                  }
             } else {
-                 // 가격 정보 없으면 다시 계산
-                 const TAX_RATE = 0.0825;
-                 const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                 totalAmount = subtotal * (1 + TAX_RATE);
+                 // 가격 정보 없으면 다시 계산 (Tax 없이)
+                 totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             }
 
             const orderData = {
@@ -5627,15 +4885,15 @@
                     quantity: item.quantity
                 })),
                 itemDetails: itemDetails,
-                total: totalAmount,
+                total: totalAmount, // Total (without tax)
                  notes: document.getElementById('notes').value.trim() // Special Instructions 가져오기
             };
-
+            
             // 로딩 표시
             document.getElementById('loadingOverlay').style.display = 'flex';
 
             // 구글 시트에 데이터 전송
-            fetch('https://script.google.com/macros/s/AKfycbzuIZT-pRiC4o53u0ruWefsfRqyDasNQqW7nOfs5ipHZ0PlicbFP3FixcjDZv4rha8QXQ/exec', { 
+            fetch('https://script.google.com/macros/s/AKfycbz_44bQc86PRDS2D75SR0sVs4Wz3SXOMK7mJfI2GNubJmPBf-uGBEy7CkaBpF77OJmYvA/exec', { 
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify(orderData),
@@ -6117,7 +5375,9 @@
                 }
             }
             else {
-                // ... existing code ...
+                 // Default case: No options needed, hide the group
+                 optionsSelectionGroup.style.display = 'none';
+                 selectedOptionPriceModifier = item.price; // Price is just the item price
             }
             // --- End Option Generation --- 
 
@@ -6148,16 +5408,25 @@
         }
 
         function selectOption(selectedButton, priceModifier) {
-            // Deselect previously selected button
-            const currentlySelected = document.querySelector('.option-choice.selected');
-            if (currentlySelected) {
-                currentlySelected.classList.remove('selected');
+            // Deselect previously selected button within the same group (if applicable)
+            const optionsContainer = selectedButton.closest('.options-choices');
+            if (optionsContainer) {
+                optionsContainer.querySelectorAll('.option-choice.selected').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+            } else { // Fallback for older structure or single-group scenarios
+                 const currentlySelected = document.querySelector('.option-choice.selected');
+                 if (currentlySelected) {
+                     currentlySelected.classList.remove('selected');
+                 }
             }
+
             // Select the new button
             selectedButton.classList.add('selected');
             selectedOptionPriceModifier = priceModifier;
             updateOptionsPrice();
         }
+
 
         function updateOptionsQuantity(change) {
             currentOptionsQuantity += change;
@@ -6221,23 +5490,27 @@
             // --- Check for Pickup Time ---
             if (!document.body.classList.contains('pickup-active')) {
                 // Ensure an option is selected if required (before storing)
-                if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('.option-choice.selected')) {
-                    alert('Please select an option.');
+                // Check both Eclair and single-group scenarios
+                let requiredOptionSelected = true;
+                if (itemNameLower.includes('eclair')) {
+                    if (!document.querySelector('.option-choice.icing-option.selected') || !document.querySelector('.option-choice.filling-option.selected')) {
+                        requiredOptionSelected = false;
+                    }
+                } else if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('#optionsChoices .option-choice.selected')) {
+                    requiredOptionSelected = false;
+                }
+
+                if (!requiredOptionSelected) {
+                    alert('Please select the required option(s).');
                     return;
                 }
                 
                 // Calculate details to store
                 let itemNameWithOptions = currentOptionsItem.name;
-                const selectedButton = document.querySelector('.option-choice.selected');
-                if (selectedButton) {
-                    const optionLabel = selectedButton.querySelector('span:first-child').textContent;
-                    itemNameWithOptions += ` (${optionLabel})`;
+                if (selectedOptions.length > 0) {
+                    itemNameWithOptions += ` (${selectedOptions.join(', ')})`;
                 }
-                let basePrice = 0;
-                if (document.getElementById('optionsSelectionGroup').style.display === 'none') {
-                    basePrice = currentOptionsItem.price;
-                }
-                const finalPricePerItem = basePrice + selectedOptionPriceModifier;
+                const finalPricePerItem = selectedOptionPriceModifier; // Use the modifier which holds the correct price
 
                 // Store details
                 itemToAddAfterPickupSelection = {
@@ -6302,4 +5575,3 @@
     </script>
 </body>
 </html>
-

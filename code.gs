@@ -40,11 +40,11 @@ function doPost(e) {
             // 시트가 없으면 새로 생성
             sheet = spreadsheet.insertSheet(SHEET_NAME);
             // 헤더 추가
-            sheet.getRange('A1:K1').setValues([['주문시간', '주문자', '연락처', '주소', '수령방법', '픽업시간', '상품명', '가격', '수량', '총 금액', '요청사항']]);
+            sheet.getRange('A1:K1').setValues([['주문시간', '이름', '전화번호', '배송옵션', '픽업시간', '상품명', '가격', '수량', '총금액', '요청사항', '주문번호']]);
         }
 
         // 주문 시간
-        const orderTime = new Date().toLocaleString('ko-KR');
+        const orderTime = new Date().toLocaleString();
 
         // 각 상품을 개별 행으로 저장
         data.items.forEach((item, index) => {
@@ -56,7 +56,6 @@ function doPost(e) {
                 orderTime,
                 data.name,
                 data.phone,
-                data.address || '',
                 data.deliveryOption || 'pickup',
                 data.pickupTime || '',
                 item.name,
@@ -64,6 +63,7 @@ function doPost(e) {
                 item.quantity,
                 item.price * item.quantity,
                 notesValue,
+                data.orderNumber, // 주문 번호
             ];
 
             // 데이터 추가
@@ -75,6 +75,10 @@ function doPost(e) {
                 sheet.getRange(lastRow, 2, 1, 5).clearContent();
             }
         });
+
+        if (data.sendEmail) {
+            sendOrderConfirmationEmail(data);
+        }
 
         // 성공 응답 반환
         return ContentService.createTextOutput(
@@ -91,6 +95,55 @@ function doPost(e) {
                 message: error.toString(),
             })
         ).setMimeType(ContentService.MimeType.JSON);
+    }
+}
+
+// 자동 이메일 전송 함수
+function sendOrderConfirmationEmail(data) {
+    try {
+        // 이메일 본문 생성
+        const itemsList = data.items.map((item) => `${item.name} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`).join('\n');
+
+        const emailBody = `
+      Dear ${data.name},
+
+      Thank you for your order at Texan Lee Donuts!
+
+      Order Details:
+      -------------
+      Order Number: ${data.orderNumber}
+      Pickup Time: ${data.pickupTime}
+
+      Items Ordered:
+      ${itemsList}
+
+      Total: $${data.total.toFixed(2)}
+
+      Special Instructions: ${data.notes || 'None'}
+
+      Pickup Location:
+      Texan Lee Donuts
+      1490 Valley Ridge Blvd #104
+      Lewisville, TX 75077
+
+      If you have any questions about your order, please contact us at:
+      Phone: (972) 436-1054
+      Email: texanleedonuts@gmail.com
+
+      Thank you for choosing Texan Lee Donuts!
+    `;
+
+        // 이메일 전송
+        MailApp.sendEmail({
+            to: data.email,
+            subject: 'Your Texan Lee Donuts Order Confirmation',
+            body: emailBody,
+        });
+
+        return true;
+    } catch (error) {
+        console.error('Error sending confirmation email:', error);
+        return false;
     }
 }
 

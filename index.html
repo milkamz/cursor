@@ -3286,7 +3286,7 @@
         let isPickupActive = false; // PICKUP 활성화 상태 변수
         
         // 구글 시트 API URL (기존 주문 처리 URL과 동일)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbz_44bQc86PRDS2D75SR0sVs4Wz3SXOMK7mJfI2GNubJmPBf-uGBEy7CkaBpF77OJmYvA/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbx2lGnHAqTDTXY7Qr0RcVXrC6C6olx-13vcVlHIJ9MyVjbroltd3t4VBjEvhkmezdkWsA/exec';
         const SHEET_ID = '1_3vfkReCDiWfQAIHwfC2vNPmJZk-EAhIO6AAsmrYms4';
         const REFRESH_INTERVAL = 60 * 60 * 1000; // 1시간간마다 메뉴 새로고침
         
@@ -4872,11 +4872,15 @@
                  totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             }
 
+            // 주문 번호 생성 (timestamp + 랜덤 숫자 4자리)
+            const timestamp = new Date().getTime();
+            const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            const orderNumber = `${timestamp}-${randomNum}`;
+
             const orderData = {
                 name: name,
                 phone: phone,
                 email: email, // 이메일 추가
-                address: 'N/A (Pickup)',
                 deliveryOption: deliveryOption,
                 pickupTime: pickupTimeCombined,
                 items: cart.map(item => ({
@@ -4886,17 +4890,21 @@
                 })),
                 itemDetails: itemDetails,
                 total: totalAmount, // Total (without tax)
-                 notes: document.getElementById('notes').value.trim() // Special Instructions 가져오기
+                 notes: document.getElementById('notes').value.trim(), // Special Instructions 가져오기
+                 orderNumber: orderNumber, // 주문 번호 추가
             };
             
             // 로딩 표시
             document.getElementById('loadingOverlay').style.display = 'flex';
 
             // 구글 시트에 데이터 전송
-            fetch('https://script.google.com/macros/s/AKfycbz_44bQc86PRDS2D75SR0sVs4Wz3SXOMK7mJfI2GNubJmPBf-uGBEy7CkaBpF77OJmYvA/exec', { 
+            fetch('https://script.google.com/macros/s/AKfycbx2lGnHAqTDTXY7Qr0RcVXrC6C6olx-13vcVlHIJ9MyVjbroltd3t4VBjEvhkmezdkWsA/exec', { 
                 method: 'POST',
                 mode: 'no-cors',
-                body: JSON.stringify(orderData),
+                body: JSON.stringify({
+            ...orderData,
+            sendEmail: true // 이메일 전송 요청 플래그 추가
+        }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -4906,9 +4914,11 @@
                 cart = [];
                 updateCartCount();
                 closeOrderForm(); // Payment 모달 닫기
+                document.getElementById('cartModal').classList.remove('show'); // 장바구니 모달 닫기
                 document.body.classList.remove('pickup-active'); // Pickup 상태 해제
                  localStorage.removeItem('pickupDateTime'); // 저장된 픽업 시간 제거
                  localStorage.removeItem('orderPricing'); // 저장된 가격 정보 제거
+                 document.body.classList.remove('modal-open'); // 모달 오버레이 제거
             })
             .catch(error => {
                 console.error('Error submitting final order:', error);
@@ -5447,6 +5457,7 @@
             document.getElementById('optionsTotalPrice').textContent = `$${totalPrice.toFixed(2)}`;
         }
 
+        // addOptionsToCart 함수 수정
         function addOptionsToCart() {
             if (!currentOptionsItem) return;
 
@@ -5454,114 +5465,113 @@
             let optionsValid = true;
             let selectedOptions = [];
 
-            // Special handling for Eclair to check both selections
+            // 옵션 선택 유효성 검사
             if (itemNameLower.includes('eclair')) {
                 const selectedIcing = document.querySelector('.option-choice.icing-option.selected');
                 const selectedFilling = document.querySelector('.option-choice.filling-option.selected');
 
-                if (!selectedIcing) {
-                    alert('Please select an icing.');
-                    optionsValid = false;
-                } else {
-                    selectedOptions.push(selectedIcing.dataset.label);
+                if (!selectedIcing || !selectedFilling) {
+                    alert('Please select all required options.');
+                    return;
                 }
-
-                if (!selectedFilling) {
-                    alert('Please select a filling.');
-                    optionsValid = false;
-                } else {
-                    selectedOptions.push(selectedFilling.dataset.label);
-                }
+                selectedOptions.push(selectedIcing.dataset.label, selectedFilling.dataset.label);
             } else {
-                // Original logic for other items with single option group
                 const optionsGroupVisible = document.getElementById('optionsSelectionGroup').style.display !== 'none';
                 const singleOptionSelected = document.querySelector('#optionsChoices .option-choice.selected');
                 if (optionsGroupVisible && !singleOptionSelected) {
                     alert('Please select an option.');
-                    optionsValid = false;
-                } else if (singleOptionSelected) {
-                     selectedOptions.push(singleOptionSelected.querySelector('span:first-child').textContent);
+                    return;
+                }
+                if (singleOptionSelected) {
+                    selectedOptions.push(singleOptionSelected.querySelector('span:first-child').textContent);
                 }
             }
 
-            if (!optionsValid) return;
+            // 아이템 이름과 가격 설정
+            let itemNameWithOptions = currentOptionsItem.name;
+            if (selectedOptions.length > 0) {
+                itemNameWithOptions += ` (${selectedOptions.join(', ')})`;
+            }
+            const finalPricePerItem = selectedOptionPriceModifier;
 
-
-            // --- Check for Pickup Time ---
+            // 픽업 타임이 설정되어 있지 않은 경우
             if (!document.body.classList.contains('pickup-active')) {
-                // Ensure an option is selected if required (before storing)
-                // Check both Eclair and single-group scenarios
-                let requiredOptionSelected = true;
-                if (itemNameLower.includes('eclair')) {
-                    if (!document.querySelector('.option-choice.icing-option.selected') || !document.querySelector('.option-choice.filling-option.selected')) {
-                        requiredOptionSelected = false;
-                    }
-                } else if (document.getElementById('optionsSelectionGroup').style.display !== 'none' && !document.querySelector('#optionsChoices .option-choice.selected')) {
-                    requiredOptionSelected = false;
-                }
-
-                if (!requiredOptionSelected) {
-                    alert('Please select the required option(s).');
-                    return;
-                }
-                
-                // Calculate details to store
-                let itemNameWithOptions = currentOptionsItem.name;
-                if (selectedOptions.length > 0) {
-                    itemNameWithOptions += ` (${selectedOptions.join(', ')})`;
-                }
-                const finalPricePerItem = selectedOptionPriceModifier; // Use the modifier which holds the correct price
-
-                // Store details
+                // 아이템 정보 임시 저장
                 itemToAddAfterPickupSelection = {
                     name: itemNameWithOptions,
                     price: finalPricePerItem,
                     quantity: currentOptionsQuantity
                 };
-                console.log("Pickup time not set. Storing item:", itemToAddAfterPickupSelection);
-
-                // Close current modal and show pickup time modal
+                
+                // 옵션 모달 닫고 픽업 타임 모달 열기
                 closeOptionsModal();
-                showPickupTimeModal(); // Assuming this function exists and opens the pickup modal
-                return; // Stop execution here
-            }
-            // --- End Pickup Time Check ---
-
-            // Continue with original logic if pickup time IS set
-
-            // Determine item name including selected options
-            let itemNameWithOptions = currentOptionsItem.name;
-            if (selectedOptions.length > 0) {
-                 // Join selected options, e.g., "ECLAIR (Chocolate Icing, Bavarian)"
-                 itemNameWithOptions += ` (${selectedOptions.join(', ')})`;
+                showPickupTimeModal();
+                return;
             }
 
+            // 픽업 타임이 설정된 경우 장바구니에 추가
+            addItemToCart(itemNameWithOptions, finalPricePerItem, currentOptionsQuantity);
+            closeOptionsModal();
+        }
 
-            // Calculate final price per item based on selected option
-            // For Eclair, price doesn't change with options, use base price
-            // For others, use selectedOptionPriceModifier which holds the correct price (single/dozen or base price)
-            const finalPricePerItem = selectedOptionPriceModifier;
+        // confirmPickupTime 함수 수정
+        function confirmPickupTime() {
+            const selectedDate = document.getElementById('pickupDate').value;
+            const selectedTime = document.getElementById('pickupTimeHidden').value;
 
-            // Find existing item in cart (match name with options)
-            const existingItemIndex = cart.findIndex(item => item.name === itemNameWithOptions);
+            if (!selectedDate || !selectedTime) {
+                alert('Please select both a date and time for pickup.');
+                return;
+            }
 
+            // 선택된 시간 유효성 검사
+            const minTime = '05:30';
+            const maxTime = '11:30';
+            if (selectedTime < minTime || selectedTime > maxTime) {
+                alert('Please select a time between 5:30 AM and 11:30 AM.');
+                return;
+            }
+
+            // 선택된 날짜/시간 저장
+            localStorage.setItem('pickupDateTime', JSON.stringify({ date: selectedDate, time: selectedTime }));
+
+            // 픽업 상태 활성화
+            document.body.classList.add('pickup-active');
+            
+            // 픽업 타임 모달 닫기
+            closePickupTimeModal();
+
+            // 대기 중인 아이템이 있으면 장바구니에 추가
+            if (itemToAddAfterPickupSelection) {
+                addItemToCart(
+                    itemToAddAfterPickupSelection.name,
+                    itemToAddAfterPickupSelection.price,
+                    itemToAddAfterPickupSelection.quantity
+                );
+                itemToAddAfterPickupSelection = null; // 임시 저장 데이터 초기화
+            }
+
+            scrollToMenu();
+        }
+
+        // 장바구니에 아이템 추가하는 헬퍼 함수
+        function addItemToCart(name, price, quantity) {
+            const existingItemIndex = cart.findIndex(item => item.name === name);
+            
             if (existingItemIndex > -1) {
-                // Update quantity of existing item
-                cart[existingItemIndex].quantity += currentOptionsQuantity;
+                cart[existingItemIndex].quantity += quantity;
             } else {
-                // Add new item to cart
                 cart.push({
-                    name: itemNameWithOptions,
-                    price: finalPricePerItem, 
-                    quantity: currentOptionsQuantity
+                    name: name,
+                    price: price,
+                    quantity: quantity
                 });
             }
 
             updateCartCount();
-            updateCartDisplay(); // Optional: Update cart display while modal is open
-            closeOptionsModal();
+            updateCartDisplay();
 
-            // Optional: Visual feedback (similar to original addToCart)
+            // 추가 성공 피드백
             const cartIcon = document.querySelector('.cart-icon');
             cartIcon.classList.add('add-success');
             setTimeout(() => {

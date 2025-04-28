@@ -40,7 +40,7 @@ function doPost(e) {
             // 시트가 없으면 새로 생성
             sheet = spreadsheet.insertSheet(SHEET_NAME);
             // 헤더 추가
-            sheet.getRange('A1:K1').setValues([['주문시간', '이름', '전화번호', '배송옵션', '픽업시간', '상품명', '가격', '수량', '총금액', '요청사항', '주문번호']]);
+            sheet.getRange('A1:L1').setValues([['주문시간', '이름', '전화번호', '이메일', '배송옵션', '픽업시간', '상품명', '가격', '수량', '총금액', '요청사항', '주문번호', '주문상태']]);
         }
 
         // 주문 시간
@@ -56,6 +56,7 @@ function doPost(e) {
                 orderTime,
                 data.name,
                 data.phone,
+                data.email,
                 data.deliveryOption || 'pickup',
                 data.pickupTime || '',
                 item.name,
@@ -64,6 +65,7 @@ function doPost(e) {
                 item.price * item.quantity,
                 notesValue,
                 data.orderNumber, // 주문 번호
+                data.orderStatus || 'pending',
             ];
 
             // 데이터 추가
@@ -79,6 +81,15 @@ function doPost(e) {
         if (data.sendEmail) {
             sendOrderConfirmationEmail(data);
         }
+
+        return ContentService.createTextOutput(
+            JSON.stringify({
+                status: 'success',
+                data: '주문 처리됨',
+            })
+        )
+            .setMimeType(ContentService.MimeType.JSON)
+            .setHeader('Access-Control-Allow-Origin', '*');
 
         // 성공 응답 반환
         return ContentService.createTextOutput(
@@ -274,5 +285,99 @@ function getMenuData(callbackParam) {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
         });
+    }
+}
+
+function doGet(e) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/javascript',
+    };
+
+    try {
+        // 주문 검색 처리
+        if (e.parameter.action === 'searchOrder') {
+            const orderNumber = e.parameter.orderNumber;
+            const callback = e.parameter.callback;
+
+            const orderInfo = searchOrderByNumber(orderNumber);
+
+            return ContentService.createTextOutput(
+                `${callback}(${JSON.stringify({
+                    error: false,
+                    orderInfo: orderInfo,
+                })})`
+            ).setMimeType(ContentService.MimeType.JAVASCRIPT);
+        }
+
+        // 기타 액션 처리...
+        return ContentService.createTextOutput(JSON.stringify({ error: true, message: '잘못된 요청입니다.' }))
+            .setMimeType(ContentService.MimeType.JSON)
+            .setHeaders(headers);
+    } catch (error) {
+        return ContentService.createTextOutput(JSON.stringify({ error: true, message: error.message }))
+            .setMimeType(ContentService.MimeType.JSON)
+            .setHeaders(headers);
+    }
+}
+
+function searchOrderByNumber(orderNumber) {
+    try {
+        const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+        const sheet = spreadsheet.getSheetByName(SHEET_NAME);
+
+        if (!sheet) {
+            throw new Error('주문 시트를 찾을 수 없습니다.');
+        }
+
+        const dataRange = sheet.getDataRange();
+        const values = dataRange.getValues();
+        const headers = values[0];
+
+        // 필요한 열 인덱스 찾기
+        const orderNumIdx = headers.indexOf('주문번호');
+        const timeIdx = headers.indexOf('주문시간');
+        const nameIdx = headers.indexOf('상품명');
+        const quantityIdx = headers.indexOf('수량');
+        const priceIdx = headers.indexOf('가격');
+        const statusIdx = headers.indexOf('주문상태');
+
+        if (orderNumIdx === -1) {
+            throw new Error('주문번호 열을 찾을 수 없습니다.');
+        }
+
+        // 주문 찾기
+        const orderRows = values.slice(1).filter((row) => row[orderNumIdx] === orderNumber);
+
+        if (orderRows.length === 0) {
+            return null;
+        }
+
+        // 주문 정보 구성
+        const orderInfo = {
+            orderNumber: orderNumber,
+            orderTime: orderRows[0][timeIdx],
+            total: 0,
+            status: orderRows[0][statusIdx] || 'pending',
+            items: [],
+        };
+
+        // 주문 아이템 정보 수집
+        orderRows.forEach((row) => {
+            const item = {
+                name: row[nameIdx],
+                quantity: parseInt(row[quantityIdx]),
+                price: parseFloat(row[priceIdx]),
+            };
+            orderInfo.items.push(item);
+            orderInfo.total += item.price * item.quantity;
+        });
+
+        return orderInfo;
+    } catch (error) {
+        Logger.log('Error in searchOrderByNumber:', error);
+        return null;
     }
 }

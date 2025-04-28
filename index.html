@@ -2645,6 +2645,166 @@
         .options-add-to-cart #optionsTotalPrice {
             font-weight: 600;
         }
+        /* My Order 검색 스타일 */
+        .my-order-search {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        #orderNumberInput {
+            width: 200px;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #d2d2d7;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        #orderNumberInput:focus {
+            border-color: #0071e3;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.1);
+        }
+
+        .search-order-btn {
+            background: #f5f5f7;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search-order-btn:hover {
+            background: #e8e8ed;
+        }
+
+        .search-order-btn i {
+            font-size: 1.2rem;
+            color: #1d1d1f;
+        }
+
+      /* 주문 정보 모달 스타일 */
+        .order-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .order-modal.show {
+            display: flex;
+        }
+
+        .order-info-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            animation: modalShow 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+            color: #1d1d1f;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: #86868b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: #1d1d1f;
+        }
+
+        .order-info {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 70px);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .info-item .label {
+            color: #86868b;
+            font-size: 0.95rem;
+        }
+
+        #orderItems {
+            margin-top: 1.5rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            font-size: 0.95rem;
+        }
+
+        #orderStatus {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #f2f2f2;
+        }
+
+        /* 모달 애니메이션 */
+        @keyframes modalShow {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            .order-info-content {
+                width: 95%;
+                margin: 1rem;
+            }
+        }
 
     </style>
 </head>
@@ -2655,6 +2815,12 @@
             <img src="https://lh3.googleusercontent.com/d/1u6bQ-JqAPk8ByCykJ42y3rvq8vx3U2C8" alt="Texan Lee Donuts Logo">
         </a>
         <div class="nav-account">
+            <div class="my-order-search">
+                <input type="text" id="orderNumberInput" placeholder="Order #" maxlength="18">
+                <button class="search-order-btn" onclick="searchOrder()">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
             <button class="login-btn" disabled>Log In</button> 
             <button class="order-online-btn" onclick="showOrderChoiceModal()">ORDER ONLINE</button> <!-- ORDER ONLINE 버튼 추가 -->
             <button class="cart-icon" onclick="toggleCart()">
@@ -2662,6 +2828,7 @@
                 <span class="cart-badge" id="cartCount">0</span>
             </button>
         </div>
+        
     </nav>
 
     <!-- 헤더 -->
@@ -2727,6 +2894,34 @@
 
         <!-- 카테고리 콘텐츠도 동적으로 생성됩니다 -->
     </main>
+
+    <!-- 주문 정보 모달 -->
+    <div id="orderInfoModal" class="order-modal">
+        <div class="order-info-content">
+            <div class="modal-header">
+                <h2>Order Information</h2>
+                <button class="close-modal" onclick="closeOrderInfoModal()">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <div class="order-info">
+                <div class="info-item">
+                    <span class="label">Order Number:</span>
+                    <span id="orderInfoNumber"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Order Time:</span>
+                    <span id="orderInfoTime"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Total:</span>
+                    <span id="orderInfoTotal"></span>
+                </div>
+                <div id="orderItems"></div>
+                <div id="orderStatus"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- 장바구니 모달 -->
     <div class="cart-modal" id="cartModal">
@@ -3286,7 +3481,7 @@
         let isPickupActive = false; // PICKUP 활성화 상태 변수
         
         // 구글 시트 API URL (기존 주문 처리 URL과 동일)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbx2lGnHAqTDTXY7Qr0RcVXrC6C6olx-13vcVlHIJ9MyVjbroltd3t4VBjEvhkmezdkWsA/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwBCCKw_WCsKJZtuY3pFf2DKygj2Prm7uI-aFaGcsyi6yZ2xNIbk9QafIvgmCaQreRSwg/exec';
         const SHEET_ID = '1_3vfkReCDiWfQAIHwfC2vNPmJZk-EAhIO6AAsmrYms4';
         const REFRESH_INTERVAL = 60 * 60 * 1000; // 1시간간마다 메뉴 새로고침
         
@@ -4898,7 +5093,7 @@
             document.getElementById('loadingOverlay').style.display = 'flex';
 
             // 구글 시트에 데이터 전송
-            fetch('https://script.google.com/macros/s/AKfycbx2lGnHAqTDTXY7Qr0RcVXrC6C6olx-13vcVlHIJ9MyVjbroltd3t4VBjEvhkmezdkWsA/exec', { 
+            fetch('https://script.google.com/macros/s/AKfycbwBCCKw_WCsKJZtuY3pFf2DKygj2Prm7uI-aFaGcsyi6yZ2xNIbk9QafIvgmCaQreRSwg/exec', { 
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify({
@@ -5579,7 +5774,124 @@
             }, 500);
         }
 
+        // 주문 검색 함수 수정
+        function searchOrder() {
+            const orderNumber = document.getElementById('orderNumberInput').value.trim();
+            if (!orderNumber) {
+                alert('주문번호를 입력해주세요.');
+                return;
+            }
+        
+            // 로딩 표시
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.querySelector('.loading-content p').textContent = '주문 검색중...';
+        
+            // API URL에 action과 orderNumber 파라미터 추가
+            const scriptUrl = `${API_URL}?action=searchOrder&orderNumber=${orderNumber}&callback=handleOrderResult`;
+        
+            // JSONP 콜백 함수 정의
+            window.handleOrderResult = function(response) {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                if (response.error || !response.orderInfo) {
+                    alert('주문을 찾을 수 없습니다. 주문번호를 확인해주세요.');
+                    return;
+                }
+                
+                displayOrderInfo(response.orderInfo);
+            };
+        
+            // 스크립트 태그 생성 및 추가
+            const script = document.createElement('script');
+            script.src = scriptUrl;
+            script.onerror = function() {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('주문 검색 중 오류가 발생했습니다.');
+            };
+            document.body.appendChild(script);
+        
+            // 스크립트 로드 후 제거
+            script.onload = function() {
+                document.body.removeChild(script);
+            };
+        }
 
+function displayOrderInfo(orderInfo) {
+    if (!orderInfo) {
+        alert('주문 정보를 찾을 수 없습니다.');
+        return;
+    }
+
+    // 주문 정보 모달에 데이터 채우기
+    const modal = document.getElementById('orderInfoModal');
+    document.getElementById('orderInfoNumber').textContent = orderInfo.orderNumber;
+    document.getElementById('orderInfoTime').textContent = orderInfo.orderTime;
+    document.getElementById('orderInfoTotal').textContent = `$${orderInfo.total.toFixed(2)}`;
+
+    // 주문 아이템 목록 생성
+    const itemsContainer = document.querySelector('.order-info');
+    let itemsHtml = '<div id="orderItems">';
+    orderInfo.items.forEach(item => {
+        itemsHtml += `
+            <div class="order-item">
+                <span>${item.name} × ${item.quantity}</span>
+                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+        `;
+    });
+    itemsHtml += '</div>';
+
+    // 주문 상태 표시
+    itemsHtml += `
+        <div id="orderStatus">
+            <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span>Order Status:</span>
+                ${getStatusBadge(orderInfo.status)}
+            </div>
+        </div>
+    `;
+
+    // 기존 아이템 목록과 상태 표시 제거 후 새로운 내용 추가
+    const existingItems = itemsContainer.querySelector('#orderItems');
+    const existingStatus = itemsContainer.querySelector('#orderStatus');
+    if (existingItems) existingItems.remove();
+    if (existingStatus) existingStatus.remove();
+    itemsContainer.insertAdjacentHTML('beforeend', itemsHtml);
+
+    // 모달 표시
+    modal.classList.add('show');
+}
+
+// 주문 상태에 따른 뱃지 생성 함수
+function getStatusBadge(status) {
+    const statusColors = {
+        'pending': { bg: '#fff3cd', color: '#856404' },
+        'processing': { bg: '#cce5ff', color: '#004085' },
+        'completed': { bg: '#d4edda', color: '#155724' },
+        'cancelled': { bg: '#f8d7da', color: '#721c24' }
+    };
+
+    const style = statusColors[status.toLowerCase()] || statusColors['pending'];
+    
+    return `
+        <span style="
+            background-color: ${style.bg};
+            color: ${style.color};
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        ">
+            ${status.charAt(0).toUpperCase() + status.slice(1)}
+        </span>
+    `;
+}
+
+// 주문 정보 모달 닫기 함수
+function closeOrderInfoModal() {
+    document.getElementById('orderInfoModal').classList.remove('show');
+    document.getElementById('orderNumberInput').value = ''; // 입력 필드 초기화
+}
         // --- Existing Functions Continue Below --- 
         // DOMContentLoaded, toggleCart, closeCartOnOutsideClick, addToCart (original simple version), etc.
     </script>
